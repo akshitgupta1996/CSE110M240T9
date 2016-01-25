@@ -1,0 +1,60 @@
+-----HOST-----8-----
+
+As a host 
+I want to be able to create events 
+So that people near me can come to them.
+
+As a host
+I want to see attendee ratings
+So that I know if theyÅfre likely to come or not.
+
+As a host
+I want to be able to remove attendees
+So that I know nobody undesirable is attending
+
+As a host
+I want to be able to cancel events
+So that I donÅft commit to events I canÅft host
+
+As a host
+I want people to receive event notifications 
+So that they can actually remember my event
+
+As a host
+I want to be able to check attendees in
+So that only people that registered can come
+
+As a host
+I want to be able to earn a high rating
+So that I can spread awareness about my events
+
+As a host
+I want to be able to choose a genre for my event
+So that relevant people will attend
+
+-----ATTENDEE-----4-----
+
+
+As an attendee
+I want to find nearby events
+So that I can attend local happenings
+
+
+As an attendee
+I want to create a carpool
+So that I can provide others a means of transportation
+
+As an attendee
+I want to join a carpool
+So that I can go to events even without a car
+
+As an attendee
+I want to communicate with other users
+So that we can discuss 
+
+
+-----USER-----1-----
+
+As a user
+I want to login with Facebook
+So that my information and events are saved
