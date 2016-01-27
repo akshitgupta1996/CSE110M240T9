@@ -1,0 +1,6 @@
+Preliminary Schedule
+Week 5 - set up database and initial Android project
+Week 6 - Able to query database to get nearby events. Login System.
+Week 7 - Host able to create events and attendee able to rsvp for events.
+Week 8 - Rating system for hosts and attendees. Push notifications.
+Week 9 - Carpool system.
