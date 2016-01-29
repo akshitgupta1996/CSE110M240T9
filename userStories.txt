@@ -1,7 +1,14 @@
------HOST-----8-----
+User Stories
+
+User Story template: 
+As a <role> 
+I want <feature> 
+So that <benefit> 
+
+-----HOST-----9-----
 
 As a host 
-I want to be able to create events 
+I want to be able to create events with a description, other information, date
 So that people near me can come to them.
 
 As a host
@@ -32,13 +39,15 @@ As a host
 I want to be able to choose a genre for my event
 So that relevant people will attend
 
------ATTENDEE-----4-----
+As a host
+I want to be able to add attendee age and rating restrictions
+So that I can control who attends my event
 
+-----ATTENDEE-----7-----
 
 As an attendee
 I want to find nearby events
 So that I can attend local happenings
-
 
 As an attendee
 I want to create a carpool
@@ -52,9 +61,25 @@ As an attendee
 I want to communicate with other users
 So that we can discuss 
 
+As an attendee
+I want to rate the host of an event
+So that I share with others my own experience
 
------USER-----1-----
+As an attendee
+I want to see other peopleÅfs ratings
+So that I know who IÅfm attending the event with
+
+As an attendee
+I want to cancel my attendance within a reasonable time before the event
+So that IÅfm not penalized for missing an event I couldnÅft go to
+
+-----USER-----2-----
 
 As a user
 I want to login with Facebook
 So that my information and events are saved
+
+As a user
+I want to see details of an event
+So that I know enough information about what IÅfm attending
+
