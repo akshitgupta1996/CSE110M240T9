@@ -23,6 +23,17 @@ public class
      */
     public boolean joinEvent(Event eventToJoin)
     {
+        if(restrictionStatus.compareTo(eventToJoin.getRestrictionStatus()) >= 0)
+        {
+            Log.d("User","Joining Event");
+            upcomingEventList.add(eventToJoin);
+            eventToJoin.getAttendees().add(this);
+        }
+        else
+        {
+            Log.d("User", "Fail to join event");
+
+        }
         //Use Main.system to update.
         return true;
     }
