@@ -82,4 +82,3 @@ So that my information and events are saved
 As a user
 I want to see details of an event
 So that I know enough information about what Ifm attending
-
