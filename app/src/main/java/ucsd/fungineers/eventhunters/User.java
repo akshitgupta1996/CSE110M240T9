@@ -9,7 +9,8 @@ import java.util.ArrayList;
 public abstract class User {
 
     //The name of the person. Just a string, no worrying about first/last name.
-    String name;
+    //TODO: CHANGE IT BACK TO NOT PUBLIC.
+    public String name;
 
     //Upcoming events, either hosting or attending.
     ArrayList<Event> upcomingEventList;

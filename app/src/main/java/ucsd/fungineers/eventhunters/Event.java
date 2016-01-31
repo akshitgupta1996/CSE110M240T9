@@ -18,6 +18,16 @@ public class Event {
     //What kind of event it is. Check for explanation at bottom of this file.
     private Genre genre;
 
+    //event constructor
+    public Event (ArrayList<Attendee> attendees, int eventID,
+                  RestrictionStatus restrictionStatus, Genre genre) {
+        this.attendees = attendees;
+        //this.host = host; remember to put this back in the event ctor
+        this.eventID = eventID;
+        this.restrictionStatus = restrictionStatus;
+        this.genre = genre;
+    }
+
     //Setters and getters? Might be easier to make things public.
     public ArrayList<Attendee> getAttendees() {
         return attendees;

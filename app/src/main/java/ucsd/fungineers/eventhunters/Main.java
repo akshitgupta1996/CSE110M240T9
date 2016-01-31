@@ -5,9 +5,12 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+
+import java.util.ArrayList;
+import android.util.*;
 
 //Apparently this is an empty event.
 public class Main extends AppCompatActivity {
@@ -19,7 +22,21 @@ public class Main extends AppCompatActivity {
         system = new System();
 
         //Add your test code here.
+        String name = "test";
+        ArrayList<Event> upcomingEvents = new ArrayList<Event>();
+        ArrayList<Event> pastEvents = new ArrayList<Event>();
+        float rating = 0;
+        int userid = 42;
+        Attendee user = new Attendee(name, upcomingEvents, pastEvents,
+                RestrictionStatus.NO_RESTRICTIONS, rating, userid);
 
+        ArrayList<Attendee> attendees = new ArrayList<Attendee>();
+        int eventid = 24;
+        Event newEvent = new Event(attendees, eventid, RestrictionStatus.NO_RESTRICTIONS,
+                Genre.MUSIC);
+
+        user.joinEvent(newEvent);
+        Log.d("UpcomingEvents", newEvent.getAttendees().get(0).name);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -57,6 +74,9 @@ public class Main extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
+
 }
 /*
          ,xXXXXx,
