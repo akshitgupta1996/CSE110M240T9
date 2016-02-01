@@ -4,10 +4,10 @@ import java.util.ArrayList;
 
 public class Event {
     //The list of people attending the event.
-    private ArrayList<Attendee> attendees;
+    private ArrayList<AttendeeData> attendees;
 
     //The host who created the event.
-    private Host host;
+    private HostData host;
 
     //The id that the event has in the database.
     private int eventID;
@@ -19,19 +19,19 @@ public class Event {
     private Genre genre;
 
     //Setters and getters? Might be easier to make things public.
-    public ArrayList<Attendee> getAttendees() {
+    public ArrayList<AttendeeData> getAttendees() {
         return attendees;
     }
 
-    public void setAttendees(ArrayList<Attendee> attendees) {
+    public void setAttendees(ArrayList<AttendeeData> attendees) {
         this.attendees = attendees;
     }
 
-    public Host getHost() {
+    public HostData getHost() {
         return host;
     }
 
-    public void setHost(Host host) {
+    public void setHost(HostData host) {
         this.host = host;
     }
 

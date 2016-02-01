@@ -19,11 +19,9 @@ public class System {
     //Keeps track of every event ever. Soon to be replaced by database.
     public ArrayList<Event> tempEventList;
 
-    //Keeps track of every host ever. Soon to be replaced by database.
-    public ArrayList<Host> tempHostList;
 
-    //Keeps track of every attendee ever. Soon to be replaced by database.
-    public ArrayList<Attendee> tempAttendeeList;
+    //Keeps track of every user ever. Soon to be replaced by database.
+    public ArrayList<User> tempUserList;
 
     /**
      * This constructor will start a connection to the database and set the connectionEstablished
