@@ -3,6 +3,16 @@ package ucsd.fungineers.eventhunters;
 import java.util.ArrayList;
 
 public class Event {
+
+    public Event (ArrayList<AttendeeData> attendees, int eventID,
+                  RestrictionStatus restrictionStatus, Genre genre) {
+        this.attendees = attendees;
+        //this.host = host; remember to put this back in the event ctor
+        this.eventID = eventID;
+        this.restrictionStatus = restrictionStatus;
+        this.genre = genre;
+    }
+
     //The list of people attending the event.
     private ArrayList<AttendeeData> attendees;
 

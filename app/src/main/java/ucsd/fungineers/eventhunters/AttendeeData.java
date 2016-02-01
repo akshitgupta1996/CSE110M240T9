@@ -35,6 +35,17 @@ public class AttendeeData{
      */
     public boolean joinEvent(Event eventToJoin)
     {
+        if(restrictionStatus.compareTo(eventToJoin.getRestrictionStatus()) >= 0)
+        {
+            Log.d("User","Joining Event");
+            upcomingEventList.add(eventToJoin);
+            eventToJoin.getAttendees().add(this);
+        }
+        else
+        {
+            Log.d("User", "Fail to join event");
+
+        }
         //Use Main.system to update.
         return true;
     }
@@ -59,7 +70,7 @@ public class AttendeeData{
     }
 
     /**
-     * Attendee ctor. Called from the hostID ctor to create AttendeeData from database.
+     * AttendeeData ctor. Called from the hostID ctor to create AttendeeData from database.
      */
     public AttendeeData(ArrayList<Event>upcomingEventList,
                         ArrayList<Event> pastEventList,
@@ -72,5 +83,10 @@ public class AttendeeData{
         this.restrictionStatus = restrictionStatus;
         this.rating = rating;
         this.user = user;
+    }
+
+    User getUser()
+    {
+        return user;
     }
 }

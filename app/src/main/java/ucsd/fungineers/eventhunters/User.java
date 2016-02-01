@@ -58,5 +58,5 @@ public class User {
  * It acts like a class.
  */
 enum RestrictionStatus{
-    NO_RESTRICTIONS, UNDER_21, UNDER_18;
+    NO_RESTRICTIONS, UNDER_18, UNDER_21;
 }
