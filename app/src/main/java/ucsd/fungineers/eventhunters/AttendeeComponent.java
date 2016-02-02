@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * This class will keep track of the attendee data.
  * For example, their upcoming events
  */
-public class AttendeeData{
+public class AttendeeComponent {
     //Upcoming events this user is attending.
     ArrayList<Event> upcomingEventList;
 
@@ -54,7 +54,7 @@ public class AttendeeData{
      * Test ctor to make attendees. Perhaps for new users?
      * Really though you should be using the other ctor.
      */
-    public AttendeeData()
+    public AttendeeComponent()
     {
         super();
 
@@ -64,19 +64,19 @@ public class AttendeeData{
      * A contructor that takes in an id and makes calls to System to get the object.
      * @param hostID
      */
-    public AttendeeData(int hostID)
+    public AttendeeComponent(int hostID)
     {
         //Read data and then call the multiarg ctor.
     }
 
     /**
-     * AttendeeData ctor. Called from the hostID ctor to create AttendeeData from database.
+     * AttendeeComponent ctor. Called from the hostID ctor to create AttendeeComponent from database.
      */
-    public AttendeeData(ArrayList<Event>upcomingEventList,
-                        ArrayList<Event> pastEventList,
-                        RestrictionStatus restrictionStatus,
-                        float rating,
-                        User user)
+    public AttendeeComponent(ArrayList<Event> upcomingEventList,
+                             ArrayList<Event> pastEventList,
+                             RestrictionStatus restrictionStatus,
+                             float rating,
+                             User user)
     {
         this.upcomingEventList = upcomingEventList;
         this.pastEventList = pastEventList;

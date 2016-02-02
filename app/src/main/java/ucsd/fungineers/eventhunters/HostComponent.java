@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * This class will keep track of the host data.
  * For example, their upcoming events.
  */
-public class HostData{
+public class HostComponent {
 
     //Upcoming events this user is hosting.
     ArrayList<Event> upcomingEventList;
@@ -38,26 +38,26 @@ public class HostData{
      * Test ctor to make attendees. Perhaps for new users?
      * Really though you should be using the other ctor.
      */
-    public HostData() {
+    public HostComponent() {
     }
 
     /**
      * A contructor that takes in an id and makes calls to System to get the object.
      * @param hostID
      */
-    public HostData(int hostID)
+    public HostComponent(int hostID)
     {
         //Read data and then call the multiarg ctor.
     }
 
     /**
-     * HostData ctor. Called from the hostID ctor to create HostData from database.
+     * HostComponent ctor. Called from the hostID ctor to create HostComponent from database.
      */
-    public HostData(ArrayList<Event> upcomingEventList,
-                    ArrayList<Event> pastEventList,
-                    RestrictionStatus restrictionStatus,
-                    float rating,
-                    User user) {
+    public HostComponent(ArrayList<Event> upcomingEventList,
+                         ArrayList<Event> pastEventList,
+                         RestrictionStatus restrictionStatus,
+                         float rating,
+                         User user) {
         this.upcomingEventList = upcomingEventList;
         this.pastEventList = pastEventList;
         this.restrictionStatus = restrictionStatus;

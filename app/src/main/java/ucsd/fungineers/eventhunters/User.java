@@ -1,7 +1,5 @@
 package ucsd.fungineers.eventhunters;
 
-import java.util.ArrayList;
-
 /**
  * This abstract class will be extended by both the host and the attendee.
  * The instance variables will have different meanings based on whichever it is.
@@ -15,10 +13,10 @@ public class User {
     int userID;
 
     //All the attendee information.
-    AttendeeData attendeeData;
+    AttendeeComponent attendeeComponent;
 
     //All the host information.
-    HostData hostData;
+    HostComponent hostComponent;
 
     //Other misc data? Photo? Description? Birthday?
 
@@ -47,8 +45,8 @@ public class User {
         //System call to get name.
 
         //System calls to load everything else.
-        hostData = new HostData(userID);
-        attendeeData = new AttendeeData(userID);
+        hostComponent = new HostComponent(userID);
+        attendeeComponent = new AttendeeComponent(userID);
     }
 }
 

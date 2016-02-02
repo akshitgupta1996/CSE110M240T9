@@ -29,10 +29,10 @@ public class Main extends AppCompatActivity {
         float rating = 0;
         int userid = 42;
         User user = new User (name, userid);
-        AttendeeData attendee = new AttendeeData(upcomingEvents, pastEvents,
+        AttendeeComponent attendee = new AttendeeComponent(upcomingEvents, pastEvents,
                 RestrictionStatus.NO_RESTRICTIONS, rating, user);
 
-        ArrayList<AttendeeData> attendees = new ArrayList<AttendeeData>();
+        ArrayList<AttendeeComponent> attendees = new ArrayList<AttendeeComponent>();
         int eventid = 24;
         Event newEvent = new Event(attendees, eventid, RestrictionStatus.NO_RESTRICTIONS,
                 Genre.MUSIC);
