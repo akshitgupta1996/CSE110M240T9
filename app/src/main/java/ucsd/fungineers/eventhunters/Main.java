@@ -34,11 +34,16 @@ public class Main extends AppCompatActivity {
 
         ArrayList<AttendeeComponent> attendees = new ArrayList<AttendeeComponent>();
         int eventid = 24;
-        Event newEvent = new Event(attendees, eventid, RestrictionStatus.NO_RESTRICTIONS,
-                Genre.MUSIC);
+        Event newEvent = new Event(attendees, new HostComponent(), eventid, RestrictionStatus.NO_RESTRICTIONS,
+                Genre.MUSIC, "Test Event");
 
         attendee.joinEvent(newEvent);
         Log.d("UpcomingEvents", newEvent.getAttendees().get(0).getUser().name);
+
+        HostComponent testHost = new HostComponent();
+        testHost.createEvent(RestrictionStatus.NO_RESTRICTIONS, Genre.MUSIC, "Anish Is Cool");
+        Log.d("HostTest", Main.system.tempEventList.get(0).toString());
+
 
 
         super.onCreate(savedInstanceState);

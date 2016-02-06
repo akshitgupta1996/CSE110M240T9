@@ -4,15 +4,17 @@ import java.util.ArrayList;
 
 public class Event {
 
-    public Event (ArrayList<AttendeeComponent> attendees, int eventID,
-                  RestrictionStatus restrictionStatus, Genre genre) {
+    public Event (ArrayList<AttendeeComponent> attendees, HostComponent hostComponent, int eventID,
+                  RestrictionStatus restrictionStatus, Genre genre, String name) {
         this.attendees = attendees;
-        //this.host = host; remember to put this back in the event ctor
+        this.host = hostComponent;
         this.eventID = eventID;
         this.restrictionStatus = restrictionStatus;
         this.genre = genre;
+        this.name = name;
     }
 
+    private String name;
     //The list of people attending the event.
     private ArrayList<AttendeeComponent> attendees;
 
@@ -41,6 +43,8 @@ public class Event {
         return host;
     }
 
+    public String getName() {return name;}
+
     public void setHost(HostComponent host) {
         this.host = host;
     }
@@ -68,6 +72,12 @@ public class Event {
 
     public void setGenre(Genre genre) {
         this.genre = genre;
+    }
+
+    @Override
+    public String toString()
+    {
+        return getName() + ": Restriction: " + getRestrictionStatus() + " Genre: " + getGenre() + " EventID: " + getEventID() + " Host: " + host;
     }
 }
 

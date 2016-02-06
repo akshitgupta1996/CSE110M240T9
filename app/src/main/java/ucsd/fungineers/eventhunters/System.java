@@ -31,6 +31,8 @@ public class System {
     {
         //How to print example. In logcat, search your label.
         Log.d("test", "System created!");
+        tempEventList = new ArrayList<Event>();
+        tempUserList  = new ArrayList<User>();
         connect();
 
     }

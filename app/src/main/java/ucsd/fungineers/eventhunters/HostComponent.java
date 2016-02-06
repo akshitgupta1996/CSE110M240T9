@@ -1,5 +1,7 @@
 package ucsd.fungineers.eventhunters;
 
+import android.content.RestrictionEntry;
+
 import java.util.ArrayList;
 
 /**
@@ -30,6 +32,19 @@ public class HostComponent {
      */
     public boolean createEvent()
     {
+        Event ev = new Event(new ArrayList<AttendeeComponent>(), this, 10, RestrictionStatus.NO_RESTRICTIONS,Genre.PARTY, "Test Event");
+        Main.system.tempEventList.add(ev);
+
+        //Use Main.System to update the list.
+        return true;
+    }
+
+
+    public boolean createEvent( RestrictionStatus r, Genre g, String name)
+    {
+        Event ev = new Event(new ArrayList<AttendeeComponent>(), this, 10,r,g, name);
+        Main.system.tempEventList.add(ev);
+
         //Use Main.System to update the list.
         return true;
     }
