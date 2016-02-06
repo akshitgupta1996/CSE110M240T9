@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import java.util.ArrayList;
 
 import com.parse.Parse;
+import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 import com.parse.ParseACL;
@@ -36,11 +37,8 @@ public class Main extends AppCompatActivity {
         defaultACL.setPublicWriteAccess(true);
 
         ParseObject testObject = new ParseObject("TestObject");
-        testObject.put("foo", "bar");
+        testObject.put("hello", "tim");
         testObject.saveInBackground();
-
-        Object myTest = testObject.get("foo");
-        Log.d("MYSTUPIDERROR", myTest.toString());
 
         //Add your test code here.
 
