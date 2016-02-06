@@ -69,6 +69,12 @@ public class AttendeeComponent {
         //Read data and then call the multiarg ctor.
     }
 
+    @Override
+    public String toString()
+    {
+        return user.toString() + ": Rating: " + rating + " Restriction Status: " + restrictionStatus;
+    }
+
     /**
      * AttendeeComponent ctor. Called from the hostID ctor to create AttendeeComponent from database.
      */

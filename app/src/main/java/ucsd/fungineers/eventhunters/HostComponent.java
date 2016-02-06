@@ -65,6 +65,12 @@ public class HostComponent {
         //Read data and then call the multiarg ctor.
     }
 
+    @Override
+    public String toString()
+    {
+        return user.toString() + ": Rating: " + rating + " Restriction Status: " + restrictionStatus;
+    }
+
     /**
      * HostComponent ctor. Called from the hostID ctor to create HostComponent from database.
      */

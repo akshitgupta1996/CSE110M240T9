@@ -48,6 +48,12 @@ public class User {
         hostComponent = new HostComponent(userID);
         attendeeComponent = new AttendeeComponent(userID);
     }
+
+    @Override
+    public String toString()
+    {
+        return name + ": id: " + userID;
+    }
 }
 
 
