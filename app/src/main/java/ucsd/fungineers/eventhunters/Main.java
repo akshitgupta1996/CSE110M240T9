@@ -12,6 +12,11 @@ import android.view.MenuItem;
 
 import java.util.ArrayList;
 
+import com.parse.Parse;
+import com.parse.ParseObject;
+import com.parse.ParseUser;
+import com.parse.ParseACL;
+
 //Apparently this is an empty event.
 public class Main extends AppCompatActivity {
 
@@ -20,6 +25,22 @@ public class Main extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         system = new System();
+
+        //Parse.enableLocalDatastore(this);
+        Parse.initialize(this);
+
+        //ParseUser.enableAutomaticUser();
+        ParseACL defaultACL = new ParseACL();
+        ParseACL.setDefaultACL(defaultACL, true);
+
+        defaultACL.setPublicWriteAccess(true);
+
+        ParseObject testObject = new ParseObject("TestObject");
+        testObject.put("foo", "bar");
+        testObject.saveInBackground();
+
+        Object myTest = testObject.get("foo");
+        Log.d("MYSTUPIDERROR", myTest.toString());
 
         //Add your test code here.
 
