@@ -1,5 +1,6 @@
 package ucsd.fungineers.eventhunters;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,11 +13,16 @@ import android.view.MenuItem;
 
 import java.util.ArrayList;
 
+import com.parse.LogInCallback;
 import com.parse.Parse;
 import com.parse.ParseException;
+import com.parse.ParseFacebookUtils;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 import com.parse.ParseACL;
+
+import com.facebook.FacebookSdk;
+import com.parse.SaveCallback;
 
 //Apparently this is an empty event.
 public class Main extends AppCompatActivity {
@@ -29,6 +35,8 @@ public class Main extends AppCompatActivity {
 
         //Parse.enableLocalDatastore(this);
         Parse.initialize(this);
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        ParseFacebookUtils.initialize(getApplicationContext() );
 
         //ParseUser.enableAutomaticUser();
         ParseACL defaultACL = new ParseACL();
@@ -62,6 +70,38 @@ public class Main extends AppCompatActivity {
         HostComponent testHost = new HostComponent();
         testHost.createEvent(RestrictionStatus.NO_RESTRICTIONS, Genre.MUSIC, "Anish Is Cool");
         Log.d("HostTest", Main.system.tempEventList.get(0).toString());
+
+
+
+        //Facebook Login
+        ParseFacebookUtils.logInWithReadPermissionsInBackground(this, null, new LogInCallback() {
+            @Override
+            public void done(ParseUser user, ParseException err) {
+                if (user == null) {
+                    Log.d("MyApp", "Uh oh. The user cancelled the Facebook login.");
+                } else if (user.isNew()) {
+                    Log.d("MyApp", "User signed up and logged in through Facebook!");
+                } else {
+                    Log.d("MyApp", "User logged in through Facebook!");
+                }
+/*
+                if (!ParseFacebookUtils.isLinked(user)) {
+                    ParseFacebookUtils.linkWithReadPermissionsInBackground(user, this, null, new SaveCallback() {
+                        @Override
+                        public void done(ParseException ex) {
+                            if (ParseFacebookUtils.isLinked(user)) {
+                                Log.d("MyApp", "Woohoo, user logged in with Facebook!");
+                            }
+                        }
+                    });
+                }*/
+            }
+        });
+
+
+
+
+
 
 
 
@@ -100,6 +140,12 @@ public class Main extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        ParseFacebookUtils.onActivityResult(requestCode, resultCode, data);
     }
 }
 /*
