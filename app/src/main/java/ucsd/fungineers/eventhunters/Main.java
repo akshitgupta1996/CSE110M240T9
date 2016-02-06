@@ -9,11 +9,25 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-
 import java.util.ArrayList;
 
+import android.transition.AutoTransition;
+import android.transition.Scene;
+import android.transition.Transition;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.transition.TransitionManager;
+
 //Apparently this is an empty event.
-public class Main extends AppCompatActivity {
+public class Main extends AppCompatActivity implements View.OnClickListener {
+
+    /*TRANSITION TEST VARIABLES*/
+    /*END TRANSITION TEST VARS*/
+
 
     public static System system;
 
@@ -46,6 +60,9 @@ public class Main extends AppCompatActivity {
 
 
 
+
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
        // Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -59,7 +76,22 @@ public class Main extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+
+        /*This is where I'm testing transitions*/
+        Button mBtn1 = (Button) findViewById(R.id.button);
+        mBtn1.setOnClickListener(this);
+        /*END TRANSITION TEST*/
     }
+    @Override
+    public void onClick(View v) {
+        Log.i("clicks","You Clicked B1");
+      //  Intent i=new Intent(MainActivity.this, MainActivity2.class);
+       // startActivity(i);
+        setContentView(R.layout.eventstatus);
+    }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
