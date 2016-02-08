@@ -87,7 +87,8 @@
                 android:text="The Great EVENT"
                 android:id="@+id/textView7"
                 android:gravity="center_horizontal"
-                android:shadowColor="#ffffff" />
+                android:shadowColor="#ffffff"
+                android:background="#ffffff" />
         </LinearLayout>
 
     </LinearLayout>
