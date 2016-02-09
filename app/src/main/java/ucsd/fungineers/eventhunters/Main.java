@@ -31,7 +31,9 @@ public class Main extends AppCompatActivity implements View.OnClickListener {
 
 
     public static System system;
-
+    ViewGroup rootContainer;
+    Scene scene1;
+    Scene scene2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         system = new System();
@@ -65,23 +67,32 @@ public class Main extends AppCompatActivity implements View.OnClickListener {
 
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.eventhunters_home);
        // Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
        // setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+       /* FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
-        });
+        });*/
+        Log.i("clicks", "You are in main");
 
+        rootContainer =
+                (ViewGroup) findViewById(R.id.hunter_home);
+        scene1 = Scene.getSceneForLayout(rootContainer,
+                R.layout.eventhunters_home, this);
 
+        scene2 = Scene.getSceneForLayout(rootContainer,
+                R.layout.createevent, this);
+
+        scene1.enter();
         /*This is where I'm testing transitions*/
-        Button mBtn1 = (Button) findViewById(R.id.button);
-        mBtn1.setOnClickListener(this);
+      //  Button mBtn1 = (Button) findViewById(R.id.button);
+      //  mBtn1.setOnClickListener(this);
        // if(getContentScene() == getContentScene(R.layout.eventstatus))
       //  Button mBtn2 = (Button) findViewById(R.id.button5);
         //mBtn2.setOnClickListener(this);
@@ -99,7 +110,15 @@ public class Main extends AppCompatActivity implements View.OnClickListener {
         }else
             setContentView(R.layout.createevent);
     }
+    public void goToScene2 (View view)
+    {
+        TransitionManager.go(scene2);
+    }
 
+    public void goToScene1 (View view)
+    {
+        TransitionManager.go(scene1);
+    }
    // @Override
    /* public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.eventstatus, container, false);
