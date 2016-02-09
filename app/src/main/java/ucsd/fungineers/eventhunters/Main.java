@@ -6,6 +6,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -81,6 +82,9 @@ public class Main extends AppCompatActivity implements View.OnClickListener {
         /*This is where I'm testing transitions*/
         Button mBtn1 = (Button) findViewById(R.id.button);
         mBtn1.setOnClickListener(this);
+       // if(getContentScene() == getContentScene(R.layout.eventstatus))
+      //  Button mBtn2 = (Button) findViewById(R.id.button5);
+        //mBtn2.setOnClickListener(this);
         /*END TRANSITION TEST*/
     }
     @Override
@@ -88,10 +92,27 @@ public class Main extends AppCompatActivity implements View.OnClickListener {
         Log.i("clicks","You Clicked B1");
       //  Intent i=new Intent(MainActivity.this, MainActivity2.class);
        // startActivity(i);
-        setContentView(R.layout.eventstatus);
+        if(v.getId() == R.id.button) {
+            setContentView(R.layout.eventhunters_home);
+            //  Button mBtn2 = (Button) findViewById(R.id.button5);
+            // mBtn2.setOnClickListener(this);}
+        }else
+            setContentView(R.layout.createevent);
     }
 
-
+   // @Override
+   /* public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.eventstatus, container, false);
+        Button buttonClick = (Button) rootView.findViewById(R.id.button5);
+        buttonClick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setContentView(R.layout.createevent);
+            }
+        });
+        return rootView;
+    }
+*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
