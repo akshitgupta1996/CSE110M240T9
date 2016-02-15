@@ -10,75 +10,93 @@ So that <benefit>
 As a host 
 I want to be able to create events with a description, other information, date
 So that people near me can come to them.
+Time to complete: 5 days
 
 As a host
 I want to see attendee ratings
-So that I know if theyÅfre likely to come or not.
+So that I know if they're likely to come or not.
+Time to complete: 4 days
 
 As a host
 I want to be able to remove attendees
 So that I know nobody undesirable is attending
+Time to complete: 2 days
 
 As a host
 I want to be able to cancel events
-So that I donÅft commit to events I canÅft host
+So that I donÅ't commit to events I canÅ't host
+Time to complete: 2 days
 
 As a host
 I want people to receive event notifications 
 So that they can actually remember my event
+Time to complete: 1 day
 
 As a host
 I want to be able to check attendees in
 So that only people that registered can come
+Time to complete: 4 days.
 
 As a host
 I want to be able to earn a high rating
 So that I can spread awareness about my events
+Time to complete: 4 days
 
 As a host
 I want to be able to choose a genre for my event
 So that relevant people will attend
+Time to complete: 1 days
 
 As a host
 I want to be able to add attendee age and rating restrictions
 So that I can control who attends my event
+Time to complete: 1 day
 
 -----ATTENDEE-----7-----
 
 As an attendee
 I want to find nearby events
 So that I can attend local happenings
+Time to complete: 5 days
 
 As an attendee
 I want to create a carpool
 So that I can provide others a means of transportation
+Time to complete: 5 days
 
 As an attendee
 I want to join a carpool
 So that I can go to events even without a car
+Time to complete: 5 days
 
 As an attendee
-I want to communicate with other users
-So that we can discuss 
+I want to communicate with other users in a chat room
+So that we can discuss the event
+Time to complete: 5 days
 
 As an attendee
 I want to rate the host of an event
 So that I share with others my own experience
+Time to complete: 4 days
 
 As an attendee
-I want to see other peopleÅfs ratings
-So that I know who IÅfm attending the event with
+I want to see other peopleÅ's ratings
+So that I know who IÅ'm attending the event with
+Time to complete: 4 days
 
 As an attendee
 I want to cancel my attendance within a reasonable time before the event
-So that IÅfm not penalized for missing an event I couldnÅft go to
+So that IÅ'm not penalized for missing an event I couldnÅ't go to
+Time to complete: 1 day
 
 -----USER-----2-----
 
 As a user
 I want to login with Facebook
 So that my information and events are saved
+Time to complete: 5 days
 
 As a user
 I want to see details of an event
-So that I know enough information about what IÅfm attending
+So that I know enough information about what IÅ'm attending
+Time to complete: 3 days
