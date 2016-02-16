@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:inputType="date"
             android:ems="10"
-            android:id="@+id/editText2"
+            android:id="@+id/field_Data"
             android:hint="Date" />
 
         <EditText
@@ -32,11 +32,11 @@
             android:layout_height="wrap_content"
             android:inputType="textPostalAddress|textCapWords"
             android:ems="10"
-            android:id="@+id/editText3"
+            android:id="@+id/field_Location"
             android:hint="Location" />
 
         <Spinner
-            android:id="@+id/spinner1"
+            android:id="@+id/field_Spinner_Genre"
             android:layout_width="214dp"
             android:layout_height="49dp"
             android:background="@android:drawable/btn_dropdown"
@@ -48,25 +48,26 @@
 
         <RadioGroup
             android:layout_width="match_parent"
+            android:id="@+id/radio_Restriction"
             android:layout_height="wrap_content">
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="No Restrictions"
-                android:id="@+id/radioButton" />
+                android:id="@+id/ratio_NoRestrictions" />
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="18+ Only"
-                android:id="@+id/radioButton2" />
+                android:id="@+id/radio_18Plus" />
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="21+ Only"
-                android:id="@+id/radioButton3" />
+                android:id="@+id/radio21Plus" />
         </RadioGroup>
 
         <EditText
@@ -74,7 +75,7 @@
             android:layout_height="108dp"
             android:inputType="textMultiLine"
             android:ems="10"
-            android:id="@+id/editText4"
+            android:id="@+id/field_Description"
             android:hint="Event Description" />
 
         <Button
@@ -82,7 +83,7 @@
             android:layout_height="wrap_content"
             android:text="Add Event"
             android:onClick="button_Click"
-            android:id="@+id/button" />
+            android:id="@+id/button_AddEvent" />
 
 
     </TableLayout>

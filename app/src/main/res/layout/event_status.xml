@@ -43,7 +43,7 @@
             android:layout_height="fill_parent"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Name: "
-            android:id="@+id/textView7"
+            android:id="@+id/data_Name"
             android:layout_weight="1" />
 
         <TextView

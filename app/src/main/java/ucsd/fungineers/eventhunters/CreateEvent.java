@@ -9,6 +9,9 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 /**
@@ -26,31 +29,34 @@ public class CreateEvent extends AppCompatActivity {
     }
 
     public void button_Click(View view) {
+
         String button_name = ((Button) view).getText().toString();
         if (button_name.equals("Add Event")) {
-
-            EditText editTextName = (EditText) findViewById(R.id.field_Name);
-           Log.i( "Name: ",editTextName.getText().toString());
-            
-           /* editTextName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-                //Log.d("myTag", "Yay action listener");
-                @Override
-                public boolean onEditorAction (TextView textView,int i, KeyEvent keyEvent){
-                    Log.d("myTag", "Did we have an action?");
-                    if (i == EditorInfo.IME_ACTION_NEXT) {
-                        String inputText = textView.getText().toString();
-                        Log.d("myTag", inputText);
-                        return true;
-                    }
-                    return false;
-                }
-            });*/
             Log.i("clicks", "Add Event");
+
+            EditText eventName = (EditText) findViewById(R.id.field_Name);
+            EditText eventDate = (EditText) findViewById(R.id.field_Data);
+            EditText eventLocation = (EditText) findViewById(R.id.field_Location);
+            Spinner eventGenre = (Spinner) findViewById(R.id.field_Spinner_Genre);
+            RadioGroup eventRestriction = (RadioGroup) findViewById(R.id.radio_Restriction);
+            EditText eventDescription = (EditText) findViewById(R.id.field_Description);
+
+
             Intent i = new Intent(this, Event_Status.class);
+
+
+            i.putExtra("eventName",eventName.getText().toString());
+            i.putExtra("eventDate",eventDate.getText().toString());
+            i.putExtra("eventLocation",eventLocation.getText().toString());
+            i.putExtra("eventGenre",eventGenre.getSelectedItem().toString());
+            int radioId = eventRestriction.getCheckedRadioButtonId();
+            RadioButton selectedID = (RadioButton)findViewById(radioId);
+            i.putExtra("eventRestriction",selectedID.getText().toString());
+            i.putExtra("eventDescription",eventDescription.getText().toString());
+            
             startActivity(i);
         }
     }
 }
 
-        //}
 

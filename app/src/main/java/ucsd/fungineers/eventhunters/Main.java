@@ -2,42 +2,28 @@ package ucsd.fungineers.eventhunters;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import java.util.ArrayList;
 import android.widget.*;
-import android.transition.AutoTransition;
-import android.transition.Scene;
-import android.transition.Transition;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.transition.TransitionManager;
 
 //Apparently this is an empty event.
 public class Main extends AppCompatActivity {
 
-    /*TRANSITION TEST VARIABLES*/
-    /*END TRANSITION TEST VARS*/
-
-
     public static System system;
-    ViewGroup rootContainer;
-    Scene scene1;
-    Scene scene2;
-    Scene scene3;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        /*create the view --> don't change or move this*/
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.eventhunters_home);
+        /*---------------------------------------------*/
+
+        /*Create a new system*/
         system = new System();
 
         //Add your test code here.
@@ -64,12 +50,6 @@ public class Main extends AppCompatActivity {
         Log.d("HostTest", Main.system.tempEventList.get(0).toString());
 
 
-
-
-
-
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.eventhunters_home);
        // Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
        // setSupportActionBar(toolbar);
 
@@ -81,16 +61,11 @@ public class Main extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });*/
+
         Log.i("clicks", "You are in main");
 
-        /*This is where I'm testing transitions*/
-      //  Button mBtn1 = (Button) findViewById(R.id.button);
-      //  mBtn1.setOnClickListener(this);
-       // if(getContentScene() == getContentScene(R.layout.eventstatus))
-      //  Button mBtn2 = (Button) findViewById(R.id.button5);
-        //mBtn2.setOnClickListener(this);
-        /*END TRANSITION TEST*/
-       // ListView v = (ListView) findViewById(R.id.UpcomingEvents);
+
+        //Creating an example of a scrollable event bar thing
         String[]  myEventArray={"Chill Party","Movie Night at Connors","Get Drunk", "Eat Ice Cream", "Lunar New Year", "Go Eat Sushi", "Blah", "Blah Blah", "Hi", "Bye", "This is a scroll test", "Scroll more"};
         ArrayAdapter<String> singleEvent=new
                 ArrayAdapter<String>(
@@ -100,8 +75,12 @@ public class Main extends AppCompatActivity {
         ListView eventView=(ListView)
                 findViewById(R.id.UpcomingEvents);
         eventView.setAdapter(singleEvent);
+
+        //end event example
+
     }
 
+    /*This is a button click method, which will activate when any button is clicked.*/
     public void button_Click(View view){
         String button_name = ((Button) view).getText().toString();
         if(button_name.equals("Create Event"))
@@ -119,20 +98,6 @@ public class Main extends AppCompatActivity {
             Log.i("clicks", "Attendee");
         }
     }
-
-   // @Override
-   /* public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.eventstatus, container, false);
-        Button buttonClick = (Button) rootView.findViewById(R.id.button5);
-        buttonClick.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setContentView(R.layout.createevent);
-            }
-        });
-        return rootView;
-    }
-*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -164,5 +129,5 @@ public class Main extends AppCompatActivity {
             XX
             XX
             XX
-   FUNGINEERS FOREVER
+   FUNGINEERS FOREVER <3
  */

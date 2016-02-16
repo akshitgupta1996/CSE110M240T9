@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 /**
  * Created by Nick on 2/15/2016.
@@ -19,8 +21,12 @@ public class Event_Status extends AppCompatActivity {
 
 
         setContentView(R.layout.event_status);
-        //Button mBtn1 = (Button) findViewById(R.id.button4);
-        //mBtn1.setOnClickListener(this);
+
+        Bundle transmitted_Data = getIntent().getExtras();
+        if(transmitted_Data!= null){
+            TextView eventName = (TextView) findViewById(R.id.data_Name);
+            eventName.setText(eventName.getText() + transmitted_Data.getString("eventName"));
+        }
 
     }
     public void button_Click(View view){
