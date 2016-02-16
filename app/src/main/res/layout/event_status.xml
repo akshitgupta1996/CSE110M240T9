@@ -16,6 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Edit Event"
+            android:onClick="button_Click"
             android:id="@+id/button8"
             android:layout_weight="1" />
 
@@ -23,6 +24,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="Delete Event"
+            android:onClick="button_Click"
             android:id="@+id/button9"
             android:layout_weight="1" />
     </LinearLayout>
@@ -97,6 +99,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="Home"
+            android:onClick="button_Click"
             android:id="@+id/button6"
             android:layout_weight="1" />
 
@@ -104,6 +107,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="OtherStuff"
+            android:onClick="button_Click"
             android:id="@+id/button7"
             android:layout_weight="1" />
     </LinearLayout>

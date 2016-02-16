@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1">
@@ -16,23 +16,29 @@
             android:text="Create Event"
             android:id="@+id/button10"
             android:layout_marginLeft="5dp"
+            android:onClick="button_Click"
             android:layout_marginRight="5dp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="100">
 
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Upcoming Events"
+            android:text="@string/upcoming_events"
             android:id="@+id/textView13"
             android:gravity="center"
             android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="100">
+
+        <ListView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/UpcomingEvents" />
 
 
     </LinearLayout>
@@ -48,13 +54,16 @@
             android:layout_height="wrap_content"
             android:text="Host"
             android:id="@+id/button4"
-            android:onClick="goToScene2"
-            android:layout_weight="1" />
+            android:onClick="button_Click"
+            android:layout_weight="1"
+            android:background="#1d3565"
+            android:textColor="#ffffff" />
 
         <Button
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="Attendee"
+            android:onClick="button_Click"
             android:id="@+id/button5"
             android:layout_weight="1" />
     </LinearLayout>

@@ -1,5 +1,6 @@
 package ucsd.fungineers.eventhunters;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -11,7 +12,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import java.util.ArrayList;
-
+import android.widget.*;
 import android.transition.AutoTransition;
 import android.transition.Scene;
 import android.transition.Transition;
@@ -24,7 +25,7 @@ import android.widget.RelativeLayout;
 import android.transition.TransitionManager;
 
 //Apparently this is an empty event.
-public class Main extends AppCompatActivity implements View.OnClickListener {
+public class Main extends AppCompatActivity {
 
     /*TRANSITION TEST VARIABLES*/
     /*END TRANSITION TEST VARS*/
@@ -80,7 +81,7 @@ public class Main extends AppCompatActivity implements View.OnClickListener {
             }
         });*/
         Log.i("clicks", "You are in main");
-
+/*
         rootContainer =
                 (ViewGroup) findViewById(R.id.hunter_home);
         scene1 = Scene.getSceneForLayout(rootContainer,
@@ -89,7 +90,7 @@ public class Main extends AppCompatActivity implements View.OnClickListener {
         scene2 = Scene.getSceneForLayout(rootContainer,
                 R.layout.createevent, this);
 
-        scene1.enter();
+        scene1.enter();*/
         /*This is where I'm testing transitions*/
       //  Button mBtn1 = (Button) findViewById(R.id.button);
       //  mBtn1.setOnClickListener(this);
@@ -97,28 +98,46 @@ public class Main extends AppCompatActivity implements View.OnClickListener {
       //  Button mBtn2 = (Button) findViewById(R.id.button5);
         //mBtn2.setOnClickListener(this);
         /*END TRANSITION TEST*/
+       // ListView v = (ListView) findViewById(R.id.UpcomingEvents);
+        String[]  myEventArray={"Chill Party","Movie Night at Connors","Get Drunk", "Eat Ice Cream", "Lunar New Year", "Go Eat Sushi", "Blah", "Blah Blah", "Hi", "Bye", "This is a scroll test", "Scroll more"};
+        ArrayAdapter<String> singleEvent=new
+                ArrayAdapter<String>(
+                this,
+                android.R.layout.simple_list_item_1,
+                myEventArray);
+        ListView eventView=(ListView)
+                findViewById(R.id.UpcomingEvents);
+        eventView.setAdapter(singleEvent);
     }
-    @Override
-    public void onClick(View v) {
-        Log.i("clicks","You Clicked B1");
-      //  Intent i=new Intent(MainActivity.this, MainActivity2.class);
-       // startActivity(i);
-        if(v.getId() == R.id.button) {
-            setContentView(R.layout.eventhunters_home);
-            //  Button mBtn2 = (Button) findViewById(R.id.button5);
-            // mBtn2.setOnClickListener(this);}
-        }else
-            setContentView(R.layout.createevent);
+
+    public void button_Click(View view){
+        String button_name = ((Button) view).getText().toString();
+        if(button_name.equals("Create Event"))
+        {
+            Intent i = new Intent(this, CreateEvent.class);
+            startActivity(i);
+        }
+        else if (button_name.equals("Host"))
+        {
+            Log.i("clicks", "Host");
+
+        }
+        else if (button_name.equals("Attendee"))
+        {
+            Log.i("clicks", "Attendee");
+        }
     }
-    public void goToScene2 (View view)
+
+   /* public void goToScene2 (View view)
     {
         TransitionManager.go(scene2);
     }
 
     public void goToScene1 (View view)
     {
-        TransitionManager.go(scene1);
-    }
+       // setContentView(R.layout.eventhunters_home);
+      TransitionManager.go(scene1);
+    }*/
    // @Override
    /* public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.eventstatus, container, false);

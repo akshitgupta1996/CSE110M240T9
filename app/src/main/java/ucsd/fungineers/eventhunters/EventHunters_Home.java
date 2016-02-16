@@ -16,6 +16,16 @@ import java.util.ArrayList;
 
 public class EventHunters_Home extends AppCompatActivity implements View.OnClickListener{
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+Log.i("clicks","Lol");
+        setContentView(R.layout.eventhunters_home);
+        //Button mBtn1 = (Button) findViewById(R.id.button4);
+        //mBtn1.setOnClickListener(this);
+
+    }
+
     public void onClick(View v) {
         Log.i("clicks", "You Clicked B4");
         //  Intent i=new Intent(MainActivity.this, MainActivity2.class);
@@ -25,15 +35,6 @@ public class EventHunters_Home extends AppCompatActivity implements View.OnClick
             //  Button mBtn2 = (Button) findViewById(R.id.button5);
             // mBtn2.setOnClickListener(this);}
         }
-    }
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.eventhunters_home);
-        Button mBtn1 = (Button) findViewById(R.id.button4);
-        mBtn1.setOnClickListener(this);
-
     }
 
 }

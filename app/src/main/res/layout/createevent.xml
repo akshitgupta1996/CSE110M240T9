@@ -80,7 +80,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Add Event"
-            android:onClick="goToScene1"
+            android:onClick="button_Click"
             android:id="@+id/button" />
 
 
