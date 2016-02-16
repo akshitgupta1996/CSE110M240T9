@@ -16,4 +16,14 @@
     <string name="title_this_week">This Week</string>
     <string name="upcoming_events"><u>Upcoming Events</u></string>
 
+    <!-- Utilized in joinevent.xml -->
+    <string name="event_det"><center>Event Details</center></string>
+    <string name="event_pic">event_pic</string>
+    <string name="event_name">Awesome Concert</string>
+    <string name="date_label">Date:</string>
+    <string name="event_date">Wednesday January 6, 2016</string>
+    <string name="time_label">Time:</string>
+    <string name="event_time">8:00pm</string>
+
+
 </resources>

@@ -35,6 +35,7 @@ public class Main extends AppCompatActivity {
     ViewGroup rootContainer;
     Scene scene1;
     Scene scene2;
+    Scene scene3;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         system = new System();
@@ -81,16 +82,7 @@ public class Main extends AppCompatActivity {
             }
         });*/
         Log.i("clicks", "You are in main");
-/*
-        rootContainer =
-                (ViewGroup) findViewById(R.id.hunter_home);
-        scene1 = Scene.getSceneForLayout(rootContainer,
-                R.layout.eventhunters_home, this);
 
-        scene2 = Scene.getSceneForLayout(rootContainer,
-                R.layout.createevent, this);
-
-        scene1.enter();*/
         /*This is where I'm testing transitions*/
       //  Button mBtn1 = (Button) findViewById(R.id.button);
       //  mBtn1.setOnClickListener(this);
@@ -128,16 +120,6 @@ public class Main extends AppCompatActivity {
         }
     }
 
-   /* public void goToScene2 (View view)
-    {
-        TransitionManager.go(scene2);
-    }
-
-    public void goToScene1 (View view)
-    {
-       // setContentView(R.layout.eventhunters_home);
-      TransitionManager.go(scene1);
-    }*/
    // @Override
    /* public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.eventstatus, container, false);
