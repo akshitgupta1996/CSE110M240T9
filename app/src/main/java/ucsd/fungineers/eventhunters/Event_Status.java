@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 /**
@@ -23,9 +24,35 @@ public class Event_Status extends AppCompatActivity {
         setContentView(R.layout.event_status);
 
         Bundle transmitted_Data = getIntent().getExtras();
+
+      /*  if(transmitted_Data != null) {
+            LinearLayout l = (LinearLayout) findViewById(R.id.event_status);
+            for (int i = 0; i < l.getChildCount(); i++) {
+                if(l.getChildAt(i) instanceof TextView)
+                {
+                    TextView eventInfo = (TextView)l.getChildAt(i);
+                    for(int j = 0; j < transmitted_Data.size(); j++)
+                    {
+                        if(transmitted_Data.getString(eventInfo.get))
+                    }
+                }
+            }
+        }*/
+
+
+
         if(transmitted_Data!= null){
             TextView eventName = (TextView) findViewById(R.id.data_Name);
             eventName.setText(eventName.getText() + transmitted_Data.getString("eventName"));
+            TextView eventDate = (TextView) findViewById(R.id.data_Date);
+            eventDate.setText(eventDate.getText() + transmitted_Data.getString("eventDate"));
+            TextView eventLocation = (TextView) findViewById(R.id.data_Location);
+            eventLocation.setText(eventLocation.getText() + transmitted_Data.getString("eventLocation"));
+            TextView eventRestriction = (TextView) findViewById(R.id.data_Restriction);
+            eventRestriction.setText(eventRestriction.getText() + transmitted_Data.getString("eventRestriction"));
+            TextView eventDescription = (TextView) findViewById(R.id.data_Description);
+            eventDescription.setText(eventDescription.getText() + transmitted_Data.getString("eventDescription"));
+
         }
 
     }

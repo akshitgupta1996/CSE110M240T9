@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -34,6 +35,22 @@ public class CreateEvent extends AppCompatActivity {
         if (button_name.equals("Add Event")) {
             Log.i("clicks", "Add Event");
 
+            LinearLayout l = (LinearLayout) findViewById(R.id.base);
+            for (int i = 0; i < l.getChildCount(); i++) {
+                if(l.getChildAt(i) instanceof TextView)
+                {
+                    EditText eventInfo = (EditText)l.getChildAt(i);
+
+                } else if (l.getChildAt(i) instanceof Spinner)
+                {
+
+                }
+                else if (l.getChildAt(i) instanceof RadioGroup)
+                {
+
+                }
+            }
+
             EditText eventName = (EditText) findViewById(R.id.field_Name);
             EditText eventDate = (EditText) findViewById(R.id.field_Data);
             EditText eventLocation = (EditText) findViewById(R.id.field_Location);
@@ -53,7 +70,7 @@ public class CreateEvent extends AppCompatActivity {
             RadioButton selectedID = (RadioButton)findViewById(radioId);
             i.putExtra("eventRestriction",selectedID.getText().toString());
             i.putExtra("eventDescription",eventDescription.getText().toString());
-            
+
             startActivity(i);
         }
     }
