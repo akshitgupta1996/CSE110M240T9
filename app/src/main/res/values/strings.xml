@@ -24,6 +24,15 @@
     <string name="event_date">Wednesday January 6, 2016</string>
     <string name="time_label">Time:</string>
     <string name="event_time">8:00pm</string>
-
+    <string name="location_label">Location:</string>
+    <string name="event_location">San Diego, CA</string>
+    <string name="description_label">Description:</string>
+    <string name="event_description">There is this awesome concert in some stadium near downtown SD. Let\'s all go!</string>
+    <string name="host_label">Host:</string>
+    <string name="event_host">Bob Silver</string>
+    <string name="restriction_label">Restriction:</string>
+    <string name="event_restriction">18+</string>
+    <string name="genre_label">Genre:</string>
+    <string name="event_genre">Music</string>
 
 </resources>
