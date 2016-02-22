@@ -5,12 +5,14 @@ import android.location.Location;
 import android.util.Log;
 
 import com.facebook.FacebookSdk;
+import com.parse.FindCallback;
 import com.parse.LogInCallback;
 import com.parse.Parse;
 import com.parse.ParseACL;
 import com.parse.ParseException;
 import com.parse.ParseFacebookUtils;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import java.lang.reflect.Array;
@@ -175,10 +177,37 @@ public class System {
 
     public void deleteEvent(Event eventToDelete) {
 
-       //class for parse object "Events"
+        //create a new parse query for events
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Events");
 
+        //query events with an id that match id to delete
+        query.whereEqualTo("objectId", eventToDelete.getEventID());
 
+        //get the first matching item
+        query.findInBackground(new FindCallback<ParseObject>() {
 
+            //when the callback is completed.
+            @Override
+            public void done(List<ParseObject> objects, ParseException e) {
+
+                //if there was no exception
+                if (e == null) {
+
+                    //this try catch was forced upon me by the will of Android Studio
+                    try {
+                        //deletes the found object with matching ID
+                        objects.get(0).delete();
+                    } catch (ParseException e1) {
+
+                        //this was default. Don't ask me.
+                        e1.printStackTrace();
+                    }
+
+                    //saves changes to parse
+                    objects.get(0).saveInBackground();
+                }
+            }
+        });
     }
 
     public void testAddEvent() {
