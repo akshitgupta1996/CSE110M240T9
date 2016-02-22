@@ -33,7 +33,7 @@ public class Event {
     //picture for the event
     private URL eventImage;
 
-    public Event (ArrayList<String> attendees, String hostID, int eventID,
+    public Event (ArrayList<String> attendees, String hostID, String eventID,
                   RestrictionStatus restrictionStatus, Genre genre, String name,
                   String description) {
 
@@ -100,7 +100,7 @@ public class Event {
     /*
      * Sets the ID of this event, based on a passed in String
      */
-    public void setEventID(int eventID) {
+    public void setEventID(String eventID) {
         this.eventID = eventID;
     }
 
@@ -139,11 +139,11 @@ public class Event {
 
     }
 
-    @Overrides
+    @Override
     public String toString()
     {
         return getName() + ": Restriction: " + getRestrictionStatus() + " Genre: " + getGenre() +
-                           " EventID: " + getEventID() + " Host: " + host;
+                           " EventID: " + getEventID() + " Host: " + hostID;
     }
 }
 
