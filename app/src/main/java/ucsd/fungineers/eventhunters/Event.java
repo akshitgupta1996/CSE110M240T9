@@ -35,13 +35,12 @@ public class Event {
     //picture for the event
     private URL eventImage;
 
-    public Event (ArrayList<String> attendees, String hostID, String eventID,
+    public Event (ArrayList<String> attendees, String hostID,
                   RestrictionStatus restrictionStatus, Genre genre, String name,
                   String description, Date date) {
 
         setAttendees(attendees);
         setHost(hostID);
-        setEventID(eventID);
         setRestrictionStatus(restrictionStatus);
         setGenre(genre);
         setName(name);
