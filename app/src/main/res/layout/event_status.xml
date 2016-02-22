@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:text="Edit Event"
             android:onClick="button_Click"
-            android:id="@+id/button8"
+            android:id="@+id/editEvent"
             android:layout_weight="1" />
 
         <Button
@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:text="Delete Event"
             android:onClick="button_Click"
-            android:id="@+id/button9"
+            android:id="@+id/deleteEvent"
             android:layout_weight="1" />
     </LinearLayout>
 
