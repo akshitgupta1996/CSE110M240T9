@@ -52,7 +52,13 @@ public class Event {
 
     public Event (ParseObject parseEvent) {
 
-
+        setName((String) parseEvent.get("Name"));
+        setHost((String) parseEvent.get("HostID"));
+        setAttendees((ArrayList<String>) parseEvent.get("AtendeesList"));
+        setDate((Date)parseEvent.get("Date"));
+        setRestrictionStatus((RestrictionStatus)parseEvent.get("Restriction"));
+        setGenre((Genre)parseEvent.get("Genre"));
+        setDescription((String)parseEvent.get("Description"));
 
     }
 
