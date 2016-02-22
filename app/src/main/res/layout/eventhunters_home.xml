@@ -38,7 +38,8 @@
         <ListView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/UpcomingEventsHost" />
+            android:id="@+id/UpcomingEventsHost"
+            android:clickable="false" />
 
 
     </LinearLayout>
