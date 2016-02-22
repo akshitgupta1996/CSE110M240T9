@@ -35,7 +35,7 @@ public class Event {
 
     public Event (ArrayList<String> attendees, String hostID, String eventID,
                   RestrictionStatus restrictionStatus, Genre genre, String name,
-                  String description) {
+                  String description, Date date) {
 
         setAttendees(attendees);
         setHost(hostID);
@@ -137,6 +137,16 @@ public class Event {
 
         this.description = description;
 
+    }
+
+    public Date getDate()
+    {
+        return date;
+    }
+
+    public void setDate(Date date)
+    {
+        this.date = date;
     }
 
     @Override

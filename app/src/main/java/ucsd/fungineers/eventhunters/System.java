@@ -169,10 +169,20 @@ public class System {
 
     enum EventType {HOSTING, ATTENDING};
 
-    public void createEvent(String title, Date date, RestrictionStatus status, Location location, Genre genre)
+    public void createEvent(Event event)
     {
-        ParseObject event = new ParseObject("Events");
-        event.put("Title", title);
+        ParseObject dbEvent = new ParseObject("Events");
+        dbEvent.put("Name", event.getName());
+        dbEvent.put("HostID", event.getHost());
+        dbEvent.put("AttendeesList", event.getAttendees());
+        dbEvent.put("Date", event.getDate());
+        dbEvent.put("Restriction", event.getRestrictionStatus());
+        dbEvent.put("Genre", event.getGenre());
+        dbEvent.put("Description", event.getDescription());
+        dbEvent.saveInBackground();
+
+        event.setEventID(dbEvent.getObjectId());
+
     }
 
     public void deleteEvent(Event eventToDelete) {
