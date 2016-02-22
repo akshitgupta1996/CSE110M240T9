@@ -48,22 +48,6 @@ public class Main extends AppCompatActivity {
         float rating = 0;
         int userid = 42;
         User user = new User (name, userid);
-        AttendeeComponent attendee = new AttendeeComponent(upcomingEvents, pastEvents,
-                RestrictionStatus.NO_RESTRICTIONS, rating, user);
-
-        ArrayList<AttendeeComponent> attendees = new ArrayList<AttendeeComponent>();
-        int eventid = 24;
-        Event newEvent = new Event(attendees, new HostComponent(), eventid, RestrictionStatus.NO_RESTRICTIONS,
-                Genre.MUSIC, "Test Event");
-
-        attendee.joinEvent(newEvent);
-        Log.d("UpcomingEvents", newEvent.getAttendees().get(0).getUser().name);
-
-        HostComponent testHost = new HostComponent();
-        testHost.createEvent(RestrictionStatus.NO_RESTRICTIONS, Genre.MUSIC, "Anish Is Cool");
-        Log.d("HostTest", Main.system.tempEventList.get(0).toString());
-
-
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);

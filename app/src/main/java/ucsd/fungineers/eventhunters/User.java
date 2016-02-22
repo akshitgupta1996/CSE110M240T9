@@ -1,5 +1,9 @@
 package ucsd.fungineers.eventhunters;
 
+import android.util.Log;
+
+import java.util.ArrayList;
+
 /**
  * This abstract class will be extended by both the host and the attendee.
  * The instance variables will have different meanings based on whichever it is.
@@ -12,22 +16,31 @@ public class User {
     //The id that the user has in the database.
     int userID;
 
-    //All the attendee information.
-    AttendeeComponent attendeeComponent;
+    //Upcoming events this user is hosting.
+    ArrayList<Event> hostEventList;
 
-    //All the host information.
-    HostComponent hostComponent;
+    //Upcoming events this user is hosting.
+    ArrayList<Event> attendeeEventList;
+
+    //What the status of the users age is. Hosts cannot make events that are higher restriction
+    RestrictionStatus restrictionStatus;
+
+    //Rating of the user as a host
+    float hostRating;
+
+    //Rating of the user as an attendee
+    float attendeeRating;
 
     //Other misc data? Photo? Description? Birthday?
 
     /**
      * A ctor that gets everything. Great for creating from the database.
+     *
      * @param name
      * @param userID
      */
     public User(String name,
-                    int userID)
-    {
+                int userID) {
         this.name = name;
         this.userID = userID;
     }
@@ -35,32 +48,62 @@ public class User {
     /**
      * Just for testing. Not really legitimate.
      */
-    public User()
-    {
+    public User() {
 
     }
 
-    public User(int userID)
-    {
-        //System call to get name.
+    public User(int userID) {
 
-        //System calls to load everything else.
-        hostComponent = new HostComponent(userID);
-        attendeeComponent = new AttendeeComponent(userID);
     }
 
+    public boolean createEvent() {
+        Event ev = new Event(new ArrayList<User>(), this, 10, RestrictionStatus.NO_RESTRICTIONS, Genre.PARTY, "Test Event");
+        Main.system.tempEventList.add(ev);
+
+        //Use Main.System to update the list.
+        return true;
+    }
+
+    public boolean createEvent(RestrictionStatus r, Genre g, String name) {
+        Event ev = new Event(new ArrayList<User>(), this, 10, r, g, name);
+        Main.system.tempEventList.add(ev);
+
+        //Use Main.System to update the list.
+        return true;
+    }
+
+    /**
+     * This method adds this attendee to the event, provided their restriction level is adequate.
+     * Note: Even though the event is changed, System must be informed to write to the database.
+     * Use Main.system to access.
+     * Haven't fully decided how to do that.
+     *
+     * @param eventToJoin The event to join
+     * @return true if successful. May replace with multiple error system.
+     */
+    public boolean joinEvent(Event eventToJoin) {
+        if (restrictionStatus.compareTo(eventToJoin.getRestrictionStatus()) >= 0) {
+            Log.d("User", "Joining Event");
+            attendeeEventList.add(eventToJoin);
+            eventToJoin.getAttendees().add(this);
+        } else {
+            Log.d("User", "Fail to join event");
+
+        }
+        //Use Main.system to update.
+        return true;
+    }
+    
     @Override
-    public String toString()
-    {
-        return name + ": id: " + userID;
+    public String toString() {
+        return name + ": id: " + userID + ": Attendee Rating: " + attendeeRating + " Restriction Status: " + restrictionStatus + ": Host Rating: " + hostRating;
     }
 }
-
 
 /**
  * This enum keeps track of how restricted an event is.
  * It acts like a class.
  */
-enum RestrictionStatus{
+enum RestrictionStatus {
     NO_RESTRICTIONS, UNDER_18, UNDER_21;
 }

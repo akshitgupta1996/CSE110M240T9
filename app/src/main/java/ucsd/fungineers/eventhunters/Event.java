@@ -4,10 +4,10 @@ import java.util.ArrayList;
 
 public class Event {
 
-    public Event (ArrayList<AttendeeComponent> attendees, HostComponent hostComponent, int eventID,
+    public Event (ArrayList<User> attendees, User host, int eventID,
                   RestrictionStatus restrictionStatus, Genre genre, String name) {
         this.attendees = attendees;
-        this.host = hostComponent;
+        this.host = host;
         this.eventID = eventID;
         this.restrictionStatus = restrictionStatus;
         this.genre = genre;
@@ -16,10 +16,10 @@ public class Event {
 
     private String name;
     //The list of people attending the event.
-    private ArrayList<AttendeeComponent> attendees;
+    private ArrayList<User> attendees;
 
-    //The host who created the event.
-    private HostComponent host;
+    //The user who created the event.
+    private User host;
 
     //The id that the event has in the database.
     private int eventID;
@@ -31,21 +31,21 @@ public class Event {
     private Genre genre;
 
     //Setters and getters? Might be easier to make things public.
-    public ArrayList<AttendeeComponent> getAttendees() {
+    public ArrayList<User> getAttendees() {
         return attendees;
     }
 
-    public void setAttendees(ArrayList<AttendeeComponent> attendees) {
+    public void setAttendees(ArrayList<User> attendees) {
         this.attendees = attendees;
     }
 
-    public HostComponent getHost() {
+    public User getHost() {
         return host;
     }
 
     public String getName() {return name;}
 
-    public void setHost(HostComponent host) {
+    public void setHost(User host) {
         this.host = host;
     }
 
