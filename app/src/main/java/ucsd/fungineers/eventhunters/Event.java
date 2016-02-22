@@ -163,5 +163,14 @@ public class Event {
  * TODO: expand to tag system. Event can have multiple tags. Easier to search.
  */
 enum Genre{
-    MUSIC, PARTY;
+    MUSIC(0), PARTY(1);
+
+    private final int value;
+    private Genre(int value) {
+        this.value = value;
+    }
+
+    public int getValue() {
+        return value;
+    }
 }
