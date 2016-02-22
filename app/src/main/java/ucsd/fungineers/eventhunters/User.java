@@ -105,6 +105,14 @@ public class User {
  * It acts like a class.
  */
 enum RestrictionStatus {
-    NO_RESTRICTIONS, UNDER_18, UNDER_21;
+    NO_RESTRICTIONS(0), UNDER_18(1), UNDER_21(2);
 
+    private final int value;
+    private RestrictionStatus(int value) {
+        this.value = value;
+    }
+
+    public int getValue() {
+        return value;
+    }
 }
