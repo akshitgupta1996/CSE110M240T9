@@ -93,7 +93,7 @@ public class User {
         //Use Main.system to update.
         return true;
     }
-    
+
     @Override
     public String toString() {
         return name + ": id: " + userID + ": Attendee Rating: " + attendeeRating + " Restriction Status: " + restrictionStatus + ": Host Rating: " + hostRating;
