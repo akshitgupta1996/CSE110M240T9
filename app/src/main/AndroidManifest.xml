@@ -8,6 +8,11 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+
+        <user-permission android:name="android.permission.INTERNET" />
+        <user-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
         <meta-data
             android:name="com.parse.APPLICATION_ID"
             android:value="@string/parse_add_id" />
@@ -16,13 +21,13 @@
             android:value="@string/parse_client_key" />
         <meta-data android:name="com.facebook.sdk.ApplicationId"
                     android:value="@string/facebook_app_id"/>
+
         <activity
             android:name=".Main"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -33,6 +38,17 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:label="@string/app_name" />
 
+        <activity
+            android:name=".EventsActivity"
+            android:label="@string/title_activity_events">
+        </activity>
+
+        //new eventhunters home
+        <activity android:name=".EventHunters_Home"/>
+        <activity android:name=".CreateEvent"/>
+        <activity android:name=".Event_Status"/>
+        <activity android:name=".AttendingEvents"/>
+        <activity android:name=".FindEvents"/>
 
     </application>
 

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/event_item_padding_vertical"
+        android:paddingBottom="@dimen/event_item_padding_vertical">
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/event_item_icon"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:src="@mipmap/ic_default_event"/>
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/event_item_date_overlay"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:gravity="center"
+            android:text="FEB\n09"
+            android:textColor="#fff"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Display1" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/event_item_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/event_item_icon"
+            android:text="Event Name"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/event_item_date_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_toRightOf="@id/event_item_icon"
+            android:layout_below="@id/event_item_name"
+            android:text="February 09, 2016"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"/>
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/event_item_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_toRightOf="@id/event_item_icon"
+            android:layout_below="@id/event_item_date_text"
+            android:text="Location, San Diego, CA"
+            android:drawableLeft="@drawable/ic_location_pin"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"/>
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/event_item_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:singleLine="true"
+            android:layout_below="@id/event_item_location"
+            android:layout_toRightOf="@id/event_item_icon"
+            android:text="This is this stupid ass item's description."
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

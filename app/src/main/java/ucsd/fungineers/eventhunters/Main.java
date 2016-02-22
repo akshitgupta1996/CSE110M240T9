@@ -2,15 +2,11 @@ package ucsd.fungineers.eventhunters;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -24,6 +20,8 @@ import com.parse.ParseACL;
 
 import com.facebook.FacebookSdk;
 import com.parse.SaveCallback;
+import android.widget.*;
+import android.widget.Button;
 
 //Apparently this is an empty event.
 public class Main extends AppCompatActivity {
@@ -57,6 +55,12 @@ public class Main extends AppCompatActivity {
         //ParseObject testObject = new ParseObject("TestObject");
         //testObject.put("hello", "tim");
         //testObject.saveInBackground();
+        /*create the view --> don't change or move this*/
+
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.eventhunters_home);
+        /*---------------------------------------------*/
+
 
         //Add your test code here.
 
@@ -102,20 +106,54 @@ public class Main extends AppCompatActivity {
 
         //system.fbLogin(this);
 
+       // Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+       // setSupportActionBar(toolbar);
 
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+       /* FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
-        });
+        });*/
+
+        Log.i("clicks", "You are in main");
+
+
+        //Creating an example of a scrollable event bar thing
+        String[]  myEventArray={"Chill Party","Movie Night at Connors","Get Drunk", "Eat Ice Cream", "Lunar New Year", "Go Eat Sushi", "Blah", "Blah Blah", "Board Games", "Hi", "Bye", "This is a scroll test", "Scroll more"};
+        ArrayAdapter<String> hostEvents=new
+                ArrayAdapter<>(
+                this,
+                android.R.layout.simple_list_item_1,
+                myEventArray);
+        ListView hostView=(ListView)
+                findViewById(R.id.UpcomingEventsHost);
+        hostView.setAdapter(hostEvents);
+        //end event example
+
+    }
+
+    /*This is a button click method, which will activate when any button is clicked.*/
+    public void button_Click(View view){
+        String button_name = ((Button) view).getText().toString();
+        if(button_name.equals("Create Event"))
+        {
+            Intent i = new Intent(this, CreateEvent.class);
+            startActivity(i);
+        }
+        else if (button_name.equals("Host"))
+        {
+            Log.i("clicks", "Host");
+
+        }
+        else if (button_name.equals("Attendee"))
+        {
+            Log.i("clicks", "Attendee");
+            Intent i = new Intent(this, AttendingEvents.class);
+            startActivity(i);
+        }
     }
 
     @Override
@@ -154,5 +192,5 @@ public class Main extends AppCompatActivity {
             XX
             XX
             XX
-   FUNGINEERS FOREVER
+   FUNGINEERS FOREVER <3
  */
