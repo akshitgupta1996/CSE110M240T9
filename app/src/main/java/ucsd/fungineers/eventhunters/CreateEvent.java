@@ -22,12 +22,22 @@ import android.widget.TextView;
  */
 public class CreateEvent extends AppCompatActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.createevent);
-
+        /*eventDate.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v)
+            {
+                public void showStartDateDialog(View v){
+                DialogFragment dialogFragment = new StartDatePicker();
+                dialogFragment.show(getFragmentManager(), "start_date_picker");
+            }
+            }
+        });*/
     }
+
 
     public void button_Click(View view) {
 
@@ -59,25 +69,28 @@ public class CreateEvent extends AppCompatActivity {
             Spinner eventGenre = (Spinner) findViewById(R.id.field_Spinner_Genre);
             RadioGroup eventRestriction = (RadioGroup) findViewById(R.id.radio_Restriction);
             EditText eventDescription = (EditText) findViewById(R.id.field_Description);
-
-
-            final Intent i = new Intent(this, Event_Status.class);
-
-
-            i.putExtra("eventName",eventName.getText().toString());
-            i.putExtra("eventDate",eventDate.getText().toString());
-            i.putExtra("eventLocation",eventLocation.getText().toString());
-            i.putExtra("eventGenre", eventGenre.getSelectedItem().toString());
-
             int radioId = eventRestriction.getCheckedRadioButtonId();
+            RadioButton selectedID = (RadioButton) findViewById(radioId);
+            if (selectedID != null
+                    && !eventDate.getText().toString().isEmpty()
+                    && !eventName.getText().toString().isEmpty()
+                    && !eventLocation.getText().toString().isEmpty()
+                    && !eventGenre.getSelectedItem().toString().equals("Genre")
+                    && !eventRestriction.toString().isEmpty()
+                    && !eventDescription.getText().toString().isEmpty()
+                    ) {
 
-            RadioButton selectedID = (RadioButton)findViewById(radioId);
-            i.putExtra("eventRestriction",selectedID.getText().toString());
-            i.putExtra("eventDescription", eventDescription.getText().toString());
-            DialogInterface.OnClickListener clickListener = new DialogInterface.OnClickListener()
-            {
+                final Intent i = new Intent(this, Event_Status.class);
+
+                i.putExtra("eventName", eventName.getText().toString());
+                i.putExtra("eventDate", eventDate.getText().toString());
+                i.putExtra("eventLocation", eventLocation.getText().toString());
+                i.putExtra("eventGenre", eventGenre.getSelectedItem().toString());
+                i.putExtra("eventRestriction", selectedID.getText().toString());
+                i.putExtra("eventDescription", eventDescription.getText().toString());
+                DialogInterface.OnClickListener clickListener = new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface d, int id) {
-                        switch(id) {
+                        switch (id) {
                             case DialogInterface.BUTTON_POSITIVE:
                                 startActivity(i);
                                 break;
@@ -85,15 +98,29 @@ public class CreateEvent extends AppCompatActivity {
                                 break;
                         }
                     }
-            };
-            AlertDialog.Builder b = new AlertDialog.Builder(this);
-            b.setMessage("Are you sure you want to create this event?")
-                    .setTitle("Create Event")
-                    .setPositiveButton("Yes", clickListener)
-                    .setNegativeButton("No", clickListener)
-                    .show();
+                };
+                AlertDialog.Builder b = new AlertDialog.Builder(this);
+                b.setMessage("Are you sure you want to create this event?")
+                        .setTitle("Create Event")
+                        .setPositiveButton("Yes", clickListener)
+                        .setNegativeButton("No", clickListener)
+                        .show();
 
 
+            }
+            else
+            {
+                DialogInterface.OnClickListener failedclickListener = new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface d, int id) {
+                        //do nothing
+                    }
+                };
+                AlertDialog.Builder failed = new AlertDialog.Builder(this);
+                failed.setMessage("Please fill in all fields.")
+                        .setTitle("Failed to Create Event")
+                        .setNegativeButton("OK", failedclickListener)
+                        .show();
+            }
         }
     }
 }
