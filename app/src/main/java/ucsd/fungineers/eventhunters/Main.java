@@ -66,16 +66,15 @@ public class Main extends AppCompatActivity {
 
 
         //Creating an example of a scrollable event bar thing
-        String[]  myEventArray={"Chill Party","Movie Night at Connors","Get Drunk", "Eat Ice Cream", "Lunar New Year", "Go Eat Sushi", "Blah", "Blah Blah", "Hi", "Bye", "This is a scroll test", "Scroll more"};
-        ArrayAdapter<String> singleEvent=new
-                ArrayAdapter<String>(
+        String[]  myEventArray={"Chill Party","Movie Night at Connors","Get Drunk", "Eat Ice Cream", "Lunar New Year", "Go Eat Sushi", "Blah", "Blah Blah", "Board Games", "Hi", "Bye", "This is a scroll test", "Scroll more"};
+        ArrayAdapter<String> hostEvents=new
+                ArrayAdapter<>(
                 this,
                 android.R.layout.simple_list_item_1,
                 myEventArray);
-        ListView eventView=(ListView)
-                findViewById(R.id.UpcomingEvents);
-        eventView.setAdapter(singleEvent);
-
+        ListView hostView=(ListView)
+                findViewById(R.id.UpcomingEventsHost);
+        hostView.setAdapter(hostEvents);
         //end event example
 
     }
@@ -96,6 +95,8 @@ public class Main extends AppCompatActivity {
         else if (button_name.equals("Attendee"))
         {
             Log.i("clicks", "Attendee");
+            Intent i = new Intent(this, AttendingEvents.class);
+            startActivity(i);
         }
     }
 

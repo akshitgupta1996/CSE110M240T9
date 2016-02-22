@@ -38,6 +38,8 @@
         <activity android:name=".EventHunters_Home"/>
         <activity android:name=".CreateEvent"/>
         <activity android:name=".Event_Status"/>
+        <activity android:name=".AttendingEvents"/>
+        <activity android:name=".FindEvents"/>
 
     </application>
 

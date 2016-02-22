@@ -1,5 +1,6 @@
 package ucsd.fungineers.eventhunters;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -26,6 +27,15 @@ Log.i("clicks","Lol");
 
     }
 
+    public void button_Click(View view) {
+        String button_name = ((Button) view).getText().toString();
+        if (button_name.equals("Attendee")) {
+            Log.i("clicks", "AttendeePage");
+            Intent i = new Intent(this, AttendingEvents.class);
+            startActivity(i);
+        }
+    }
+
     public void onClick(View v) {
         Log.i("clicks", "You Clicked B4");
         //  Intent i=new Intent(MainActivity.this, MainActivity2.class);
@@ -34,6 +44,10 @@ Log.i("clicks","Lol");
             setContentView(R.layout.createevent);
             //  Button mBtn2 = (Button) findViewById(R.id.button5);
             // mBtn2.setOnClickListener(this);}
+        }
+
+        if(v.getId() == R.id.button5) {
+            setContentView(R.layout.attendingevents);
         }
     }
 

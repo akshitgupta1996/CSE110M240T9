@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:id="@+id/hunter_home"
+    android:id="@+id/attending_events"
     android:layout_height="match_parent">
 
     <LinearLayout
@@ -13,8 +13,8 @@
         <Button
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Create Event"
-            android:id="@+id/button10"
+            android:text="@string/event_find"
+            android:id="@+id/event_find"
             android:layout_marginLeft="5dp"
             android:onClick="button_Click"
             android:layout_marginRight="5dp" />
@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/upcoming_events"
-            android:id="@+id/textView13"
+            android:id="@+id/title_label"
             android:gravity="center"
             android:textStyle="bold" />
     </LinearLayout>
@@ -38,7 +38,7 @@
         <ListView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/UpcomingEventsHost" />
+            android:id="@+id/UpcomingEventsAttendee" />
 
 
     </LinearLayout>
@@ -56,8 +56,7 @@
             android:id="@+id/button4"
             android:onClick="button_Click"
             android:layout_weight="1"
-            android:background="#1d3565"
-            android:textColor="#ffffff" />
+            android:textColor="#000000" />
 
         <Button
             android:layout_width="fill_parent"
@@ -65,7 +64,10 @@
             android:text="Attendee"
             android:onClick="button_Click"
             android:id="@+id/button5"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:background="#1d3565"
+            android:textColor="#ffffff" />
+
     </LinearLayout>
 
 </LinearLayout>
