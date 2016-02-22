@@ -183,7 +183,10 @@ public class System {
 
     public void testAddEvent() {
         Log.d("test", "add event");
-        addEvents(EventType.HOSTING, 101);
+        addEvents(EventType.HOSTING, 23);
+        addEvents(EventType.HOSTING, 45);
+        addEvents(EventType.ATTENDING, 86);
+        addEvents(EventType.ATTENDING, 24);
 
 
     }
