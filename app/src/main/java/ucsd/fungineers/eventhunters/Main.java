@@ -1,5 +1,6 @@
 package ucsd.fungineers.eventhunters;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,11 +13,16 @@ import android.view.MenuItem;
 
 import java.util.ArrayList;
 
+import com.parse.LogInCallback;
 import com.parse.Parse;
 import com.parse.ParseException;
+import com.parse.ParseFacebookUtils;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 import com.parse.ParseACL;
+
+import com.facebook.FacebookSdk;
+import com.parse.SaveCallback;
 
 //Apparently this is an empty event.
 public class Main extends AppCompatActivity {
@@ -25,31 +31,34 @@ public class Main extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        system = new System();
-
+        system = new System(this);
+/*
         //Parse.enableLocalDatastore(this);
         Parse.initialize(this);
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        ParseFacebookUtils.initialize(getApplicationContext() );
 
         //ParseUser.enableAutomaticUser();
         ParseACL defaultACL = new ParseACL();
         ParseACL.setDefaultACL(defaultACL, true);
 
         defaultACL.setPublicWriteAccess(true);
-
-        ParseObject testObject = new ParseObject("TestObject");
-        testObject.put("hello", "tim");
-        testObject.saveInBackground();
+*/
+        //ParseObject testObject = new ParseObject("TestObject");
+        //testObject.put("hello", "tim");
+        //testObject.saveInBackground();
 
         //Add your test code here.
 
-        String name = "test";
-        ArrayList<Event> upcomingEvents = new ArrayList<Event>();
-        ArrayList<Event> pastEvents = new ArrayList<Event>();
-        float rating = 0;
-        int userid = 42;
-        User user = new User (name, userid);
+        //String name = "test";
+        //ArrayList<Event> upcomingEvents = new ArrayList<Event>();
+        //ArrayList<Event> pastEvents = new ArrayList<Event>();
+        //float rating = 0;
+        //int userid = 42;
+        //User user1 = new User (name, userid);
+        /*
         AttendeeComponent attendee = new AttendeeComponent(upcomingEvents, pastEvents,
-                RestrictionStatus.NO_RESTRICTIONS, rating, user);
+                RestrictionStatus.NO_RESTRICTIONS, rating, user1);
 
         ArrayList<AttendeeComponent> attendees = new ArrayList<AttendeeComponent>();
         int eventid = 24;
@@ -62,6 +71,35 @@ public class Main extends AppCompatActivity {
         HostComponent testHost = new HostComponent();
         testHost.createEvent(RestrictionStatus.NO_RESTRICTIONS, Genre.MUSIC, "Anish Is Cool");
         Log.d("HostTest", Main.system.tempEventList.get(0).toString());
+*/
+        /*
+        ParseFacebookUtils.logInWithReadPermissionsInBackground(this, null, new LogInCallback() {
+            @Override
+            public void done(ParseUser user, ParseException err) {
+                if (user == null) {
+                    Log.d("MyApp", "Uh oh. The user cancelled the Facebook login.");
+                } else if (user.isNew()) {
+                    Log.d("MyApp", "User signed up and logged in through Facebook!");
+                    //currentUser = user;
+                } else {
+                    Log.d("MyApp", "User logged in through Facebook!");
+                    //currentUser = user;
+                }
+
+            }
+        });*/
+
+        //system.fbLogin(this);
+
+        Log.d("Login", "Before");
+
+
+
+
+
+
+
+
 
 
 
@@ -100,6 +138,12 @@ public class Main extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        ParseFacebookUtils.onActivityResult(requestCode, resultCode, data);
     }
 }
 /*
