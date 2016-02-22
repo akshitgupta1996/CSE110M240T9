@@ -1,28 +1,25 @@
 package ucsd.fungineers.eventhunters;
 
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Event {
 
-    public Event (ArrayList<AttendeeComponent> attendees, HostComponent hostComponent, int eventID,
-                  RestrictionStatus restrictionStatus, Genre genre, String name) {
-        this.attendees = attendees;
-        this.host = hostComponent;
-        this.eventID = eventID;
-        this.restrictionStatus = restrictionStatus;
-        this.genre = genre;
-        this.name = name;
-    }
+    //The id that the event has in the database.
+    private String eventID;
 
+    //name of the event
     private String name;
-    //The list of people attending the event.
-    private ArrayList<AttendeeComponent> attendees;
 
     //The host who created the event.
-    private HostComponent host;
+    private String hostID;
 
-    //The id that the event has in the database.
-    private int eventID;
+    //The list of people attending the event.
+    private ArrayList<String> attendees;
+
+    //date and time of the event
+    private Date date;
 
     //How restricted an event is. Check for explanation in User.java
     private RestrictionStatus restrictionStatus;
@@ -30,37 +27,93 @@ public class Event {
     //What kind of event it is. Check for explanation at bottom of this file.
     private Genre genre;
 
-    //Setters and getters? Might be easier to make things public.
-    public ArrayList<AttendeeComponent> getAttendees() {
+    //event description, as visible to attendees
+    private String description;
+
+    //picture for the event
+    private URL eventImage;
+
+    public Event (ArrayList<String> attendees, String hostID, int eventID,
+                  RestrictionStatus restrictionStatus, Genre genre, String name,
+                  String description) {
+
+        setAttendees(attendees);
+        setHost(hostID);
+        setEventID(eventID);
+        setRestrictionStatus(restrictionStatus);
+        setGenre(genre);
+        setName(name);
+        setDescription(description);
+
+    }
+
+    /*
+     * Gets a list of attendee ID's
+     */
+    public ArrayList<String> getAttendees() {
         return attendees;
     }
 
-    public void setAttendees(ArrayList<AttendeeComponent> attendees) {
+    /*
+     * Sets the current list of attendee ID's by a passed in ArrayList of attendee ID's
+     */
+    public void setAttendees(ArrayList<String> attendees) {
         this.attendees = attendees;
     }
 
-    public HostComponent getHost() {
-        return host;
+    /*
+     * Gets the current host ID for this event
+     */
+    public String getHost() {
+        return hostID;
     }
 
-    public String getName() {return name;}
-
-    public void setHost(HostComponent host) {
-        this.host = host;
+    /*
+     * Set's the host ID for this event, based on a passed in ID string
+     */
+    public void setHost(String hostID) {
+        this.hostID = hostID;
     }
 
-    public int getEventID() {
+    /*
+     * Get's the name of this event, as a String
+     */
+    public String getName() {
+        return name;
+    }
+
+    /*
+     * Sets the name of this event to a passed in String
+     */
+    public void setName(String name) {
+
+        this.name = name;
+    }
+
+    /*
+     * Gets the ID of this event as a String
+     */
+    public String getEventID() {
         return eventID;
     }
 
+    /*
+     * Sets the ID of this event, based on a passed in String
+     */
     public void setEventID(int eventID) {
         this.eventID = eventID;
     }
 
+    /*
+     * Gets the restriction status of this event
+     */
     public RestrictionStatus getRestrictionStatus() {
         return restrictionStatus;
     }
 
+    /*
+     * Sets the restriction status of this event
+     */
     public void setRestrictionStatus(RestrictionStatus restrictionStatus) {
         this.restrictionStatus = restrictionStatus;
     }
@@ -74,10 +127,23 @@ public class Event {
         this.genre = genre;
     }
 
-    @Override
+    public String getDescription() {
+
+        return description;
+
+    }
+
+    public void setDescription(String description) {
+
+        this.description = description;
+
+    }
+
+    @Overrides
     public String toString()
     {
-        return getName() + ": Restriction: " + getRestrictionStatus() + " Genre: " + getGenre() + " EventID: " + getEventID() + " Host: " + host;
+        return getName() + ": Restriction: " + getRestrictionStatus() + " Genre: " + getGenre() +
+                           " EventID: " + getEventID() + " Host: " + host;
     }
 }
 

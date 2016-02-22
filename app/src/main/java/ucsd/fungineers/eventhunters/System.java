@@ -30,6 +30,8 @@ public class System {
 
     static ParseUser currentUser;
 
+
+
     //If there is a connection to the database, this variable will be true. If not active, any calls
     //will return null.
     boolean connectionEstablished = false;
@@ -169,6 +171,14 @@ public class System {
     {
         ParseObject event = new ParseObject("Events");
         event.put("Title", title);
+    }
+
+    public void deleteEvent(Event eventToDelete) {
+
+       //class for parse object "Events"
+
+
+
     }
 
     public void testAddEvent() {
