@@ -176,8 +176,8 @@ public class System {
         dbEvent.put("HostID", event.getHost());
         dbEvent.put("AttendeesList", event.getAttendees());
         dbEvent.put("Date", event.getDate());
-        dbEvent.put("Restriction", event.getRestrictionStatus());
-        dbEvent.put("Genre", event.getGenre());
+        dbEvent.put("Restriction", event.getRestrictionStatus().toString());
+        dbEvent.put("Genre", event.getGenre().toString());
         dbEvent.put("Description", event.getDescription());
         dbEvent.saveInBackground();
 

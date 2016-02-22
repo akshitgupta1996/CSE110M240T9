@@ -44,6 +44,7 @@ public class Event {
         setGenre(genre);
         setName(name);
         setDescription(description);
+        setDate(date);
 
     }
 

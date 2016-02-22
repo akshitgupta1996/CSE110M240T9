@@ -57,16 +57,16 @@ public class User {
     }
 
     public boolean createEvent() {
-        Event ev = new Event(new ArrayList<User>(), this, 10, RestrictionStatus.NO_RESTRICTIONS, Genre.PARTY, "Test Event");
-        Main.system.tempEventList.add(ev);
+        //Event ev = new Event(new ArrayList<User>(), this, 10, RestrictionStatus.NO_RESTRICTIONS, Genre.PARTY, "Test Event");
+        //Main.system.tempEventList.add(ev);
 
         //Use Main.System to update the list.
         return true;
     }
 
     public boolean createEvent(RestrictionStatus r, Genre g, String name) {
-        Event ev = new Event(new ArrayList<User>(), this, 10, r, g, name);
-        Main.system.tempEventList.add(ev);
+        //Event ev = new Event(new ArrayList<User>(), this, 10, r, g, name);
+        //Main.system.tempEventList.add(ev);
 
         //Use Main.System to update the list.
         return true;
@@ -85,7 +85,7 @@ public class User {
         if (restrictionStatus.compareTo(eventToJoin.getRestrictionStatus()) >= 0) {
             Log.d("User", "Joining Event");
             attendeeEventList.add(eventToJoin);
-            eventToJoin.getAttendees().add(this);
+            //eventToJoin.getAttendees().add(this);
         } else {
             Log.d("User", "Fail to join event");
 
@@ -106,4 +106,5 @@ public class User {
  */
 enum RestrictionStatus {
     NO_RESTRICTIONS, UNDER_18, UNDER_21;
+
 }

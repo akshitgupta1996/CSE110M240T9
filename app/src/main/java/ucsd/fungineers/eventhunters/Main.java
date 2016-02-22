@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import com.parse.LogInCallback;
 import com.parse.Parse;
@@ -32,6 +33,15 @@ public class Main extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         system = new System(this);
+
+        ArrayList<String> attendees = new ArrayList<>();
+        attendees.add("aaa");
+        attendees.add("bbbb");
+        attendees.add("ccccc");
+        Date date = new Date();
+        Event testEvent = new Event(attendees, "tempHostId", null, RestrictionStatus.NO_RESTRICTIONS, Genre.MUSIC, "TITLENAME", "DESCDESCDESC", date);
+
+        system.createEvent(testEvent);
 /*
         //Parse.enableLocalDatastore(this);
         Parse.initialize(this);
@@ -92,7 +102,6 @@ public class Main extends AppCompatActivity {
 
         //system.fbLogin(this);
 
-        Log.d("Login", "Before");
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
