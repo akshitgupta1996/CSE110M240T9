@@ -1,5 +1,7 @@
 package ucsd.fungineers.eventhunters;
 
+import com.parse.ParseObject;
+
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
@@ -45,6 +47,12 @@ public class Event {
         setName(name);
         setDescription(description);
         setDate(date);
+
+    }
+
+    public Event (ParseObject parseEvent) {
+
+
 
     }
 

@@ -185,6 +185,26 @@ public class System {
 
     }
 
+    public Event getEvent(String id) throws ParseException {
+
+
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Events");
+
+        query.whereEqualTo("objectId", id);
+
+        List<ParseObject> foundEvent = query.find();
+
+        if (foundEvent == null) {
+
+            return null;
+
+        }
+
+        Event eventToReturn = new Event(foundEvent.get(0));
+
+        return eventToReturn;
+    }
+
     public void deleteEvent(Event eventToDelete) {
 
         //create a new parse query for events
@@ -215,6 +235,11 @@ public class System {
 
                     //saves changes to parse
                     objects.get(0).saveInBackground();
+                }
+
+                else {
+
+                    Log.d("POTATO", "Crai there was an exception ;(");
                 }
             }
         });
