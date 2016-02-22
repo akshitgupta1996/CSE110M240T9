@@ -1,23 +1,30 @@
-Schedule
-Completed: 
-* Basic screens for hosts and users.
-* Setting up the Database
+Schedule:
 
-By 2/15/16: Hosts can create events, users to see upcoming events and join them. Database works to allow these. 
+##Update: Every due date shifted by a week due to actual work speed.
+
+
+Completed: 
+* UI flow for hosts creating events.
+* UI flow for attendees up to viewing events
+* Parse database set up to create events, delete events, and get events, need to integrate with UI.
+
+By 2/22/16: Hosts can create events, users to see upcoming events and join them. Database works to allow these. 
 *Continue polishing screens for hosts and users, adding transitions: Nick, Kristin, AK
 *Work on Database representation of hosts and users: Connor, Timothy
 *Integrating GUI and Database: Anish
 
-By 2/22/16: Hosts and Users have ratings that are visible in several locations. These are affected by different features. Hosts are rated on my attendees, attendees ratings are based on their attendence. Baseline
-*Modify screens to include ratings, add scenes for voting: Nick, Kristin, AK
-*Add ratings to database: Connor, Timothy
-*Integrating GUI ratings and Database ratings: Anish
+By 2/29/16: Connect GUI to Database for creating event workflow. Creating UI for attendee workflow. Beginning work for ratings in databases. Hosts and Users have ratings that are visible in several locations. These are affected by different features. Hosts are rated on my attendees, attendees ratings are based on their attendence. Baseline
+*Adding functionality to create event buttons: Nick
+*Creating UI for attendee workflow: Kristin
+*Add ratings to current UI: AK
+*Add ratings to database: Timothy
+*Get events from database: Connor
+*Trying to understand Espresso, general tech assistance: Anish
 
-By 2/29/16: Hosts can push notifications, attendees can communicate with others in each event in a chat room system.
+By 3/7/16: Hosts can push notifications, attendees can communicate with others in each event in a chat room system.
 *GUI for chat system and notifications: Nick, Kristin, AK
 *Backend for chat system and notifications: Connor, Timothy
 *Integrating chat components and notifications: Anish
 
-By 3/7/16: Keep on polishing previous features/ dealing with delays
 By 3/14/16: Keep on polishing previous features/ dealing with delays
 Roles depend on what comes up
