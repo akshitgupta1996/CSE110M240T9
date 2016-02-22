@@ -1,5 +1,7 @@
 package ucsd.fungineers.eventhunters;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -24,8 +26,6 @@ public class CreateEvent extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.createevent);
-        //Button mBtn1 = (Button) findViewById(R.id.button4);
-        //mBtn1.setOnClickListener(this);
 
     }
 
@@ -35,6 +35,8 @@ public class CreateEvent extends AppCompatActivity {
         if (button_name.equals("Add Event")) {
             Log.i("clicks", "Add Event");
 
+
+/*
             LinearLayout l = (LinearLayout) findViewById(R.id.base);
             for (int i = 0; i < l.getChildCount(); i++) {
                 if(l.getChildAt(i) instanceof TextView)
@@ -49,7 +51,7 @@ public class CreateEvent extends AppCompatActivity {
                 {
 
                 }
-            }
+            }*/
 
             EditText eventName = (EditText) findViewById(R.id.field_Name);
             EditText eventDate = (EditText) findViewById(R.id.field_Data);
@@ -59,19 +61,39 @@ public class CreateEvent extends AppCompatActivity {
             EditText eventDescription = (EditText) findViewById(R.id.field_Description);
 
 
-            Intent i = new Intent(this, Event_Status.class);
+            final Intent i = new Intent(this, Event_Status.class);
 
 
             i.putExtra("eventName",eventName.getText().toString());
             i.putExtra("eventDate",eventDate.getText().toString());
             i.putExtra("eventLocation",eventLocation.getText().toString());
-            i.putExtra("eventGenre",eventGenre.getSelectedItem().toString());
+            i.putExtra("eventGenre", eventGenre.getSelectedItem().toString());
+
             int radioId = eventRestriction.getCheckedRadioButtonId();
+
             RadioButton selectedID = (RadioButton)findViewById(radioId);
             i.putExtra("eventRestriction",selectedID.getText().toString());
-            i.putExtra("eventDescription",eventDescription.getText().toString());
+            i.putExtra("eventDescription", eventDescription.getText().toString());
+            DialogInterface.OnClickListener clickListener = new DialogInterface.OnClickListener()
+            {
+                    public void onClick(DialogInterface d, int id) {
+                        switch(id) {
+                            case DialogInterface.BUTTON_POSITIVE:
+                                startActivity(i);
+                                break;
+                            case DialogInterface.BUTTON_NEGATIVE:
+                                break;
+                        }
+                    }
+            };
+            AlertDialog.Builder b = new AlertDialog.Builder(this);
+            b.setMessage("Are you sure you want to create this event?")
+                    .setTitle("Create Event")
+                    .setPositiveButton("Yes", clickListener)
+                    .setNegativeButton("No", clickListener)
+                    .show();
 
-            startActivity(i);
+
         }
     }
 }
