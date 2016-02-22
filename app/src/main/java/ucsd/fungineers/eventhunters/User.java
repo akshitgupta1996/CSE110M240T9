@@ -56,10 +56,6 @@ public class User {
 
     }
 
-    public User(String userID) {
-
-    }
-
     /**
      * Creates a user object out of a parse user
      * @param user The ParseUser passed in
@@ -71,42 +67,43 @@ public class User {
 
     }
 
+    /**
+     * Sets the name of the user
+     * @param name New user name
+     */
     public void setName(String name) {
 
         this.name = name;
 
     }
 
+    /**
+     * Gets the name of the user
+     * @return Name of user
+     */
     public String getName() {
 
         return name;
     }
 
+    /**
+     * Sets the ID of the user
+     * @param userID New user ID
+     */
     public void setUserID(String userID) {
         this.userID = userID;
     }
 
+    /**
+     * Gets the ID of the user
+     * @return ID of user
+     */
     public String getUserID() {
 
         return userID;
 
     }
-
-    public boolean createEvent() {
-        //Event ev = new Event(new ArrayList<User>(), this, 10, RestrictionStatus.NO_RESTRICTIONS, Genre.PARTY, "Test Event");
-        //Main.system.tempEventList.add(ev);
-
-        //Use Main.System to update the list.
-        return true;
-    }
-
-    public boolean createEvent(RestrictionStatus r, Genre g, String name) {
-        //Event ev = new Event(new ArrayList<User>(), this, 10, r, g, name);
-        //Main.system.tempEventList.add(ev);
-
-        //Use Main.System to update the list.
-        return true;
-    }
+    
 
     /**
      * This method adds this attendee to the event, provided their restriction level is adequate.
