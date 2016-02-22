@@ -2,6 +2,8 @@ package ucsd.fungineers.eventhunters;
 
 import android.util.Log;
 
+import com.parse.ParseUser;
+
 import java.util.ArrayList;
 
 /**
@@ -14,7 +16,7 @@ public class User {
     String name;
 
     //The id that the user has in the database.
-    int userID;
+    String userID;
 
     //Upcoming events this user is hosting.
     ArrayList<Event> hostEventList;
@@ -40,9 +42,11 @@ public class User {
      * @param userID
      */
     public User(String name,
-                int userID) {
-        this.name = name;
-        this.userID = userID;
+                String userID) {
+
+        setName(name);
+        setUserID(userID);
+
     }
 
     /**
@@ -52,7 +56,39 @@ public class User {
 
     }
 
-    public User(int userID) {
+    public User(String userID) {
+
+    }
+
+    /**
+     * Creates a user object out of a parse user
+     * @param user The ParseUser passed in
+     */
+    public User(ParseUser user) {
+
+        setName((String) user.get("Name"));
+        setUserID((String) user.get("UserID"));
+
+    }
+
+    public void setName(String name) {
+
+        this.name = name;
+
+    }
+
+    public String getName() {
+
+        return name;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
+    }
+
+    public String getUserID() {
+
+        return userID;
 
     }
 
