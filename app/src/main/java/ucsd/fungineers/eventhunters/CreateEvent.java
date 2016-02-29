@@ -1,6 +1,9 @@
 package ucsd.fungineers.eventhunters;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,19 +12,32 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
-/**
- * Created by Nick on 2/15/2016.
- */
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
+
+
 public class CreateEvent extends AppCompatActivity {
 
+    private static final String TAG = CreateEvent.class.getSimpleName();
+    private TextView mDatePicker;
+    private TextView mTimePicker;
+
+    private Calendar mDate;
+    private Calendar mTimerDate;
+    private static final SimpleDateFormat mDateFormat = new SimpleDateFormat("EEE, dd MMM yyyy", Locale.US);
+    private static final SimpleDateFormat mTimeFormat = new SimpleDateFormat("h:mm aa",Locale.US);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +52,38 @@ public class CreateEvent extends AppCompatActivity {
             }
             }
         });*/
+
+        initDateAndTimePickers();
     }
 
+    private void initDateAndTimePickers() {
+        mDatePicker = (TextView) findViewById(R.id.create_event_date_picker);
+        mDate = Calendar.getInstance();
+        mDatePicker.setText(mDateFormat.format(mDate.getTime()));
+
+        mDatePicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                hideKeyboard();
+                showDatePickerDialog();
+            }
+        });
+
+
+        mTimePicker = (TextView) findViewById(R.id.create_event_time_picker);
+        // TODO set the default value for the time in mDate and update the time picker's text
+        mDate = Calendar.getInstance();
+        mTimePicker.setText(mTimeFormat.format(mDate.getTime()));
+
+
+        mTimePicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                hideKeyboard();
+                showTimePickerDialog();
+            }
+        });
+    }
 
     public void button_Click(View view) {
 
@@ -64,7 +110,8 @@ public class CreateEvent extends AppCompatActivity {
             }*/
 
             EditText eventName = (EditText) findViewById(R.id.field_Name);
-            EditText eventDate = (EditText) findViewById(R.id.field_Data);
+            // TODO add checks for date
+
             EditText eventLocation = (EditText) findViewById(R.id.field_Location);
             Spinner eventGenre = (Spinner) findViewById(R.id.field_Spinner_Genre);
             RadioGroup eventRestriction = (RadioGroup) findViewById(R.id.radio_Restriction);
@@ -72,7 +119,6 @@ public class CreateEvent extends AppCompatActivity {
             int radioId = eventRestriction.getCheckedRadioButtonId();
             RadioButton selectedID = (RadioButton) findViewById(radioId);
             if (selectedID != null
-                    && !eventDate.getText().toString().isEmpty()
                     && !eventName.getText().toString().isEmpty()
                     && !eventLocation.getText().toString().isEmpty()
                     && !eventGenre.getSelectedItem().toString().equals("Genre")
@@ -83,7 +129,6 @@ public class CreateEvent extends AppCompatActivity {
                 final Intent i = new Intent(this, Event_Status.class);
 
                 i.putExtra("eventName", eventName.getText().toString());
-                i.putExtra("eventDate", eventDate.getText().toString());
                 i.putExtra("eventLocation", eventLocation.getText().toString());
                 i.putExtra("eventGenre", eventGenre.getSelectedItem().toString());
                 i.putExtra("eventRestriction", selectedID.getText().toString());
@@ -121,6 +166,42 @@ public class CreateEvent extends AppCompatActivity {
                         .setNegativeButton("OK", failedclickListener)
                         .show();
             }
+        }
+    }
+
+    private void showDatePickerDialog() {
+        DatePickerDialog dialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                Log.d(TAG, "Date selected: " + dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+                mDate.set(year, monthOfYear, dayOfMonth);
+                mDatePicker.setText(mDateFormat.format(mDate.getTimeInMillis()));
+            }
+        }, mDate.get(Calendar.YEAR), mDate.get(Calendar.MONTH), mDate.get(Calendar.DAY_OF_MONTH));
+        dialog.getDatePicker().setMinDate(Calendar.getInstance().getTimeInMillis());
+        dialog.show();
+    }
+
+    private void showTimePickerDialog() {
+        // TODO
+
+        TimePickerDialog timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener(){
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                Log.d(TAG, "Time selected: " + hourOfDay + ":" + minute);
+                mDate.set(mDate.get(Calendar.YEAR), mDate.get(Calendar.MONTH), mDate.get(Calendar.DAY_OF_MONTH), hourOfDay, minute);
+                mTimePicker.setText(mTimeFormat.format(mDate.getTimeInMillis()));
+            }
+        }, mDate.get(Calendar.HOUR_OF_DAY), mDate.get(Calendar.MINUTE), false);
+        timePickerDialog.show();
+    }
+
+
+    private void hideKeyboard() {
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }
 }
