@@ -27,37 +27,7 @@ public class User {
     //What the status of the users age is. Hosts cannot make events that are higher restriction
     RestrictionStatus restrictionStatus;
 
-    public float getHostRating() {
-        return hostRating;
-    }
 
-    public void setHostRating(float hostRating) {
-        this.hostRating = hostRating;
-    }
-
-    public int getTotalHostVotes() {
-        return totalHostVotes;
-    }
-
-    public void setTotalHostVotes(int totalHostVotes) {
-        this.totalHostVotes = totalHostVotes;
-    }
-
-    public float getAttendeeRating() {
-        return attendeeRating;
-    }
-
-    public void setAttendeeRating(float attendeeRating) {
-        this.attendeeRating = attendeeRating;
-    }
-
-    public int getTotalAttendeeVotes() {
-        return totalAttendeeVotes;
-    }
-
-    public void setTotalAttendeeVotes(int totalAttendeeVotes) {
-        this.totalAttendeeVotes = totalAttendeeVotes;
-    }
 
     //Rating of the user as a host
     float hostRating;
@@ -171,6 +141,38 @@ public class User {
 
         return attendeeEventList;
 
+    }
+
+    public float getHostRating() {
+        return hostRating;
+    }
+
+    public void setHostRating(float hostRating) {
+        this.hostRating = hostRating;
+    }
+
+    public int getTotalHostVotes() {
+        return totalHostVotes;
+    }
+
+    public void setTotalHostVotes(int totalHostVotes) {
+        this.totalHostVotes = totalHostVotes;
+    }
+
+    public float getAttendeeRating() {
+        return attendeeRating;
+    }
+
+    public void setAttendeeRating(float attendeeRating) {
+        this.attendeeRating = attendeeRating;
+    }
+
+    public int getTotalAttendeeVotes() {
+        return totalAttendeeVotes;
+    }
+
+    public void setTotalAttendeeVotes(int totalAttendeeVotes) {
+        this.totalAttendeeVotes = totalAttendeeVotes;
     }
 
 
