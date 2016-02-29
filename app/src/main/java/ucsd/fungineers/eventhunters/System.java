@@ -138,17 +138,13 @@ public class System {
                 } else if (user.isNew()) {
                     Log.d("MyApp", "User signed up and logged in through Facebook!");
                     //TODO: Initialize Fields
-                    currentUser = user;
-                    currentUser.put(System.attendingEvents, new ArrayList<String>());
-                    currentUser.put(System.hostingEvents, new ArrayList<String>());
-                    currentUser.put(System.attendeeRating,0);
-                    currentUser.put(System.hostRating,0);
-                    currentUser.put(System.totalAttendeeRatingVotes,0);
-                    currentUser.put(System.totalHostRatingVotes,0);
-                    currentUser.saveInBackground();
                     currentParseUser = user;
                     currentParseUser.put(System.attendingEvents, new ArrayList<Integer>());
                     currentParseUser.put(System.hostingEvents, new ArrayList<Integer>());
+                    currentParseUser.put(System.attendeeRating, 0);
+                    currentParseUser.put(System.hostRating,0);
+                    currentParseUser.put(System.totalAttendeeRatingVotes,0);
+                    currentParseUser.put(System.totalHostRatingVotes,0);
                     currentParseUser.saveInBackground();
                     currentUser = new User(currentParseUser);
                 } else {
