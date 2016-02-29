@@ -5,6 +5,7 @@ import com.parse.ParseObject;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class Event {
 
@@ -21,7 +22,7 @@ public class Event {
     private ArrayList<String> attendees;
 
     //date and time of the event
-    private Date date;
+    private GregorianCalendar date;
 
     //How restricted an event is. Check for explanation in User.java
     private RestrictionStatus restrictionStatus;
@@ -37,7 +38,7 @@ public class Event {
 
     public Event (ArrayList<String> attendees, String hostID,
                   RestrictionStatus restrictionStatus, Genre genre, String name,
-                  String description, Date date) {
+                  String description, GregorianCalendar date) {
 
         setAttendees(attendees);
         setHost(hostID);
@@ -51,14 +52,19 @@ public class Event {
 
     public Event (ParseObject parseEvent) {
 
-        setEventID((String) parseEvent.get("objectId"));
-        setName((String) parseEvent.get("Name"));
-        setHost((String) parseEvent.get("HostID"));
-        setAttendees((ArrayList<String>) parseEvent.get("AtendeesList"));
-        setDate((Date)parseEvent.get("Date"));
-        setRestrictionStatus((RestrictionStatus)parseEvent.get("Restriction"));
-        setGenre((Genre)parseEvent.get("Genre"));
-        setDescription((String)parseEvent.get("Description"));
+        setEventID((String) parseEvent.get(System.objectId));
+        setName((String) parseEvent.get(System.name));
+        setHost((String) parseEvent.get(System.hostId));
+        setAttendees((ArrayList<String>) parseEvent.get(System.attendeeList));
+        setRestrictionStatus((RestrictionStatus) parseEvent.get(System.restrictionStatus));
+        setGenre((Genre) parseEvent.get(System.genre));
+        setDescription((String) parseEvent.get(System.description));
+
+        //Date is stored in database and converted to GregorianCalendar
+        GregorianCalendar calendar = new GregorianCalendar();
+        calendar.setTime((Date) parseEvent.get(System.date));
+        setDate(calendar);
+
 
     }
 
@@ -154,12 +160,12 @@ public class Event {
 
     }
 
-    public Date getDate()
+    public GregorianCalendar getDate()
     {
         return date;
     }
 
-    public void setDate(Date date)
+    public void setDate(GregorianCalendar date)
     {
         this.date = date;
     }

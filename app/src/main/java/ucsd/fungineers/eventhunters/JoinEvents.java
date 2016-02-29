@@ -13,6 +13,7 @@ public class JoinEvents extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.joinevents);
 
+
     }
 
 

@@ -1,7 +1,6 @@
 package ucsd.fungineers.eventhunters;
 
 import android.app.Activity;
-import android.location.Location;
 import android.util.Log;
 
 import com.facebook.FacebookSdk;
@@ -15,9 +14,7 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -28,9 +25,23 @@ import java.util.List;
  */
 public class System {
 
+    public static String objectId = "objectId";
+    public static String name = "Name";
+    public static String hostId = "HostID";
+    public static String attendeeList = "AttendeesList";
+    public static String date = "Date";
+    public static String restrictionStatus = "Restriction";
+    public static String genre = "Genre";
+    public static String description = "Description";
+
+    public static String attendingEvents = "AttendingEvents";
+    public static String hostingEvents = "HostingEvents";
+
     static System instance;
 
-    static ParseUser currentUser;
+    private ParseUser currentParseUser;
+    public static User currentUser;
+
 
     //If there is a connection to the database, this variable will be true. If not active, any calls
     //will return null.
@@ -114,13 +125,15 @@ public class System {
                     Log.d("MyApp", "Uh oh. The user cancelled the Facebook login.");
                 } else if (user.isNew()) {
                     Log.d("MyApp", "User signed up and logged in through Facebook!");
-                    currentUser = user;
-                    currentUser.put("AttendingEvents", new ArrayList<Integer>());
-                    currentUser.put("HostingEvents", new ArrayList<Integer>());
-                    currentUser.saveInBackground();
+                    currentParseUser = user;
+                    currentParseUser.put(System.attendingEvents, new ArrayList<Integer>());
+                    currentParseUser.put(System.hostingEvents, new ArrayList<Integer>());
+                    currentParseUser.saveInBackground();
+                    currentUser = new User(currentParseUser);
                 } else {
                     Log.d("MyApp", "User logged in through Facebook!");
-                    currentUser = user;
+                    currentParseUser = user;
+                    currentUser = new User(currentParseUser);
                 }
 //                testAddEvent();
 
@@ -133,17 +146,16 @@ public class System {
         List<Integer> array = new ArrayList<Integer>();
         if(type == EventType.ATTENDING)
         {
-            array = currentUser.getList("AttendingEvents");
+            array = currentParseUser.getList(System.attendingEvents);
         }
         else
         {
-            array = currentUser.getList("HostingEvents");
+            array = currentParseUser.getList(System.hostingEvents);
         }
 
 
         return array;
     }
-
 
     /* Adds an event to the currently logged in user
      * @param type Type of event (Hosting or Attending)
@@ -157,13 +169,13 @@ public class System {
 
         if(type == EventType.ATTENDING)
         {
-            currentUser.put("AttendingEvents", array);
+            currentParseUser.put(System.attendingEvents, array);
         }
         else
         {
-            currentUser.put("HostingEvents", array);
+            currentParseUser.put(System.hostingEvents, array);
         }
-        currentUser.saveInBackground();
+        currentParseUser.saveInBackground();
     }
 
     enum EventType {HOSTING, ATTENDING};
@@ -175,13 +187,13 @@ public class System {
     public void createEvent(Event event)
     {
         ParseObject dbEvent = new ParseObject("Events");
-        dbEvent.put("Name", event.getName());
-        dbEvent.put("HostID", event.getHost());
-        dbEvent.put("AttendeesList", event.getAttendees());
-        dbEvent.put("Date", event.getDate());
-        dbEvent.put("Restriction", event.getRestrictionStatus().toString());
-        dbEvent.put("Genre", event.getGenre().toString());
-        dbEvent.put("Description", event.getDescription());
+        dbEvent.put(System.name, event.getName());
+        dbEvent.put(System.hostId, event.getHost());
+        dbEvent.put(System.attendeeList, event.getAttendees());
+        dbEvent.put(System.date, event.getDate());
+        dbEvent.put(System.restrictionStatus, event.getRestrictionStatus().toString());
+        dbEvent.put(System.genre, event.getGenre().toString());
+        dbEvent.put(System.description, event.getDescription());
         dbEvent.saveInBackground();
 
         event.setEventID(dbEvent.getObjectId());
@@ -198,7 +210,7 @@ public class System {
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Events");
 
-        query.whereEqualTo("objectId", id);
+        query.whereEqualTo(System.objectId, id);
 
         List<ParseObject> foundEvent = query.find();
 
@@ -245,7 +257,7 @@ public class System {
 
        ParseQuery<ParseUser> query = ParseUser.getQuery();
 
-        query.whereEqualTo("objectId", userId);
+        query.whereEqualTo(System.objectId, userId);
 
         List<ParseUser> foundUser = query.find();
 
@@ -255,7 +267,7 @@ public class System {
 
         }
 
-        List<Event> eventList = (List<Event>)foundUser.get(0).get("AttendingEvents");
+        List<Event> eventList = (List<Event>)foundUser.get(0).get(System.attendingEvents);
 
         return eventList;
 
@@ -271,7 +283,7 @@ public class System {
 
         ParseQuery<ParseUser> query = ParseUser.getQuery();
 
-        query.whereEqualTo("objectId", userId);
+        query.whereEqualTo(System.objectId, userId);
 
         List<ParseUser> foundUser = query.find();
 
@@ -281,7 +293,7 @@ public class System {
 
         }
 
-        List<Event> eventList = (List<Event>)foundUser.get(0).get("HostingEvents");
+        List<Event> eventList = (List<Event>)foundUser.get(0).get(System.hostingEvents);
 
         return eventList;
 
@@ -297,7 +309,7 @@ public class System {
 
         ParseQuery<ParseUser> query = ParseUser.getQuery();
 
-        query.whereEqualTo("objectId", userId);
+        query.whereEqualTo(System.objectId, userId);
 
         List<ParseUser> foundUser = query.find();
 
@@ -310,6 +322,56 @@ public class System {
         User userToReturn = new User(foundUser.get(0));
 
         return userToReturn;
+
+    }
+
+    public void updateUser(User userToUpdate) throws ParseException {
+
+        ParseQuery<ParseUser> query = ParseUser.getQuery();
+
+        query.whereEqualTo("objectId", userToUpdate.getUserID());
+
+        List<ParseUser> loadedUsers = query.find();
+
+        if (loadedUsers == null) {
+
+            return;
+
+        }
+
+        ParseUser loadedUser = loadedUsers.get(0);
+
+        loadedUser.put(System.objectId, userToUpdate.getUserID());
+        loadedUser.put(System.name, userToUpdate.getName());
+        loadedUser.put(System.attendingEvents, userToUpdate.getAttendeeEventList());
+        loadedUser.put(System.hostingEvents, userToUpdate.getHostEventList());
+
+    }
+
+    public void updateEvent(Event eventToUpdate) throws ParseException {
+
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Events");
+
+        query.whereEqualTo(System.objectId, eventToUpdate.getEventID());
+
+        List<ParseObject> loadedEvents = query.find();
+
+        if (loadedEvents == null) {
+
+            return;
+
+        }
+
+        ParseObject loadedEvent = loadedEvents.get(0);
+
+        loadedEvent.put(System.objectId, eventToUpdate.getEventID());
+        loadedEvent.put(System.name, eventToUpdate.getName());
+        loadedEvent.put(System.hostId, eventToUpdate.getHost());
+        loadedEvent.put(System.attendeeList, eventToUpdate.getAttendees());
+        loadedEvent.put(System.date, eventToUpdate.getDate());
+        loadedEvent.put(System.restrictionStatus, eventToUpdate.getRestrictionStatus());
+        loadedEvent.put(System.genre, eventToUpdate.getGenre());
+        loadedEvent.put(System.description, eventToUpdate.getDescription());
 
     }
 
