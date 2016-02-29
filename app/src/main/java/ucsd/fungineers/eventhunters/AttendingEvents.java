@@ -23,8 +23,6 @@ public class AttendingEvents extends Activity implements OnItemClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.attendingevents);
 
-        Event eventOne = new Event()
-
         String[] attendEventsArray={"Chill Party","Movie Night at Connors","Get Drunk", "Eat Ice Cream", "Lunar New Year", "Go Eat Sushi", "Blah", "Blah Blah", "Board Games", "Hi", "Bye", "This is a scroll test", "Scroll more"};
         ArrayAdapter<String> attendeeEvents=new
                 ArrayAdapter<>(

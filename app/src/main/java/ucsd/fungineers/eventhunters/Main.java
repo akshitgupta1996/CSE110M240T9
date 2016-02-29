@@ -37,6 +37,7 @@ public class Main extends AppCompatActivity {
         attendees.add("bbbb");
         attendees.add("ccccc");
         Date date = new Date();
+
 /*
         //Parse.enableLocalDatastore(this);
         Parse.initialize(this);

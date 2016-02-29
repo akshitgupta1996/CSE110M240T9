@@ -39,4 +39,12 @@
 
     <!-- Utilized in attendingevents.xml-->
     <string name="event_find">Find Events</string>
+    <string name="label_add_event">Add Event</string>
+    <string name="label_name">Name</string>
+    <string name="label_date">Date</string>
+    <string name="label_location">Location</string>
+    <string name="label_no_restrictions">No Restrictions</string>
+    <string name="label_18_plus">18+ Only</string>
+    <string name="label_21_plus">21+ Only</string>
+    <string name="label_event_description">Event Description</string>
 </resources>
