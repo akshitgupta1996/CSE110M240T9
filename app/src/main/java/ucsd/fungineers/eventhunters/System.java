@@ -456,14 +456,9 @@ public class System {
             user.hostRating = newRating;
             user.totalHostVotes++;
         }
+        //TODO: update user in database;
 
-        
-
-
-
-
-
-
+        return;
 
 
     }
