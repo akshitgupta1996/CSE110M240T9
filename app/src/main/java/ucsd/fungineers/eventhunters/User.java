@@ -103,7 +103,7 @@ public class User {
         return userID;
 
     }
-    
+
 
     /**
      * This method adds this attendee to the event, provided their restriction level is adequate.

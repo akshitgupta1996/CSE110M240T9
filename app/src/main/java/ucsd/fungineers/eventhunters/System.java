@@ -32,8 +32,6 @@ public class System {
 
     static ParseUser currentUser;
 
-
-
     //If there is a connection to the database, this variable will be true. If not active, any calls
     //will return null.
     boolean connectionEstablished = false;
@@ -60,10 +58,6 @@ public class System {
             fbLogin(activity);
         }
         instance = this;
-
-
-
-
 
     }
 
@@ -224,11 +218,20 @@ public class System {
      * @param restrictionStatus Restriction status of events to get
      * @return A list of events matching the restriction status
      */
-    public List<Event> getAllEvents(RestrictionStatus restrictionStatus) {
+    public List<Event> getAllEvents(RestrictionStatus restrictionStatus) throws ParseException {
 
+      ParseQuery<ParseObject> query = ParseQuery.getQuery("Events");
+      List<ParseObject> allEventObjects = query.find();
 
-      return null;
+      List<Event> allEvents = new ArrayList<Event>();
 
+      for (int eventIndex = 0; eventIndex < allEventObjects.size(); eventIndex++) {
+
+          allEvents.add(new Event(allEventObjects.get(eventIndex)));
+
+      }
+
+      return allEvents;
 
     }
 
