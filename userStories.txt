@@ -12,12 +12,14 @@ I want to be able to create events with a description, other information, date
 So that people near me can come to them.
 Time to complete: 5 days
 Priority: High
+Almost complete! Currently assigned: Nick
 
 As a host
 I want to see attendee ratings
 So that I know if they're likely to come or not.
 Time to complete: 4 days
 Priority: Medium
+Starting progress. Currently assigned: Tim
 
 As a host
 I want to be able to remove attendees
@@ -68,24 +70,7 @@ I want to find nearby events
 So that I can attend local happenings
 Time to complete: 5 days
 Priority: High
-
-As an attendee
-I want to create a carpool
-So that I can provide others a means of transportation
-Time to complete: 5 days
-Priority: Low
-
-As an attendee
-I want to join a carpool
-So that I can go to events even without a car
-Time to complete: 5 days
-Priority: Low
-
-As an attendee
-I want to communicate with other users in a chat room
-So that we can discuss the event
-Time to complete: 5 days
-Priority: Low
+Almost complete! Currently Assigned: Kristin
 
 As an attendee
 I want to rate the host of an event
@@ -105,6 +90,26 @@ So that I'm not penalized for missing an event I couldn't go to
 Time to complete: 1 day
 Priority: Medium
 
+As an attendee
+I want to create a carpool
+So that I can provide others a means of transportation
+Time to complete: 5 days
+Priority: Low
+
+As an attendee
+I want to join a carpool
+So that I can go to events even without a car
+Time to complete: 5 days
+Priority: Low
+
+As an attendee
+I want to communicate with other users in a chat room
+So that we can discuss the event
+Time to complete: 5 days
+Priority: Low
+
+
+
 -----USER-----2-----
 
 As a user
@@ -112,9 +117,11 @@ I want to login with Facebook
 So that my information and events are saved
 Time to complete: 5 days
 Priority: High
+Completed!
 
 As a user
 I want to see details of an event
 So that I know enough information about what I'm attending
 Time to complete: 3 days
 Priority: High
+In progress. Currently Assigned: Kristin

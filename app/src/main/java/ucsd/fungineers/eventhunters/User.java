@@ -2,6 +2,8 @@ package ucsd.fungineers.eventhunters;
 
 import android.util.Log;
 
+import com.parse.ParseUser;
+
 import java.util.ArrayList;
 
 /**
@@ -14,7 +16,7 @@ public class User {
     String name;
 
     //The id that the user has in the database.
-    int userID;
+    String userID;
 
     //Upcoming events this user is hosting.
     ArrayList<Event> hostEventList;
@@ -40,9 +42,11 @@ public class User {
      * @param userID
      */
     public User(String name,
-                int userID) {
-        this.name = name;
-        this.userID = userID;
+                String userID) {
+
+        setName(name);
+        setUserID(userID);
+
     }
 
     /**
@@ -52,25 +56,54 @@ public class User {
 
     }
 
-    public User(int userID) {
+    /**
+     * Creates a user object out of a parse user
+     * @param user The ParseUser passed in
+     */
+    public User(ParseUser user) {
+
+        setName((String) user.get("Name"));
+        setUserID((String) user.get("UserID"));
 
     }
 
-    public boolean createEvent() {
-        //Event ev = new Event(new ArrayList<User>(), this, 10, RestrictionStatus.NO_RESTRICTIONS, Genre.PARTY, "Test Event");
-        //Main.system.tempEventList.add(ev);
+    /**
+     * Sets the name of the user
+     * @param name New user name
+     */
+    public void setName(String name) {
 
-        //Use Main.System to update the list.
-        return true;
+        this.name = name;
+
     }
 
-    public boolean createEvent(RestrictionStatus r, Genre g, String name) {
-        //Event ev = new Event(new ArrayList<User>(), this, 10, r, g, name);
-        //Main.system.tempEventList.add(ev);
+    /**
+     * Gets the name of the user
+     * @return Name of user
+     */
+    public String getName() {
 
-        //Use Main.System to update the list.
-        return true;
+        return name;
     }
+
+    /**
+     * Sets the ID of the user
+     * @param userID New user ID
+     */
+    public void setUserID(String userID) {
+        this.userID = userID;
+    }
+
+    /**
+     * Gets the ID of the user
+     * @return ID of user
+     */
+    public String getUserID() {
+
+        return userID;
+
+    }
+
 
     /**
      * This method adds this attendee to the event, provided their restriction level is adequate.

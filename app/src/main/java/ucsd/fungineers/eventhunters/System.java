@@ -32,8 +32,6 @@ public class System {
 
     static ParseUser currentUser;
 
-
-
     //If there is a connection to the database, this variable will be true. If not active, any calls
     //will return null.
     boolean connectionEstablished = false;
@@ -60,10 +58,6 @@ public class System {
             fbLogin(activity);
         }
         instance = this;
-
-
-
-
 
     }
 
@@ -134,7 +128,7 @@ public class System {
         });
     }
 
-    public List<Integer> getEvents (EventType type)
+    public List<Integer> getEventsFromUser (EventType type)
     {
         List<Integer> array = new ArrayList<Integer>();
         if(type == EventType.ATTENDING)
@@ -150,9 +144,14 @@ public class System {
         return array;
     }
 
-    public void addEvents (EventType type, int eventID)
+
+    /* Adds an event to the currently logged in user
+     * @param type Type of event (Hosting or Attending)
+     * @param eventID ID of event
+     */
+    public void addEventsToUser (EventType type, int eventID)
     {
-        List<Integer> array = getEvents(type);
+        List<Integer> array = getEventsFromUser(type);
 
         array.add(eventID);
 
@@ -169,6 +168,10 @@ public class System {
 
     enum EventType {HOSTING, ATTENDING};
 
+    /**
+     * Creates an event in the database based on an Event object
+     * @param event event to create a ParseObject from and put in database
+     */
     public void createEvent(Event event)
     {
         ParseObject dbEvent = new ParseObject("Events");
@@ -185,8 +188,13 @@ public class System {
 
     }
 
+    /**
+     * Gets an event from the database, based on an ID
+     * @param id ID of event to get
+     * @return Event Object created from ParseObject
+     * @throws ParseException
+     */
     public Event getEvent(String id) throws ParseException {
-
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Events");
 
@@ -205,13 +213,117 @@ public class System {
         return eventToReturn;
     }
 
-    public void deleteEvent(Event eventToDelete) {
+    /**
+     * Gets all events matching the restriction status
+     * @param restrictionStatus Restriction status of events to get
+     * @return A list of events matching the restriction status
+     */
+    public List<Event> getAllEvents(RestrictionStatus restrictionStatus) throws ParseException {
+
+      ParseQuery<ParseObject> query = ParseQuery.getQuery("Events");
+      List<ParseObject> allEventObjects = query.find();
+
+      List<Event> allEvents = new ArrayList<Event>();
+
+      for (int eventIndex = 0; eventIndex < allEventObjects.size(); eventIndex++) {
+
+          allEvents.add(new Event(allEventObjects.get(eventIndex)));
+
+      }
+
+      return allEvents;
+
+    }
+
+    /**
+     * Gets a list of events that a user is attending
+     * @param userId ID of user to get attending events from
+     * @return List of events that the user is attending
+     * @throws ParseException
+     */
+    public List<Event> getAttendingEventsByUser(String userId) throws ParseException {
+
+       ParseQuery<ParseUser> query = ParseUser.getQuery();
+
+        query.whereEqualTo("objectId", userId);
+
+        List<ParseUser> foundUser = query.find();
+
+        if (foundUser == null) {
+
+            return null;
+
+        }
+
+        List<Event> eventList = (List<Event>)foundUser.get(0).get("AttendingEvents");
+
+        return eventList;
+
+    }
+
+    /**
+     * Get's a list of events that a user is hosting
+     * @param userId ID of user to get events from
+     * @return List of events that the user is hosting
+     * @throws ParseException
+     */
+    public List<Event> getHostingEventsByUser(String userId) throws ParseException {
+
+        ParseQuery<ParseUser> query = ParseUser.getQuery();
+
+        query.whereEqualTo("objectId", userId);
+
+        List<ParseUser> foundUser = query.find();
+
+        if (foundUser == null) {
+
+            return null;
+
+        }
+
+        List<Event> eventList = (List<Event>)foundUser.get(0).get("HostingEvents");
+
+        return eventList;
+
+    }
+
+    /**
+     * Gets a user from the database, based on a user ID
+     * @param userId ID of user to retreive from database
+     * @return A user Object created from the parse user
+     * @throws ParseException
+     */
+    public User getUser(String userId) throws ParseException {
+
+        ParseQuery<ParseUser> query = ParseUser.getQuery();
+
+        query.whereEqualTo("objectId", userId);
+
+        List<ParseUser> foundUser = query.find();
+
+        if (foundUser == null) {
+
+            return null;
+
+        }
+
+        User userToReturn = new User(foundUser.get(0));
+
+        return userToReturn;
+
+    }
+
+    /**
+     * Deletes an event from the database
+     * @param eventId Event id to delete from database
+     */
+    public void deleteEvent(String eventId) {
 
         //create a new parse query for events
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Events");
 
         //query events with an id that match id to delete
-        query.whereEqualTo("objectId", eventToDelete.getEventID());
+        query.whereEqualTo("objectId", eventId);
 
         //get the first matching item
         query.findInBackground(new FindCallback<ParseObject>() {
@@ -247,10 +359,10 @@ public class System {
 
     public void testAddEvent() {
         Log.d("test", "add event");
-        addEvents(EventType.HOSTING, 23);
-        addEvents(EventType.HOSTING, 45);
-        addEvents(EventType.ATTENDING, 86);
-        addEvents(EventType.ATTENDING, 24);
+        addEventsToUser(EventType.HOSTING, 23);
+        addEventsToUser(EventType.HOSTING, 45);
+        addEventsToUser(EventType.ATTENDING, 86);
+        addEventsToUser(EventType.ATTENDING, 24);
 
 
     }
