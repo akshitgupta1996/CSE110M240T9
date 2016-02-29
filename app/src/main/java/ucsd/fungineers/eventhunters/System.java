@@ -122,7 +122,7 @@ public class System {
                     Log.d("MyApp", "User logged in through Facebook!");
                     currentUser = user;
                 }
-                testAddEvent();
+//                testAddEvent();
 
             }
         });

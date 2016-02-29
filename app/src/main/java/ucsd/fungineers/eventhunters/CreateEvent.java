@@ -35,7 +35,7 @@ public class CreateEvent extends AppCompatActivity {
     private TextView mTimePicker;
 
     private Calendar mDate;
-    private Calendar mTimerDate;
+    //private Calendar mTimerDate;
     private static final SimpleDateFormat mDateFormat = new SimpleDateFormat("EEE, dd MMM yyyy", Locale.US);
     private static final SimpleDateFormat mTimeFormat = new SimpleDateFormat("h:mm aa",Locale.US);
 
