@@ -29,9 +29,11 @@ public class User {
 
     //Rating of the user as a host
     float hostRating;
+    int totalHostVotes;
 
     //Rating of the user as an attendee
     float attendeeRating;
+    int totalAttendeeVotes;
 
     //Other misc data? Photo? Description? Birthday?
 

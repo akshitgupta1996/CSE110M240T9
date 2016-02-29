@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+
 /**
  * This class will communicate with the database and will be how to go from id to object.
  * Remember how the last PA, the tree on disk worked for CSE 12? It'll be kinda like that.
@@ -39,6 +40,8 @@ public class System {
 
     public static String attendingEvents = "AttendingEvents";
     public static String hostingEvents = "HostingEvents";
+
+    final int MAX_SCORE = 5;
 
 
     static System instance;
@@ -428,6 +431,57 @@ public class System {
 
 
     }
+
+    public void rateUser(User user, int rating, RatingType type)
+    {
+        float total;
+        float newRating;
+        if(type == RatingType.ATTENDEE)
+        {
+            total = user.attendeeRating * user.totalAttendeeVotes;
+        }
+        else
+        {
+            total = user.hostRating * user.totalHostVotes;
+        }
+        newRating = (total + rating)/MAX_SCORE;
+
+        if(type == RatingType.ATTENDEE)
+        {
+            user.attendeeRating = newRating;
+            user.totalAttendeeVotes++;
+        }
+        else
+        {
+            user.hostRating = newRating;
+            user.totalHostVotes++;
+        }
+
+        
+
+
+
+
+
+
+
+
+    }
+
+    enum RatingType {
+        HOST(0), ATTENDEE(1);
+
+        private final int value;
+        private RatingType(int value) {
+            this.value = value;
+        }
+
+        public int getValue() {
+            return value;
+        }
+    }
+
+
 
 
 }
