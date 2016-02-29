@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/event_status">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:orientation="horizontal"
@@ -15,20 +14,24 @@
         <android.support.v7.widget.AppCompatButton
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Edit Event"
+            android:text="Going"
             android:onClick="button_Click"
-            android:id="@+id/editEvent"
+            android:id="@+id/attendeeGoingEvent"
             android:layout_weight="1"
-            style="@style/Base.Widget.AppCompat.Button.Colored"/>
+            style="@style/Base.Widget.AppCompat.Button.Colored"
+            android:textColor="#ffffff"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"/>
 
-        <android.support.v7.widget.AppCompatButton
+        <!--android.support.v7.widget.AppCompatButton
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Delete Event"
+            android:text="Not Going"
             android:onClick="button_Click"
-            android:id="@+id/deleteEvent"
+            android:id="@+id/attendeeNotGoingEvent"
             android:layout_weight="1"
-            style="@style/Base.Widget.AppCompat.Button.Colored"/>
+            style="@style/Base.Widget.AppCompat.Button.Colored"
+            android:textColor="#ffffff"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"/-->
     </LinearLayout>
 
     <LinearLayout
@@ -38,7 +41,8 @@
         android:layout_weight="2"
         android:id="@+id/fields"
         android:contextClickable="false"
-        android:layout_marginLeft="5dp">
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="10dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -87,6 +91,7 @@
             android:text="Description: "
             android:id="@+id/data_Description"
             android:layout_weight=".6" />
+        
         <RatingBar
             android:id="@+id/rating"
             android:isIndicator="false"
@@ -95,8 +100,8 @@
             android:rating="4.0"
             android:layout_width="wrap_content"
             android:layout_gravity="center"
-            android:layout_height="wrap_content">
-        </RatingBar>
+            android:layout_height="wrap_content"/>
+
     </LinearLayout>
 
     <LinearLayout
@@ -114,7 +119,9 @@
             android:onClick="button_Click"
             android:id="@+id/button6"
             android:layout_weight="1"
-            style="@style/Base.Widget.AppCompat.Button.Colored"/>
+            style="@style/Base.Widget.AppCompat.Button.Colored"
+            android:textColor="#ffffff"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"/>
 
         <android.support.v7.widget.AppCompatButton
             android:layout_width="fill_parent"
@@ -123,6 +130,9 @@
             android:onClick="button_Click"
             android:id="@+id/button7"
             android:layout_weight="1"
-            style="@style/Base.Widget.AppCompat.Button.Colored"/>
+            style="@style/Base.Widget.AppCompat.Button.Colored"
+            android:textColor="#ffffff"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"/>
     </LinearLayout>
+
 </LinearLayout>

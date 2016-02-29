@@ -13,9 +13,11 @@ import com.parse.ParseFacebookUtils;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 /**
  * This class will communicate with the database and will be how to go from id to object.
@@ -36,6 +38,17 @@ public class System {
 
     public static String attendingEvents = "AttendingEvents";
     public static String hostingEvents = "HostingEvents";
+
+    public static String attendeeRating = "AttendeeRating";
+    public static String totalAttendeeRatingVotes = "TotalAttendeeRatingVotes";
+
+    public static String hostRating = "HostRating";
+    public static String totalHostRatingVotes = "TotalHostRatingVotes";
+
+
+
+    final int MAX_SCORE = 5;
+
 
     static System instance;
 
@@ -125,20 +138,41 @@ public class System {
                     Log.d("MyApp", "Uh oh. The user cancelled the Facebook login.");
                 } else if (user.isNew()) {
                     Log.d("MyApp", "User signed up and logged in through Facebook!");
+                    //TODO: Initialize Fields
                     currentParseUser = user;
                     currentParseUser.put(System.attendingEvents, new ArrayList<Integer>());
                     currentParseUser.put(System.hostingEvents, new ArrayList<Integer>());
-                    currentParseUser.saveInBackground();
-                    currentUser = new User(currentParseUser);
+                    currentParseUser.put(System.attendeeRating, 0);
+                    currentParseUser.put(System.hostRating,0);
+                    currentParseUser.put(System.totalAttendeeRatingVotes,0);
+                    currentParseUser.put(System.totalHostRatingVotes, 0);
+                    //currentParseUser.saveInBackground();
+                    //currentUser = new User(currentParseUser);
+                    currentParseUser.saveInBackground(new SaveCallback() {
+                        @Override
+                        public void done(ParseException e) {
+                            currentUser
+                        }
+                    });
                 } else {
                     Log.d("MyApp", "User logged in through Facebook!");
                     currentParseUser = user;
                     currentUser = new User(currentParseUser);
                 }
 //                testAddEvent();
+                testAddRating();
 
             }
         });
+    }
+
+    private void testAddRating()
+    {
+        try {
+            rateUser(currentUser,3,RatingType.ATTENDEE);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     public List<Integer> getEventsFromUser (EventType type)
@@ -345,7 +379,10 @@ public class System {
         loadedUser.put(System.name, userToUpdate.getName());
         loadedUser.put(System.attendingEvents, userToUpdate.getAttendeeEventList());
         loadedUser.put(System.hostingEvents, userToUpdate.getHostEventList());
-
+        loadedUser.put(System.attendeeRating,userToUpdate.getAttendeeRating());
+        loadedUser.put(System.totalAttendeeRatingVotes,userToUpdate.getTotalAttendeeVotes());
+        loadedUser.put(System.hostRating,userToUpdate.getHostRating());
+        loadedUser.put(System.totalHostRatingVotes,userToUpdate.getTotalHostVotes());
     }
 
     public void updateEvent(Event eventToUpdate) throws ParseException {
@@ -428,6 +465,50 @@ public class System {
 
 
     }
+
+    public void rateUser(User user, int rating, RatingType type) throws ParseException {
+        float total;
+        float newRating;
+        if(type == RatingType.ATTENDEE)
+        {
+            total = user.attendeeRating * user.totalAttendeeVotes;
+        }
+        else
+        {
+            total = user.hostRating * user.totalHostVotes;
+        }
+        newRating = (total + rating)/MAX_SCORE;
+
+        if(type == RatingType.ATTENDEE)
+        {
+            user.attendeeRating = newRating;
+            user.totalAttendeeVotes++;
+        }
+        else
+        {
+            user.hostRating = newRating;
+            user.totalHostVotes++;
+        }
+
+        updateUser(user);
+
+        return;
+    }
+
+    enum RatingType {
+        HOST(0), ATTENDEE(1);
+
+        private final int value;
+        private RatingType(int value) {
+            this.value = value;
+        }
+
+        public int getValue() {
+            return value;
+        }
+    }
+
+
 
 
 }

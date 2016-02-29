@@ -10,16 +10,16 @@ So that <benefit>
 As a host 
 I want to be able to create events with a description, other information, date
 So that people near me can come to them.
-Time to complete: 5 days
+Time to complete: 2 days
 Priority: High
-Almost complete! Currently assigned: Nick
+Almost complete! Need to link with Database. Currently assigned: Anish
 
 As a host
 I want to see attendee ratings
 So that I know if they're likely to come or not.
 Time to complete: 4 days
 Priority: Medium
-Starting progress. Currently assigned: Tim
+Halfway Done, database setup. Currently assigned: AK
 
 As a host
 I want to be able to remove attendees
@@ -29,7 +29,7 @@ Priority: Medium
 
 As a host
 I want to be able to cancel events
-So that I don't commit to events I can't host
+So that I don't commit to events I can't host
 Time to complete: 2 days
 Priority: Medium
 
@@ -55,13 +55,13 @@ As a host
 I want to be able to choose a genre for my event
 So that relevant people will attend
 Time to complete: 1 days
-Priority: Medium
+Complete!
 
 As a host
 I want to be able to add attendee age and rating restrictions
 So that I can control who attends my event
 Time to complete: 1 day
-Priority: Medium
+Complete!
 
 -----ATTENDEE-----7-----
 
@@ -76,17 +76,17 @@ As an attendee
 I want to rate the host of an event
 So that I share with others my own experience
 Time to complete: 4 days
-Priority: Medium
+In Progress: need to link GUI with database. Priority: Medium. Assigned: Akshit and Tim
 
 As an attendee
-I want to see other people's ratings
-So that I know who I'm attending the event with
+I want to see other people's ratings
+So that I know who I'm attending the event with
 Time to complete: 4 days
-Priority: Medium
+Priority: Low
 
 As an attendee
 I want to cancel my attendance within a reasonable time before the event
-So that I'm not penalized for missing an event I couldn't go to
+So that I'm not penalized for missing an event I couldn't go to
 Time to complete: 1 day
 Priority: Medium
 
@@ -108,7 +108,11 @@ So that we can discuss the event
 Time to complete: 5 days
 Priority: Low
 
-
+As an attendee
+I want to get information about an event without committing to it
+So that the host will have a better idea about who is thinking of attending
+Time to complete: 3 days
+Priority: Very Low
 
 -----USER-----2-----
 
@@ -121,7 +125,7 @@ Completed!
 
 As a user
 I want to see details of an event
-So that I know enough information about what I'm attending
+So that I know enough information about what I'm attending
 Time to complete: 3 days
 Priority: High
 In progress. Currently Assigned: Kristin
