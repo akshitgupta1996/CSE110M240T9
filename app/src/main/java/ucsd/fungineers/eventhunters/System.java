@@ -140,17 +140,27 @@ public class System {
                     Log.d("MyApp", "User signed up and logged in through Facebook!");
                     //TODO: Initialize Fields
                     currentUser = user;
-                    currentUser.put(System.attendingEvents, new ArrayList<Integer>());
-                    currentUser.put(System.hostingEvents, new ArrayList<Integer>());
+                    currentUser.put(System.attendingEvents, new ArrayList<String>());
+                    currentUser.put(System.hostingEvents, new ArrayList<String>());
+                    currentUser.put(System.attendeeRating,0);
+                    currentUser.put(System.hostRating,0);
+                    currentUser.put(System.totalAttendeeRatingVotes,0);
+                    currentUser.put(System.totalHostRatingVotes,0);
                     currentUser.saveInBackground();
                 } else {
                     Log.d("MyApp", "User logged in through Facebook!");
                     currentUser = user;
                 }
 //                testAddEvent();
+                testAddRating();
 
             }
         });
+    }
+
+    private void testAddRating()
+    {
+        //rateUser(currentUser,3,RatingType.ATTENDEE);
     }
 
     public List<Integer> getEventsFromUser (EventType type)
