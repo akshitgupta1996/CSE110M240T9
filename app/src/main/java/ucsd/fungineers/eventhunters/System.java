@@ -13,6 +13,7 @@ import com.parse.ParseFacebookUtils;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -144,9 +145,15 @@ public class System {
                     currentParseUser.put(System.attendeeRating, 0);
                     currentParseUser.put(System.hostRating,0);
                     currentParseUser.put(System.totalAttendeeRatingVotes,0);
-                    currentParseUser.put(System.totalHostRatingVotes,0);
-                    currentParseUser.saveInBackground();
-                    currentUser = new User(currentParseUser);
+                    currentParseUser.put(System.totalHostRatingVotes, 0);
+                    //currentParseUser.saveInBackground();
+                    //currentUser = new User(currentParseUser);
+                    currentParseUser.saveInBackground(new SaveCallback() {
+                        @Override
+                        public void done(ParseException e) {
+                            currentUser
+                        }
+                    });
                 } else {
                     Log.d("MyApp", "User logged in through Facebook!");
                     currentParseUser = user;
@@ -161,7 +168,11 @@ public class System {
 
     private void testAddRating()
     {
-        //rateUser(currentUser,3,RatingType.ATTENDEE);
+        try {
+            rateUser(currentUser,3,RatingType.ATTENDEE);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     public List<Integer> getEventsFromUser (EventType type)
