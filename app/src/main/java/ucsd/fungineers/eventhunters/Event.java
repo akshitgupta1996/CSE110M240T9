@@ -22,7 +22,7 @@ public class Event {
     private ArrayList<String> attendees;
 
     //date and time of the event
-    private GregorianCalendar date;
+    private Date date;
 
     //How restricted an event is. Check for explanation in User.java
     private RestrictionStatus restrictionStatus;
@@ -38,7 +38,7 @@ public class Event {
 
     public Event (ArrayList<String> attendees, String hostID,
                   RestrictionStatus restrictionStatus, Genre genre, String name,
-                  String description, GregorianCalendar date) {
+                  String description, Date date) {
 
         setAttendees(attendees);
         setHost(hostID);
@@ -61,9 +61,9 @@ public class Event {
         setDescription((String) parseEvent.get(System.description));
 
         //Date is stored in database and converted to GregorianCalendar
-        GregorianCalendar calendar = new GregorianCalendar();
-        calendar.setTime((Date) parseEvent.get(System.date));
-        setDate(calendar);
+        //GregorianCalendar calendar = new GregorianCalendar();
+        //calendar.setTime((Date) parseEvent.get(System.date));
+        //setDate(calendar);
 
 
     }
@@ -160,12 +160,12 @@ public class Event {
 
     }
 
-    public GregorianCalendar getDate()
+    public Date getDate()
     {
         return date;
     }
 
-    public void setDate(GregorianCalendar date)
+    public void setDate(Date date)
     {
         this.date = date;
     }
