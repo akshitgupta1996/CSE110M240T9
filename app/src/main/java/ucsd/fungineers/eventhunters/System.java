@@ -1,7 +1,6 @@
 package ucsd.fungineers.eventhunters;
 
 import android.app.Activity;
-import android.location.Location;
 import android.util.Log;
 
 import com.facebook.FacebookSdk;
@@ -15,9 +14,7 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 
@@ -54,7 +51,9 @@ public class System {
 
     static System instance;
 
-    static ParseUser currentUser;
+    private ParseUser currentParseUser;
+    public static User currentUser;
+
 
     //If there is a connection to the database, this variable will be true. If not active, any calls
     //will return null.
@@ -147,9 +146,15 @@ public class System {
                     currentUser.put(System.totalAttendeeRatingVotes,0);
                     currentUser.put(System.totalHostRatingVotes,0);
                     currentUser.saveInBackground();
+                    currentParseUser = user;
+                    currentParseUser.put(System.attendingEvents, new ArrayList<Integer>());
+                    currentParseUser.put(System.hostingEvents, new ArrayList<Integer>());
+                    currentParseUser.saveInBackground();
+                    currentUser = new User(currentParseUser);
                 } else {
                     Log.d("MyApp", "User logged in through Facebook!");
-                    currentUser = user;
+                    currentParseUser = user;
+                    currentUser = new User(currentParseUser);
                 }
 //                testAddEvent();
                 testAddRating();
@@ -168,11 +173,11 @@ public class System {
         List<Integer> array = new ArrayList<Integer>();
         if(type == EventType.ATTENDING)
         {
-            array = currentUser.getList(System.attendingEvents);
+            array = currentParseUser.getList(System.attendingEvents);
         }
         else
         {
-            array = currentUser.getList(System.hostingEvents);
+            array = currentParseUser.getList(System.hostingEvents);
         }
 
 
@@ -191,13 +196,13 @@ public class System {
 
         if(type == EventType.ATTENDING)
         {
-            currentUser.put(System.attendingEvents, array);
+            currentParseUser.put(System.attendingEvents, array);
         }
         else
         {
-            currentUser.put(System.hostingEvents, array);
+            currentParseUser.put(System.hostingEvents, array);
         }
-        currentUser.saveInBackground();
+        currentParseUser.saveInBackground();
     }
 
     enum EventType {HOSTING, ATTENDING};
