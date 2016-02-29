@@ -17,6 +17,7 @@ import com.parse.ParseUser;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
  * This class will communicate with the database and will be how to go from id to object.
  * Remember how the last PA, the tree on disk worked for CSE 12? It'll be kinda like that.
@@ -36,6 +37,17 @@ public class System {
 
     public static String attendingEvents = "AttendingEvents";
     public static String hostingEvents = "HostingEvents";
+
+    public static String attendeeRating = "AttendeeRating";
+    public static String totalAttendeeRatingVotes = "TotalAttendeeRatingVotes";
+
+    public static String hostRating = "HostRating";
+    public static String totalHostRatingVotes = "TotalHostRatingVotes";
+
+
+
+    final int MAX_SCORE = 5;
+
 
     static System instance;
 
@@ -125,9 +137,14 @@ public class System {
                     Log.d("MyApp", "Uh oh. The user cancelled the Facebook login.");
                 } else if (user.isNew()) {
                     Log.d("MyApp", "User signed up and logged in through Facebook!");
+                    //TODO: Initialize Fields
                     currentParseUser = user;
                     currentParseUser.put(System.attendingEvents, new ArrayList<Integer>());
                     currentParseUser.put(System.hostingEvents, new ArrayList<Integer>());
+                    currentParseUser.put(System.attendeeRating, 0);
+                    currentParseUser.put(System.hostRating,0);
+                    currentParseUser.put(System.totalAttendeeRatingVotes,0);
+                    currentParseUser.put(System.totalHostRatingVotes,0);
                     currentParseUser.saveInBackground();
                     currentUser = new User(currentParseUser);
                 } else {
@@ -136,9 +153,15 @@ public class System {
                     currentUser = new User(currentParseUser);
                 }
 //                testAddEvent();
+                testAddRating();
 
             }
         });
+    }
+
+    private void testAddRating()
+    {
+        //rateUser(currentUser,3,RatingType.ATTENDEE);
     }
 
     public List<Integer> getEventsFromUser (EventType type)
@@ -345,7 +368,10 @@ public class System {
         loadedUser.put(System.name, userToUpdate.getName());
         loadedUser.put(System.attendingEvents, userToUpdate.getAttendeeEventList());
         loadedUser.put(System.hostingEvents, userToUpdate.getHostEventList());
-
+        loadedUser.put(System.attendeeRating,userToUpdate.getAttendeeRating());
+        loadedUser.put(System.totalAttendeeRatingVotes,userToUpdate.getTotalAttendeeVotes());
+        loadedUser.put(System.hostRating,userToUpdate.getHostRating());
+        loadedUser.put(System.totalHostRatingVotes,userToUpdate.getTotalHostVotes());
     }
 
     public void updateEvent(Event eventToUpdate) throws ParseException {
@@ -428,6 +454,50 @@ public class System {
 
 
     }
+
+    public void rateUser(User user, int rating, RatingType type) throws ParseException {
+        float total;
+        float newRating;
+        if(type == RatingType.ATTENDEE)
+        {
+            total = user.attendeeRating * user.totalAttendeeVotes;
+        }
+        else
+        {
+            total = user.hostRating * user.totalHostVotes;
+        }
+        newRating = (total + rating)/MAX_SCORE;
+
+        if(type == RatingType.ATTENDEE)
+        {
+            user.attendeeRating = newRating;
+            user.totalAttendeeVotes++;
+        }
+        else
+        {
+            user.hostRating = newRating;
+            user.totalHostVotes++;
+        }
+
+        updateUser(user);
+
+        return;
+    }
+
+    enum RatingType {
+        HOST(0), ATTENDEE(1);
+
+        private final int value;
+        private RatingType(int value) {
+            this.value = value;
+        }
+
+        public int getValue() {
+            return value;
+        }
+    }
+
+
 
 
 }

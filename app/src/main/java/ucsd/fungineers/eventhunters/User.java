@@ -19,19 +19,23 @@ public class User {
     String userID;
 
     //Upcoming events this user is hosting.
-    ArrayList<Event> hostEventList;
+    ArrayList<String> hostEventList;
 
     //Upcoming events this user is hosting.
-    ArrayList<Event> attendeeEventList;
+    ArrayList<String> attendeeEventList;
 
     //What the status of the users age is. Hosts cannot make events that are higher restriction
     RestrictionStatus restrictionStatus;
 
+
+
     //Rating of the user as a host
     float hostRating;
+    int totalHostVotes;
 
     //Rating of the user as an attendee
     float attendeeRating;
+    int totalAttendeeVotes;
 
     //Other misc data? Photo? Description? Birthday?
 
@@ -65,8 +69,15 @@ public class User {
 
         setName((String) user.get(System.name));
         setUserID((String) user.get(System.objectId));
-        setAttendeeEventList((ArrayList<Event>) user.get(System.attendingEvents));
-        setHostEventList((ArrayList<Event>) user.get(System.hostingEvents));
+        setAttendeeEventList((ArrayList<String>) user.get(System.attendingEvents));
+        setHostEventList((ArrayList<String>) user.get(System.hostingEvents));
+
+        setAttendeeRating((float) user.get(System.attendeeRating));
+        setTotalAttendeeVotes((int) user.get(System.totalAttendeeRatingVotes));
+
+        setHostRating((float) user.get(System.hostRating));
+        setTotalHostVotes((int) user.get(System.totalHostRatingVotes));
+
 
     }
 
@@ -107,29 +118,61 @@ public class User {
 
     }
 
-    public void setHostEventList(ArrayList<Event> eventList) {
+    public void setHostEventList(ArrayList<String> eventList) {
 
-        hostEventList = new ArrayList<Event>(eventList);
+        hostEventList = new ArrayList<String>(eventList);
 
     }
 
-    public ArrayList<Event> getHostEventList() {
+    public ArrayList<String> getHostEventList() {
 
         return hostEventList;
 
     }
 
-    public void setAttendeeEventList(ArrayList<Event> eventList) {
+    public void setAttendeeEventList(ArrayList<String> eventList) {
 
-        attendeeEventList = new ArrayList<Event>(eventList);
+        attendeeEventList = new ArrayList<String>(eventList);
 
 
     }
 
-    public ArrayList<Event> getAttendeeEventList() {
+    public ArrayList<String> getAttendeeEventList() {
 
         return attendeeEventList;
 
+    }
+
+    public float getHostRating() {
+        return hostRating;
+    }
+
+    public void setHostRating(float hostRating) {
+        this.hostRating = hostRating;
+    }
+
+    public int getTotalHostVotes() {
+        return totalHostVotes;
+    }
+
+    public void setTotalHostVotes(int totalHostVotes) {
+        this.totalHostVotes = totalHostVotes;
+    }
+
+    public float getAttendeeRating() {
+        return attendeeRating;
+    }
+
+    public void setAttendeeRating(float attendeeRating) {
+        this.attendeeRating = attendeeRating;
+    }
+
+    public int getTotalAttendeeVotes() {
+        return totalAttendeeVotes;
+    }
+
+    public void setTotalAttendeeVotes(int totalAttendeeVotes) {
+        this.totalAttendeeVotes = totalAttendeeVotes;
     }
 
 
@@ -145,7 +188,7 @@ public class User {
     public boolean joinEvent(Event eventToJoin) {
         if (restrictionStatus.compareTo(eventToJoin.getRestrictionStatus()) >= 0) {
             Log.d("User", "Joining Event");
-            attendeeEventList.add(eventToJoin);
+            attendeeEventList.add(eventToJoin.getEventID());
             //eventToJoin.getAttendees().add(this);
         } else {
             Log.d("User", "Fail to join event");
