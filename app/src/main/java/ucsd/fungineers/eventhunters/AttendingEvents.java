@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import java.util.*;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -23,8 +24,9 @@ public class AttendingEvents extends Activity implements OnItemClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.attendingevents);
 
-        String[] attendEventsArray={"Chill Party","Movie Night at Connors","Get Drunk", "Eat Ice Cream", "Lunar New Year", "Go Eat Sushi", "Blah", "Blah Blah", "Board Games", "Hi", "Bye", "This is a scroll test", "Scroll more"};
-        ArrayAdapter<String> attendeeEvents=new
+        ArrayList<Event> attendEventsArray= new ArrayList<Event>();
+        //String[] attendEventsArray={"Chill Party","Movie Night at Connors","Get Drunk", "Eat Ice Cream", "Lunar New Year", "Go Eat Sushi", "Blah", "Blah Blah", "Board Games", "Hi", "Bye", "This is a scroll test", "Scroll more"};
+        ArrayAdapter<Event> attendeeEvents=new
                 ArrayAdapter<>(
                 this,
                 android.R.layout.simple_list_item_1,
@@ -38,6 +40,7 @@ public class AttendingEvents extends Activity implements OnItemClickListener {
     @Override
     public void onItemClick(AdapterView<?> adapter, View view, int position, long id) {
         Log.i("cereal", ((TextView) view).getText().toString());
+        Log.i("flakes", ("" + position));
         Toast.makeText(getApplicationContext(), ((TextView) view).getText(), Toast.LENGTH_SHORT).show();
 
     }
