@@ -47,6 +47,7 @@ public class User {
         setName(name);
         setUserID(userID);
 
+
     }
 
     /**
@@ -62,8 +63,10 @@ public class User {
      */
     public User(ParseUser user) {
 
-        setName((String) user.get("Name"));
-        setUserID((String) user.get("UserID"));
+        setName((String) user.get(System.name));
+        setUserID((String) user.get(System.objectId));
+        setAttendeeEventList((ArrayList<Event>) user.get(System.attendingEvents));
+        setHostEventList((ArrayList<Event>) user.get(System.hostingEvents));
 
     }
 
@@ -101,6 +104,31 @@ public class User {
     public String getUserID() {
 
         return userID;
+
+    }
+
+    public void setHostEventList(ArrayList<Event> eventList) {
+
+        hostEventList = new ArrayList<Event>(eventList);
+
+    }
+
+    public ArrayList<Event> getHostEventList() {
+
+        return hostEventList;
+
+    }
+
+    public void setAttendeeEventList(ArrayList<Event> eventList) {
+
+        attendeeEventList = new ArrayList<Event>(eventList);
+
+
+    }
+
+    public ArrayList<Event> getAttendeeEventList() {
+
+        return attendeeEventList;
 
     }
 

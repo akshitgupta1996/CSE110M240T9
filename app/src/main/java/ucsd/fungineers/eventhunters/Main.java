@@ -37,9 +37,6 @@ public class Main extends AppCompatActivity {
         attendees.add("bbbb");
         attendees.add("ccccc");
         Date date = new Date();
-        Event testEvent = new Event(attendees, "tempHostId", null, RestrictionStatus.NO_RESTRICTIONS, Genre.MUSIC, "TITLENAME", "DESCDESCDESC", date);
-
-        system.createEvent(testEvent);
 /*
         //Parse.enableLocalDatastore(this);
         Parse.initialize(this);

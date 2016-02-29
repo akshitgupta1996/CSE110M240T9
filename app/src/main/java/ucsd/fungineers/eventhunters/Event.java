@@ -51,14 +51,14 @@ public class Event {
 
     public Event (ParseObject parseEvent) {
 
-        setEventID((String) parseEvent.get("objectId"));
-        setName((String) parseEvent.get("Name"));
-        setHost((String) parseEvent.get("HostID"));
-        setAttendees((ArrayList<String>) parseEvent.get("AtendeesList"));
-        setDate((Date)parseEvent.get("Date"));
-        setRestrictionStatus((RestrictionStatus)parseEvent.get("Restriction"));
-        setGenre((Genre)parseEvent.get("Genre"));
-        setDescription((String)parseEvent.get("Description"));
+        setEventID((String) parseEvent.get(System.objectId));
+        setName((String) parseEvent.get(System.name));
+        setHost((String) parseEvent.get(System.hostId));
+        setAttendees((ArrayList<String>) parseEvent.get(System.attendeeList));
+        setDate((Date)parseEvent.get(System.date));
+        setRestrictionStatus((RestrictionStatus)parseEvent.get(System.restrictionStatus));
+        setGenre((Genre)parseEvent.get(System.genre));
+        setDescription((String)parseEvent.get(System.description));
 
     }
 
