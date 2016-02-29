@@ -169,7 +169,8 @@ enum RestrictionStatus {
     NO_RESTRICTIONS(0), UNDER_18(1), UNDER_21(2);
 
     private final int value;
-    private RestrictionStatus(int value) {
+
+    RestrictionStatus(int value) {
         this.value = value;
     }
 

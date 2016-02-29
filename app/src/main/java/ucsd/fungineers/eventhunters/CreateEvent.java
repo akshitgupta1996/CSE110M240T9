@@ -24,6 +24,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -38,6 +39,8 @@ public class CreateEvent extends AppCompatActivity {
     //private Calendar mTimerDate;
     private static final SimpleDateFormat mDateFormat = new SimpleDateFormat("EEE, dd MMM yyyy", Locale.US);
     private static final SimpleDateFormat mTimeFormat = new SimpleDateFormat("h:mm aa",Locale.US);
+
+    private Event newEvent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,10 +136,15 @@ public class CreateEvent extends AppCompatActivity {
                 i.putExtra("eventGenre", eventGenre.getSelectedItem().toString());
                 i.putExtra("eventRestriction", selectedID.getText().toString());
                 i.putExtra("eventDescription", eventDescription.getText().toString());
+
+                //newEvent = new Event(new ArrayList<>(), System.currentUser, RestrictionStatus(radioId), new Genre(), eventName.getText().toString(), eventDescription.getText().toString(), mDate);
+
+
                 DialogInterface.OnClickListener clickListener = new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface d, int id) {
                         switch (id) {
                             case DialogInterface.BUTTON_POSITIVE:
+                                System.instance.createEvent(newEvent);
                                 startActivity(i);
                                 break;
                             case DialogInterface.BUTTON_NEGATIVE:
