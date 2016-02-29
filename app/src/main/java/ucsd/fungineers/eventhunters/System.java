@@ -41,6 +41,14 @@ public class System {
     public static String attendingEvents = "AttendingEvents";
     public static String hostingEvents = "HostingEvents";
 
+    public static String attendeeRating = "AttendeeRating";
+    public static String totalAttendeeRatingVotes = "TotalAttendeeRatingVotes";
+
+    public static String hostRating = "HostRating";
+    public static String totalHostRatingVotes = "TotalHostRatingVotes";
+
+
+
     final int MAX_SCORE = 5;
 
 
@@ -130,6 +138,7 @@ public class System {
                     Log.d("MyApp", "Uh oh. The user cancelled the Facebook login.");
                 } else if (user.isNew()) {
                     Log.d("MyApp", "User signed up and logged in through Facebook!");
+                    //TODO: Initialize Fields
                     currentUser = user;
                     currentUser.put(System.attendingEvents, new ArrayList<Integer>());
                     currentUser.put(System.hostingEvents, new ArrayList<Integer>());
@@ -348,7 +357,10 @@ public class System {
         loadedUser.put(System.name, userToUpdate.getName());
         loadedUser.put(System.attendingEvents, userToUpdate.getAttendeeEventList());
         loadedUser.put(System.hostingEvents, userToUpdate.getHostEventList());
-
+        loadedUser.put(System.attendeeRating,userToUpdate.getAttendeeRating());
+        loadedUser.put(System.totalAttendeeRatingVotes,userToUpdate.getTotalAttendeeVotes());
+        loadedUser.put(System.hostRating,userToUpdate.getHostRating());
+        loadedUser.put(System.totalHostRatingVotes,userToUpdate.getTotalHostVotes());
     }
 
     public void updateEvent(Event eventToUpdate) throws ParseException {
@@ -432,8 +444,7 @@ public class System {
 
     }
 
-    public void rateUser(User user, int rating, RatingType type)
-    {
+    public void rateUser(User user, int rating, RatingType type) throws ParseException {
         float total;
         float newRating;
         if(type == RatingType.ATTENDEE)
@@ -456,11 +467,10 @@ public class System {
             user.hostRating = newRating;
             user.totalHostVotes++;
         }
-        //TODO: update user in database;
+
+        updateUser(user);
 
         return;
-
-
     }
 
     enum RatingType {

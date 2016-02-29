@@ -27,6 +27,38 @@ public class User {
     //What the status of the users age is. Hosts cannot make events that are higher restriction
     RestrictionStatus restrictionStatus;
 
+    public float getHostRating() {
+        return hostRating;
+    }
+
+    public void setHostRating(float hostRating) {
+        this.hostRating = hostRating;
+    }
+
+    public int getTotalHostVotes() {
+        return totalHostVotes;
+    }
+
+    public void setTotalHostVotes(int totalHostVotes) {
+        this.totalHostVotes = totalHostVotes;
+    }
+
+    public float getAttendeeRating() {
+        return attendeeRating;
+    }
+
+    public void setAttendeeRating(float attendeeRating) {
+        this.attendeeRating = attendeeRating;
+    }
+
+    public int getTotalAttendeeVotes() {
+        return totalAttendeeVotes;
+    }
+
+    public void setTotalAttendeeVotes(int totalAttendeeVotes) {
+        this.totalAttendeeVotes = totalAttendeeVotes;
+    }
+
     //Rating of the user as a host
     float hostRating;
     int totalHostVotes;
@@ -69,6 +101,13 @@ public class User {
         setUserID((String) user.get(System.objectId));
         setAttendeeEventList((ArrayList<Event>) user.get(System.attendingEvents));
         setHostEventList((ArrayList<Event>) user.get(System.hostingEvents));
+
+        setAttendeeRating((float) user.get(System.attendeeRating));
+        setTotalAttendeeVotes((int) user.get(System.totalAttendeeRatingVotes));
+
+        setHostRating((float) user.get(System.hostRating));
+        setTotalHostVotes((int) user.get(System.totalHostRatingVotes));
+
 
     }
 
