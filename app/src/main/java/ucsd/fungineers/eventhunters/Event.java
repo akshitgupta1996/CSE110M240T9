@@ -7,8 +7,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.io.Serializable;
 
-public class Event {
+public class Event implements Serializable {
 
     //The id that the event has in the database.
     private String eventID;

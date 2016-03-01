@@ -5,27 +5,26 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import java.util.*;
-import java.text.*;
+
+import android.content.Context;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.AdapterView.*;
 import android.widget.AdapterView;
 import android.widget.Toast;
-import android.app.Activity;
-import android.widget.TextView;
-
-import com.parse.ParseException;
 
 /**
- * Created by kagcaoili on 2/21/16. extends AppCompactActivity
+ * Created by kagcaoili on 2/21/16.
  */
-public class AttendingEvents extends Activity {
+public class AttendingEvents extends AppCompatActivity{
+    private Context aContext;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.attendingevents);
+        aContext = this;
 
         ArrayList image_details = getListData();
         final ListView lv1 = (ListView) findViewById(R.id.UpcomingEventsAttendee);
@@ -36,8 +35,11 @@ public class AttendingEvents extends Activity {
             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
                 Object o = lv1.getItemAtPosition(position);
                 Event eventData = (Event) o;
-                //final Intent i = new Intent(this, JoinEvents.class);
-                Toast.makeText(AttendingEvents.this, "Selected :" + " " + eventData, Toast.LENGTH_LONG).show();
+
+                final Intent i = new Intent(aContext, Attendee_Event_Details.class);
+                i.putExtra("selectedEvent", eventData);
+                //Toast.makeText(AttendingEvents.this, "Selected :" + " " + eventData, Toast.LENGTH_LONG).show();
+                startActivity(i);
             }
         });
 

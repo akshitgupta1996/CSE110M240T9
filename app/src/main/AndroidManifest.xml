@@ -49,7 +49,7 @@
         <activity android:name=".Event_Status"/>
         <activity android:name=".AttendingEvents"/>
         <activity android:name=".FindEvents"/>
-        <activity android:name=".JoinEvents"/>
+        <activity android:name=".Attendee_Event_Details"/>
 
     </application>
 
