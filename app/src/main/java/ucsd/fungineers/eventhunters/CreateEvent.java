@@ -26,6 +26,7 @@ import android.widget.TimePicker;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Locale;
 
 
@@ -35,7 +36,7 @@ public class CreateEvent extends AppCompatActivity {
     private TextView mDatePicker;
     private TextView mTimePicker;
 
-    private Calendar mDate;
+    private GregorianCalendar mDate;
     //private Calendar mTimerDate;
     private static final SimpleDateFormat mDateFormat = new SimpleDateFormat("EEE, dd MMM yyyy", Locale.US);
     private static final SimpleDateFormat mTimeFormat = new SimpleDateFormat("h:mm aa",Locale.US);
@@ -61,7 +62,7 @@ public class CreateEvent extends AppCompatActivity {
 
     private void initDateAndTimePickers() {
         mDatePicker = (TextView) findViewById(R.id.create_event_date_picker);
-        mDate = Calendar.getInstance();
+        mDate = new GregorianCalendar();
         mDatePicker.setText(mDateFormat.format(mDate.getTime()));
 
         mDatePicker.setOnClickListener(new View.OnClickListener() {
@@ -75,7 +76,7 @@ public class CreateEvent extends AppCompatActivity {
 
         mTimePicker = (TextView) findViewById(R.id.create_event_time_picker);
         // TODO set the default value for the time in mDate and update the time picker's text
-        mDate = Calendar.getInstance();
+        mDate = new GregorianCalendar();
         mTimePicker.setText(mTimeFormat.format(mDate.getTime()));
 
 
@@ -137,8 +138,9 @@ public class CreateEvent extends AppCompatActivity {
                 i.putExtra("eventRestriction", selectedID.getText().toString());
                 i.putExtra("eventDescription", eventDescription.getText().toString());
 
-                //newEvent = new Event(new ArrayList<>(), System.currentUser, RestrictionStatus(radioId), new Genre(), eventName.getText().toString(), eventDescription.getText().toString(), mDate);
-
+                Log.d("ASDFGHJKL", System.currentUser.toString());
+                newEvent = new Event(new ArrayList<String>(), System.currentUser.userID, RestrictionStatus.fromString(selectedID.getText().toString()), Genre.fromString(eventGenre.getSelectedItem().toString(), this), eventName.getText().toString(), eventDescription.getText().toString(), mDate, eventLocation.getText().toString());
+                System.instance.createEvent(newEvent);
 
                 DialogInterface.OnClickListener clickListener = new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface d, int id) {
@@ -191,8 +193,6 @@ public class CreateEvent extends AppCompatActivity {
     }
 
     private void showTimePickerDialog() {
-        // TODO
-
         TimePickerDialog timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener(){
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {

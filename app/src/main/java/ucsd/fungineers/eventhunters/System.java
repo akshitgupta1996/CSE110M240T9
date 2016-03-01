@@ -16,6 +16,7 @@ import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -27,7 +28,7 @@ import java.util.List;
  */
 public class System {
 
-    public static String objectId = "objectId";
+    //public static String objectId = "objectId";
     public static String name = "Name";
     public static String hostId = "HostID";
     public static String attendeeList = "AttendeesList";
@@ -56,11 +57,6 @@ public class System {
     private ParseUser currentParseUser;
     public static User currentUser;
 
-
-    //If there is a connection to the database, this variable will be true. If not active, any calls
-    //will return null.
-    boolean connectionEstablished = false;
-
     //Keeps track of every event ever. Soon to be replaced by database.
     public ArrayList<Event> tempEventList;
 
@@ -78,7 +74,6 @@ public class System {
         Log.d("test", "System created!");
         tempEventList = new ArrayList<Event>();
         tempUserList  = new ArrayList<User>();
-        connect();
         if(instance == null) {
             fbLogin(activity);
         }
@@ -94,16 +89,6 @@ public class System {
     public System(int userID)
     {
 
-    }
-
-    /**
-     * Try to connect to the database if not already connected.
-     * @return
-     */
-    public boolean connect()
-    {
-        connectionEstablished = true;
-        return connectionEstablished;
     }
 
     /**
@@ -132,37 +117,49 @@ public class System {
         ParseACL.setDefaultACL(defaultACL, true);
 
         defaultACL.setPublicWriteAccess(true);
-        ParseFacebookUtils.logInWithReadPermissionsInBackground(activity, null, new LogInCallback() {
+
+        //Asking permissions seems to cause the parse user to not be null.
+        List<String> permissions = Arrays.asList("public_profile",
+                "user_friends");
+
+        ParseFacebookUtils.logInWithReadPermissionsInBackground(activity, permissions, new LogInCallback() {
             @Override
             public void done(ParseUser user, ParseException err) {
                 if (user == null) {
                     Log.d("MyApp", "Uh oh. The user cancelled the Facebook login.");
                 } else if (user.isNew()) {
                     Log.d("MyApp", "User signed up and logged in through Facebook!");
+                    Log.d("TESTEST", "id:" + currentParseUser.getObjectId());
                     //TODO: Initialize Fields
                     currentParseUser = user;
+                    currentParseUser.put(System.name, "Default mcDefault");
                     currentParseUser.put(System.attendingEvents, new ArrayList<Integer>());
                     currentParseUser.put(System.hostingEvents, new ArrayList<Integer>());
                     currentParseUser.put(System.attendeeRating, 0);
                     currentParseUser.put(System.hostRating,0);
+                    currentParseUser.put(System.restrictionStatus, 0);
                     currentParseUser.put(System.totalAttendeeRatingVotes,0);
                     currentParseUser.put(System.totalHostRatingVotes, 0);
-                    currentParseUser.saveInBackground();
-                    currentUser = new User(currentParseUser);
-                    //currentParseUser.saveInBackground(new SaveCallback() {
-                    //    @Override
-                    //    public void done(ParseException e) {
-                    //        currentUser
-                    //    }
-                    //});
+                    //currentParseUser.saveInBackground();
+                    //currentUser = new User(currentParseUser);
+                    currentParseUser.saveInBackground(new SaveCallback() {
+                        @Override
+                        public void done(ParseException e) {
+                            currentUser = new User(currentParseUser);
+                        }
+                    });
+
                 } else {
                     Log.d("MyApp", "User logged in through Facebook!");
                     currentParseUser = user;
+
+                    Log.d("HELPUSER", currentParseUser.toString());
+                    Log.d("HELPUSER", currentParseUser.getObjectId());
+
                     currentUser = new User(currentParseUser);
+                    Log.d("HELPUSER", currentUser.toString());
                 }
 //                testAddEvent();
-                //testAddRating();
-
             }
         });
     }
@@ -221,17 +218,24 @@ public class System {
      */
     public void createEvent(Event event)
     {
-        ParseObject dbEvent = new ParseObject("Events");
+        final ParseObject dbEvent = new ParseObject("Events");
         dbEvent.put(System.name, event.getName());
         dbEvent.put(System.hostId, event.getHost());
         dbEvent.put(System.attendeeList, event.getAttendees());
-        dbEvent.put(System.date, event.getDate());
+        dbEvent.put(System.date, event.getDate().getTime());
         dbEvent.put(System.restrictionStatus, event.getRestrictionStatus().toString());
         dbEvent.put(System.genre, event.getGenre().toString());
         dbEvent.put(System.description, event.getDescription());
-        dbEvent.saveInBackground();
+        dbEvent.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                //Need to set the event's id at some point.
+                //event.setEventID(dbEvent.getObjectId());
+            }
+        });
 
-        event.setEventID(dbEvent.getObjectId());
+
+        Log.d("EVENTS WHOA", "Event created. ID: " + event.getEventID());
 
     }
 
@@ -245,7 +249,8 @@ public class System {
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Events");
 
-        query.whereEqualTo(System.objectId, id);
+        query.get(id);
+        //query.whereEqualTo(System.objectId, id);
 
         List<ParseObject> foundEvent = query.find();
 
@@ -292,7 +297,9 @@ public class System {
 
        ParseQuery<ParseUser> query = ParseUser.getQuery();
 
-        query.whereEqualTo(System.objectId, userId);
+
+        query.get(userId);
+        //query.whereEqualTo(System.objectId, userId);
 
         List<ParseUser> foundUser = query.find();
 
@@ -318,7 +325,8 @@ public class System {
 
         ParseQuery<ParseUser> query = ParseUser.getQuery();
 
-        query.whereEqualTo(System.objectId, userId);
+        query.get(userId);
+        //query.whereEqualTo(System.objectId, userId);
 
         List<ParseUser> foundUser = query.find();
 
@@ -344,7 +352,8 @@ public class System {
 
         ParseQuery<ParseUser> query = ParseUser.getQuery();
 
-        query.whereEqualTo(System.objectId, userId);
+        query.get(userId);
+        //query.whereEqualTo(System.objectId, userId);
 
         List<ParseUser> foundUser = query.find();
 
@@ -376,7 +385,7 @@ public class System {
 
         ParseUser loadedUser = loadedUsers.get(0);
 
-        loadedUser.put(System.objectId, userToUpdate.getUserID());
+        //loadedUser.put(System.objectId, userToUpdate.getUserID());
         loadedUser.put(System.name, userToUpdate.getName());
         loadedUser.put(System.attendingEvents, userToUpdate.getAttendeeEventList());
         loadedUser.put(System.hostingEvents, userToUpdate.getHostEventList());
@@ -390,7 +399,8 @@ public class System {
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Events");
 
-        query.whereEqualTo(System.objectId, eventToUpdate.getEventID());
+        query.get(eventToUpdate.getEventID());
+        //query.whereEqualTo(System.objectId, eventToUpdate.getEventID());
 
         List<ParseObject> loadedEvents = query.find();
 
@@ -402,11 +412,11 @@ public class System {
 
         ParseObject loadedEvent = loadedEvents.get(0);
 
-        loadedEvent.put(System.objectId, eventToUpdate.getEventID());
+        //loadedEvent.put(System.objectId, eventToUpdate.getEventID());
         loadedEvent.put(System.name, eventToUpdate.getName());
         loadedEvent.put(System.hostId, eventToUpdate.getHost());
         loadedEvent.put(System.attendeeList, eventToUpdate.getAttendees());
-        loadedEvent.put(System.date, eventToUpdate.getDate());
+        loadedEvent.put(System.date, eventToUpdate.getDate().getTime());
         loadedEvent.put(System.restrictionStatus, eventToUpdate.getRestrictionStatus());
         loadedEvent.put(System.genre, eventToUpdate.getGenre());
         loadedEvent.put(System.description, eventToUpdate.getDescription());
@@ -447,9 +457,7 @@ public class System {
 
                     //saves changes to parse
                     objects.get(0).saveInBackground();
-                }
-
-                else {
+                } else {
 
                     Log.d("POTATO", "Crai there was an exception ;(");
                 }

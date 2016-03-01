@@ -10,9 +10,8 @@
 
     <string-array name="spinnerItems">
         <item>Genre</item>
+        <item>Music</item>
         <item>Party</item>
-        <item>Chilaxing</item>
-        <item>Cooking Food</item>
     </string-array>
     <string name="title_activity_events">EventsActivity</string>
     <string name="title_this_week">This Week</string>

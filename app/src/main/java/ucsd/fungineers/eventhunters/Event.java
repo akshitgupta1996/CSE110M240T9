@@ -1,5 +1,8 @@
 package ucsd.fungineers.eventhunters;
 
+import android.content.Context;
+import android.content.res.Resources;
+
 import com.parse.ParseObject;
 
 import java.net.URL;
@@ -7,9 +10,16 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+
 import java.io.Serializable;
+import android.app.Activity;
+import android.os.Bundle;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 public class Event implements Serializable {
+
+
 
     //The id that the event has in the database.
     private String eventID;
@@ -58,7 +68,7 @@ public class Event implements Serializable {
 
     public Event (ParseObject parseEvent) {
 
-        setEventID((String) parseEvent.get(System.objectId));
+        setEventID(parseEvent.getObjectId());
         setName((String) parseEvent.get(System.name));
         setHost((String) parseEvent.get(System.hostId));
         setAttendees((ArrayList<String>) parseEvent.get(System.attendeeList));
@@ -207,5 +217,31 @@ enum Genre{
 
     public int getValue() {
         return value;
+    }
+
+    //Get a genre from an int.
+    public static Genre fromInt(int value) {
+        for (Genre genre : Genre.values()) {
+            if (genre.getValue() == value) {
+                return genre;
+            }
+        }
+        //If it gets here then you derped.
+        return null;
+    }
+
+    public static Genre fromString(String string, Context context)
+    {
+        Resources res = context.getResources();
+        String[] arrayContents = res.getStringArray(R.array.spinnerItems);
+        if (string.equals(arrayContents[1]))
+        {
+            return Genre.MUSIC;
+        }
+
+        else
+        {
+            return Genre.PARTY;
+        }
     }
 }
