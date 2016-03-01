@@ -35,6 +35,7 @@ public class System {
     public static String restrictionStatus = "Restriction";
     public static String genre = "Genre";
     public static String description = "Description";
+    public static String location = "Location";
 
     public static String attendingEvents = "AttendingEvents";
     public static String hostingEvents = "HostingEvents";
@@ -146,21 +147,21 @@ public class System {
                     currentParseUser.put(System.hostRating,0);
                     currentParseUser.put(System.totalAttendeeRatingVotes,0);
                     currentParseUser.put(System.totalHostRatingVotes, 0);
-                    //currentParseUser.saveInBackground();
-                    //currentUser = new User(currentParseUser);
-                    currentParseUser.saveInBackground(new SaveCallback() {
-                        @Override
-                        public void done(ParseException e) {
-                            currentUser
-                        }
-                    });
+                    currentParseUser.saveInBackground();
+                    currentUser = new User(currentParseUser);
+                    //currentParseUser.saveInBackground(new SaveCallback() {
+                    //    @Override
+                    //    public void done(ParseException e) {
+                    //        currentUser
+                    //    }
+                    //});
                 } else {
                     Log.d("MyApp", "User logged in through Facebook!");
                     currentParseUser = user;
                     currentUser = new User(currentParseUser);
                 }
 //                testAddEvent();
-                testAddRating();
+                //testAddRating();
 
             }
         });

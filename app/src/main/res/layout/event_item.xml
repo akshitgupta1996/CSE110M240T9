@@ -17,7 +17,9 @@
             android:text="FEB\n09"
             android:textColor="#000000"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Display1"
-            android:layout_marginLeft="10dp" />
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/date_border"
+            android:layout_alignTop="@+id/event_item_name" />
 
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/event_item_name"

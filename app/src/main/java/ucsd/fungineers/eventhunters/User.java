@@ -72,11 +72,11 @@ public class User {
         setAttendeeEventList((ArrayList<String>) user.get(System.attendingEvents));
         setHostEventList((ArrayList<String>) user.get(System.hostingEvents));
 
-        setAttendeeRating((float) user.get(System.attendeeRating));
-        setTotalAttendeeVotes((int) user.get(System.totalAttendeeRatingVotes));
+        //setAttendeeRating((float) user.get(System.attendeeRating));
+        //setTotalAttendeeVotes((int) user.get(System.totalAttendeeRatingVotes));
 
-        setHostRating((float) user.get(System.hostRating));
-        setTotalHostVotes((int) user.get(System.totalHostRatingVotes));
+        //setHostRating((float) user.get(System.hostRating));
+        //setTotalHostVotes((int) user.get(System.totalHostRatingVotes));
 
 
     }
