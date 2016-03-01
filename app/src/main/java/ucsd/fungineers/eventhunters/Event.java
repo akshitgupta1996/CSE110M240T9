@@ -1,5 +1,8 @@
 package ucsd.fungineers.eventhunters;
 
+import android.content.Context;
+import android.content.res.Resources;
+
 import com.parse.ParseObject;
 
 import java.net.URL;
@@ -7,8 +10,12 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import android.app.Activity;
+import android.os.Bundle;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
-public class Event {
+public class Event{
 
     //The id that the event has in the database.
     private String eventID;
@@ -193,5 +200,31 @@ enum Genre{
 
     public int getValue() {
         return value;
+    }
+
+    //Get a genre from an int.
+    public static Genre fromInt(int value) {
+        for (Genre genre : Genre.values()) {
+            if (genre.getValue() == value) {
+                return genre;
+            }
+        }
+        //If it gets here then you derped.
+        return null;
+    }
+
+    public static Genre fromString(String string, Context context)
+    {
+        Resources res = context.getResources();
+        String[] arrayContents = res.getStringArray(R.array.spinnerItems);
+        if (string.equals(arrayContents[1]))
+        {
+            return Genre.MUSIC;
+        }
+
+        else
+        {
+            return Genre.PARTY;
+        }
     }
 }

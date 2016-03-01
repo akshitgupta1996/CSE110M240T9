@@ -66,7 +66,7 @@ public class User {
      * @param user The ParseUser passed in
      */
     public User(ParseUser user) {
-
+        Log.d("ASDFGHJKL",user.toString());
         setName((String) user.get(System.name));
         setUserID(user.getObjectId());
         setAttendeeEventList((ArrayList<String>) user.get(System.attendingEvents));
@@ -220,5 +220,35 @@ enum RestrictionStatus {
 
     public int getValue() {
         return value;
+    }
+
+    //Get a restriction status from an int.
+    public static RestrictionStatus fromInt(int value) {
+       for (RestrictionStatus restrictionStatus : RestrictionStatus.values()) {
+                if (restrictionStatus.getValue() == value) {
+                    return restrictionStatus;
+                }
+            }
+        //If it gets here then you derped.
+        return null;
+    }
+
+    //Get a restriction status from a string.
+    public static RestrictionStatus fromString(String string)
+    {
+        if (string.equals(R.string.label_no_restrictions))
+        {
+            return RestrictionStatus.NO_RESTRICTIONS;
+        }
+
+        else if (string.equals(R.string.label_18_plus))
+        {
+            return RestrictionStatus.UNDER_18;
+        }
+
+        else
+        {
+            return RestrictionStatus.UNDER_21;
+        }
     }
 }
