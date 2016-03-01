@@ -79,7 +79,6 @@ public class User {
         setHostRating((float) user.get(System.hostRating));
         setTotalHostVotes((int) user.get(System.totalHostRatingVotes));
         */
-
     }
 
     /**

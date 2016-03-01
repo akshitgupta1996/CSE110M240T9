@@ -36,6 +36,7 @@ public class System {
     public static String restrictionStatus = "Restriction";
     public static String genre = "Genre";
     public static String description = "Description";
+    public static String location = "Location";
 
     public static String attendingEvents = "AttendingEvents";
     public static String hostingEvents = "HostingEvents";
@@ -147,6 +148,7 @@ public class System {
                             currentUser = new User(currentParseUser);
                         }
                     });
+
                 } else {
                     Log.d("MyApp", "User logged in through Facebook!");
                     currentParseUser = user;
@@ -158,8 +160,6 @@ public class System {
                     Log.d("HELPUSER", currentUser.toString());
                 }
 //                testAddEvent();
-//                testAddRating();
-
             }
         });
     }
@@ -222,14 +222,15 @@ public class System {
         dbEvent.put(System.name, event.getName());
         dbEvent.put(System.hostId, event.getHost());
         dbEvent.put(System.attendeeList, event.getAttendees());
-        dbEvent.put(System.date, event.getDate());
+        dbEvent.put(System.date, event.getDate().getTime());
         dbEvent.put(System.restrictionStatus, event.getRestrictionStatus().toString());
         dbEvent.put(System.genre, event.getGenre().toString());
         dbEvent.put(System.description, event.getDescription());
         dbEvent.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
-                event.setEventID(dbEvent.getObjectId());
+                //Need to set the event's id at some point.
+                //event.setEventID(dbEvent.getObjectId());
             }
         });
 
@@ -415,7 +416,7 @@ public class System {
         loadedEvent.put(System.name, eventToUpdate.getName());
         loadedEvent.put(System.hostId, eventToUpdate.getHost());
         loadedEvent.put(System.attendeeList, eventToUpdate.getAttendees());
-        loadedEvent.put(System.date, eventToUpdate.getDate());
+        loadedEvent.put(System.date, eventToUpdate.getDate().getTime());
         loadedEvent.put(System.restrictionStatus, eventToUpdate.getRestrictionStatus());
         loadedEvent.put(System.genre, eventToUpdate.getGenre());
         loadedEvent.put(System.description, eventToUpdate.getDescription());

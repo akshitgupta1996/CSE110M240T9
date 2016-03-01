@@ -36,6 +36,7 @@ public class AttendingEvents extends Activity {
             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
                 Object o = lv1.getItemAtPosition(position);
                 Event eventData = (Event) o;
+                //final Intent i = new Intent(this, JoinEvents.class);
                 Toast.makeText(AttendingEvents.this, "Selected :" + " " + eventData, Toast.LENGTH_LONG).show();
             }
         });
@@ -43,11 +44,15 @@ public class AttendingEvents extends Activity {
     }
 
     private ArrayList getListData() {
+
+        //test 1
+
         ArrayList<Event> attendEventsArray = new ArrayList<Event>();
         ArrayList<String> attendees = new ArrayList<>();
         attendees.add("Connor");
         attendees.add("Kristin");
         String hostid = "12345";
+        String location = "San Diego, CA";
         String eventNameOne = "Pentatonix Concert";
         String eventNameTwo = "Fall Out Boy Concert";
         String eventNameThree = "Wizard of Oz Movie";
@@ -62,51 +67,69 @@ public class AttendingEvents extends Activity {
         String descriptionFive = "There's a dance on campus to celebrate Halloween! Stay safe!";
         String descriptionSix = "Let's destroy those midterms with a study party. Free breakfast";
         String descriptionSeven = "Join us as we walk around La Jolla destroying Resistance portals and resonators.";
-        //SimpleDateFormat fmt = new SimpleDateFormat("MMM dd, yyyy 'at' HH:mm");
-        //String dateString = "DEC 29, 1995 at 08:20";
-        SimpleDateFormat fmt = new SimpleDateFormat("dd/M/yyyy hh:mm");
-        String dateStringOne = "15/10/2013 20:30";
-        Date dateOne = null;
-        try {
-            dateOne = fmt.parse(dateStringOne);
-        } catch (java.text.ParseException e) {
-            e.printStackTrace();
-        }
-        String dateStringTwo = "29/01/2020 12:00";
-        Date dateTwo = null;
-        try {
-            dateTwo = fmt.parse(dateStringTwo);
-        } catch (java.text.ParseException e) {
-            e.printStackTrace();
-        }
-        String dateStringThree = "01/02/1999 05:10";
-        Date dateThree = null;
-        try {
-            dateThree = fmt.parse(dateStringThree);
-        } catch (java.text.ParseException e) {
-            e.printStackTrace();
-        }
-        /*GregorianCalendar calendar = new GregorianCalendar();
-        calendar.setTime(date);
-        Log.i("corncob", calendar.toString());
 
-        Calendar mDate = Calendar.getInstance();
-        SimpleDateFormat form = new SimpleDateFormat("dd/M/yyyy");
-        Log.i("corn", form.format(mDate.getTime()));*/
-
-        Event eventsDataOne = new Event(attendees, hostid, RestrictionStatus.UNDER_18, Genre.MUSIC, eventNameOne, descriptionOne, dateOne);
+        //test 2
+        GregorianCalendar calendarOne = new GregorianCalendar(2012,1,29,12,10);
+        Log.i("tophat", "Month" + calendarOne.get(Calendar.MONTH));
+        calendarOne.add(Calendar.MONTH, -1);
+        if (calendarOne.get(Calendar.AM_PM) == 1) {
+            calendarOne.set(Calendar.AM_PM, Calendar.PM);
+        }
+        Event eventsDataOne = new Event(attendees, hostid, RestrictionStatus.UNDER_18, Genre.MUSIC, eventNameOne, descriptionOne, calendarOne, location);
         attendEventsArray.add(eventsDataOne);
-        Event eventsDataTwo = new Event(attendees, hostid, RestrictionStatus.UNDER_18, Genre.MUSIC, eventNameTwo, descriptionTwo, dateTwo);
+
+        GregorianCalendar calendarTwo = new GregorianCalendar(2025,6,28,9,15);
+        Log.i("tophat", "Month" + calendarTwo.get(Calendar.MONTH));
+        calendarTwo.add(Calendar.MONTH, -1);
+        if (calendarTwo.get(Calendar.AM_PM) == 1) {
+            calendarTwo.set(Calendar.AM_PM, Calendar.PM);
+        }
+        Event eventsDataTwo = new Event(attendees, hostid, RestrictionStatus.UNDER_18, Genre.MUSIC, eventNameTwo, descriptionTwo, calendarTwo, location);
         attendEventsArray.add(eventsDataTwo);
-        Event eventsDataThree = new Event(attendees, hostid, RestrictionStatus.UNDER_18, Genre.MUSIC, eventNameThree, descriptionThree, dateThree);
+
+        GregorianCalendar calendarThree = new GregorianCalendar(1995,4,2,20,00);
+        Log.i("tophat", "Month" + calendarThree.get(Calendar.MONTH));
+        calendarThree.add(Calendar.MONTH, -1);
+        if (calendarThree.get(Calendar.AM_PM) == 1) {
+            calendarThree.set(Calendar.AM_PM, Calendar.PM);
+        }
+        Event eventsDataThree = new Event(attendees, hostid, RestrictionStatus.UNDER_18, Genre.MUSIC, eventNameThree, descriptionThree, calendarThree, location);
         attendEventsArray.add(eventsDataThree);
-        Event eventsDataFour = new Event(attendees, hostid, RestrictionStatus.UNDER_18, Genre.MUSIC, eventNameFour, descriptionFour, dateOne);
+
+        GregorianCalendar calendarFour = new GregorianCalendar(2010,12,20,3,30);
+        Log.i("tophat", "Month" + calendarFour.get(Calendar.MONTH));
+        calendarFour.add(Calendar.MONTH, -1);
+        if (calendarFour.get(Calendar.AM_PM) == 1) {
+            calendarFour.set(Calendar.AM_PM, Calendar.PM);
+        }
+        Event eventsDataFour = new Event(attendees, hostid, RestrictionStatus.UNDER_18, Genre.MUSIC, eventNameFour, descriptionFour, calendarFour, location);
         attendEventsArray.add(eventsDataFour);
-        Event eventsDataFive = new Event(attendees, hostid, RestrictionStatus.UNDER_18, Genre.MUSIC, eventNameFive, descriptionFive, dateTwo);
+
+        GregorianCalendar calendarFive = new GregorianCalendar(2016,2,29,19,20);
+        Log.i("tophat", "Month" + calendarFive.get(Calendar.MONTH));
+        calendarFive.add(Calendar.MONTH, -1);
+        if (calendarFive.get(Calendar.AM_PM) == 1) {
+            calendarFive.set(Calendar.AM_PM, Calendar.PM);
+        }
+        Event eventsDataFive = new Event(attendees, hostid, RestrictionStatus.UNDER_18, Genre.MUSIC, eventNameFive, descriptionFive, calendarFive, location);
         attendEventsArray.add(eventsDataFive);
-        Event eventsDataSix = new Event(attendees, hostid, RestrictionStatus.UNDER_18, Genre.MUSIC, eventNameSix, descriptionSix, dateThree);
+
+        GregorianCalendar calendarSix = new GregorianCalendar(2017,8,15,11,15);
+        Log.i("tophat", "Month" + calendarSix.get(Calendar.MONTH));
+        calendarSix.add(Calendar.MONTH, -1);
+        if (calendarSix.get(Calendar.AM_PM) == 1) {
+            calendarSix.set(Calendar.AM_PM, Calendar.PM);
+        }
+        Event eventsDataSix = new Event(attendees, hostid, RestrictionStatus.UNDER_18, Genre.MUSIC, eventNameSix, descriptionSix, calendarSix, location);
         attendEventsArray.add(eventsDataSix);
-        Event eventsDataSeven = new Event(attendees, hostid, RestrictionStatus.UNDER_18, Genre.MUSIC, eventNameSeven, descriptionSeven, dateOne);
+
+        GregorianCalendar calendarSeven = new GregorianCalendar(1964,7,22,22,45);
+        Log.i("tophat", "Month" + calendarSeven.get(Calendar.MONTH));
+        calendarSeven.add(Calendar.MONTH, -1);
+        if (calendarSeven.get(Calendar.AM_PM) == 1) {
+            calendarSeven.set(Calendar.AM_PM, Calendar.PM);
+        }
+        Event eventsDataSeven = new Event(attendees, hostid, RestrictionStatus.UNDER_18, Genre.MUSIC, eventNameSeven, descriptionSeven, calendarSeven, location);
         attendEventsArray.add(eventsDataSeven);
 
         return attendEventsArray;

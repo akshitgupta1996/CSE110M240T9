@@ -30,7 +30,7 @@ public class Event{
     private ArrayList<String> attendees;
 
     //date and time of the event
-    private Date date;
+    private GregorianCalendar date;
 
     //How restricted an event is. Check for explanation in User.java
     private RestrictionStatus restrictionStatus;
@@ -41,12 +41,15 @@ public class Event{
     //event description, as visible to attendees
     private String description;
 
+    //event location
+    private String location;
+
     //picture for the event
     private URL eventImage;
 
     public Event (ArrayList<String> attendees, String hostID,
                   RestrictionStatus restrictionStatus, Genre genre, String name,
-                  String description, Date date) {
+                  String description, GregorianCalendar date, String location) {
 
         setAttendees(attendees);
         setHost(hostID);
@@ -55,6 +58,7 @@ public class Event{
         setName(name);
         setDescription(description);
         setDate(date);
+        setLocation(location);
 
     }
 
@@ -67,11 +71,12 @@ public class Event{
         setRestrictionStatus((RestrictionStatus) parseEvent.get(System.restrictionStatus));
         setGenre((Genre) parseEvent.get(System.genre));
         setDescription((String) parseEvent.get(System.description));
+        setLocation((String) parseEvent.get(System.location));
 
         //Date is stored in database and converted to GregorianCalendar
-        //GregorianCalendar calendar = new GregorianCalendar();
-        //calendar.setTime((Date) parseEvent.get(System.date));
-        //setDate(calendar);
+        GregorianCalendar calendar = new GregorianCalendar();
+        calendar.setTime((Date) parseEvent.get(System.date));
+        setDate(calendar);
 
 
     }
@@ -168,14 +173,22 @@ public class Event{
 
     }
 
-    public Date getDate()
+    public GregorianCalendar getDate()
     {
         return date;
     }
 
-    public void setDate(Date date)
+    public void setDate(GregorianCalendar date)
     {
         this.date = date;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     @Override
