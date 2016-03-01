@@ -53,7 +53,7 @@ public class Event {
 
     public Event (ParseObject parseEvent) {
 
-        setEventID((String) parseEvent.get(System.objectId));
+        setEventID(parseEvent.getObjectId());
         setName((String) parseEvent.get(System.name));
         setHost((String) parseEvent.get(System.hostId));
         setAttendees((ArrayList<String>) parseEvent.get(System.attendeeList));

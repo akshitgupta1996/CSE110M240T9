@@ -68,16 +68,17 @@ public class User {
     public User(ParseUser user) {
 
         setName((String) user.get(System.name));
-        setUserID((String) user.get(System.objectId));
+        setUserID(user.getObjectId());
         setAttendeeEventList((ArrayList<String>) user.get(System.attendingEvents));
         setHostEventList((ArrayList<String>) user.get(System.hostingEvents));
 
+        /*
         setAttendeeRating((float) user.get(System.attendeeRating));
         setTotalAttendeeVotes((int) user.get(System.totalAttendeeRatingVotes));
 
         setHostRating((float) user.get(System.hostRating));
         setTotalHostVotes((int) user.get(System.totalHostRatingVotes));
-
+        */
 
     }
 
