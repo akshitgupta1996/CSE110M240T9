@@ -218,7 +218,7 @@ public class System {
      */
     public void createEvent(Event event)
     {
-        ParseObject dbEvent = new ParseObject("Events");
+        final ParseObject dbEvent = new ParseObject("Events");
         dbEvent.put(System.name, event.getName());
         dbEvent.put(System.hostId, event.getHost());
         dbEvent.put(System.attendeeList, event.getAttendees());
@@ -226,9 +226,15 @@ public class System {
         dbEvent.put(System.restrictionStatus, event.getRestrictionStatus().toString());
         dbEvent.put(System.genre, event.getGenre().toString());
         dbEvent.put(System.description, event.getDescription());
-        dbEvent.saveInBackground();
+        dbEvent.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                event.setEventID(dbEvent.getObjectId());
+            }
+        });
 
-        event.setEventID(dbEvent.getObjectId());
+
+        Log.d("EVENTS WHOA", "Event created. ID: " + event.getEventID());
 
     }
 

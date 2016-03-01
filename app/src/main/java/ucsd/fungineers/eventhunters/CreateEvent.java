@@ -138,9 +138,9 @@ public class CreateEvent extends AppCompatActivity {
                 i.putExtra("eventRestriction", selectedID.getText().toString());
                 i.putExtra("eventDescription", eventDescription.getText().toString());
 
-                Log.d("ASDFGHJKL",System.currentUser.toString());
-                newEvent = new Event(new ArrayList<String>(), System.currentUser.userID, RestrictionStatus.fromInt(Integer.parseInt(selectedID.getText().toString())), Genre.fromString(eventGenre.getSelectedItem().toString(), this), eventName.getText().toString(), eventDescription.getText().toString(), mDate);
-
+                Log.d("ASDFGHJKL", System.currentUser.toString());
+                newEvent = new Event(new ArrayList<String>(), System.currentUser.userID, RestrictionStatus.fromString(selectedID.getText().toString()), Genre.fromString(eventGenre.getSelectedItem().toString(), this), eventName.getText().toString(), eventDescription.getText().toString(), mDate.getTime());
+                System.instance.createEvent(newEvent);
 
                 DialogInterface.OnClickListener clickListener = new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface d, int id) {
