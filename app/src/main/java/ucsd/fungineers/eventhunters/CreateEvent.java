@@ -76,7 +76,7 @@ public class CreateEvent extends AppCompatActivity {
 
         mTimePicker = (TextView) findViewById(R.id.create_event_time_picker);
         // TODO set the default value for the time in mDate and update the time picker's text
-        mDate = new GregorianCalendar();
+        //mDate = new GregorianCalendar();
         mTimePicker.setText(mTimeFormat.format(mDate.getTime()));
 
 
@@ -132,11 +132,12 @@ public class CreateEvent extends AppCompatActivity {
 
                 final Intent i = new Intent(this, host_event_status.class);
 
-                i.putExtra("eventName", eventName.getText().toString());
-                i.putExtra("eventLocation", eventLocation.getText().toString());
-                i.putExtra("eventGenre", eventGenre.getSelectedItem().toString());
-                i.putExtra("eventRestriction", selectedID.getText().toString());
-                i.putExtra("eventDescription", eventDescription.getText().toString());
+                //Event newEvent = new Event(null, null, null, null, eventName.getText().toString(), eventDescription.getText().toString(), mDate, eventLocation.getText().toString());
+                //i.putExtra("eventName", eventName.getText().toString());
+                //i.putExtra("eventLocation", eventLocation.getText().toString());
+                //i.putExtra("eventGenre", eventGenre.getSelectedItem().toString());
+                //i.putExtra("eventRestriction", selectedID.getText().toString());
+                //i.putExtra("eventDescription", eventDescription.getText().toString());
 
                 Log.d("ASDFGHJKL", System.currentUser.toString());
                 newEvent = new Event(new ArrayList<String>(), System.currentUser.userID, RestrictionStatus.fromString(selectedID.getText().toString()), Genre.fromString(eventGenre.getSelectedItem().toString(), this), eventName.getText().toString(), eventDescription.getText().toString(), mDate, eventLocation.getText().toString());
@@ -146,6 +147,7 @@ public class CreateEvent extends AppCompatActivity {
                     public void onClick(DialogInterface d, int id) {
                         switch (id) {
                             case DialogInterface.BUTTON_POSITIVE:
+                                i.putExtra("EventKey", newEvent);
                                 System.instance.createEvent(newEvent);
                                 startActivity(i);
                                 break;

@@ -84,8 +84,8 @@ public class Main extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
                 Event eventData = (Event) lv1.getItemAtPosition(position);
-                Intent intent = new Intent(Main.this, EventStatusActivity.class);
-                intent.putExtra(getString(R.string.KEY_EVENT_OBJ), eventData);
+                Intent intent = new Intent(Main.this, host_event_status.class);
+                intent.putExtra("EventKey", eventData);
                 startActivity(intent);
 
             }

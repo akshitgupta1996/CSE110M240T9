@@ -42,7 +42,7 @@ public class host_event_status extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_host_event_status);
 
-        //Event event = (Event) getIntent().getSerializableExtra(getString(R.string.KEY_EVENT_OBJ));
+        Event event = (Event) getIntent().getSerializableExtra("EventKey");
         //editable = getIntent().getBooleanExtra(getString(R.string.KEY_EVENT_EDITABLE), false);
 
         android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
@@ -57,7 +57,7 @@ public class host_event_status extends AppCompatActivity {
         restriction = (TextView) findViewById(R.id.event_restriction);
         description = (TextView) findViewById(R.id.event_description);
         //eventRatingBar = (RatingBar) findViewById(R.id.event_rating_bar);
-
+/*
         title.setText(getIntent().getExtras().getString("eventName"));
         subtitle.setText("Hosted by " + getIntent().getExtras().getString("eventName"));
         //date.setText(mDateFormat.format(getIntent().getExtras().getString("eventName")));
@@ -66,7 +66,15 @@ public class host_event_status extends AppCompatActivity {
         genre.setText(getIntent().getExtras().getString("eventGenre"));
         restriction.setText(getIntent().getExtras().getString("eventRestriction"));
         description.setText(getIntent().getExtras().getString("eventDescription"));
-
+*/
+        title.setText(event.getName());
+        subtitle.setText("Hosted by " + event.getHost());
+        date.setText(mDateFormat.format(event.getDate().getTime()));
+        time.setText(mTimeFormat.format(event.getDate().getTime()));
+        location.setText(event.getLocation());
+        genre.setText(event.getGenre().toString());
+        restriction.setText(event.getRestrictionStatus().toString());
+        description.setText(event.getDescription());
         /*
         eventRatingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
