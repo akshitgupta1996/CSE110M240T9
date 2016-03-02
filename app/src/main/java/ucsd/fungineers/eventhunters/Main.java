@@ -66,7 +66,7 @@ public class Main extends AppCompatActivity {
         ArrayList image_details = getListData();
         final ListView lv1 = (ListView) findViewById(R.id.UpcomingEventsHost);
         lv1.setAdapter(new CustomListAdapter(this, image_details));
-        lv1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        /*lv1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
@@ -78,7 +78,19 @@ public class Main extends AppCompatActivity {
                 Toast.makeText(Main.this, "Selected :" + " " + eventData, Toast.LENGTH_LONG).show();
                 //startActivity(i);
             }
+        });*/
+        lv1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> a, View v, int position, long id) {
+                Event eventData = (Event) lv1.getItemAtPosition(position);
+                Intent intent = new Intent(Main.this, EventStatusActivity.class);
+                intent.putExtra(getString(R.string.KEY_EVENT_OBJ), eventData);
+                startActivity(intent);
+
+            }
         });
+
 
     }
 
