@@ -1,5 +1,7 @@
 package ucsd.fungineers.eventhunters;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -110,20 +112,77 @@ public class host_event_status extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_event_delete :
                 // TODO delete this event
-                Toast.makeText(host_event_status.this, "TODO Delete event", Toast.LENGTH_SHORT).show();
+                //.makeText(host_event_status.this, "TODO Delete event", Toast.LENGTH_SHORT).show();
                 Log.i("clicks", "Delete Event");
+                DialogInterface.OnClickListener delete_clickListener = new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface d, int id) {
+                        switch (id) {
+                            case DialogInterface.BUTTON_POSITIVE:
+                                //i.putExtra("EventKey", newEvent);
+                                //System.instance.createEvent(newEvent);
+                                //startActivity(i);
+                                break;
+                            case DialogInterface.BUTTON_NEGATIVE:
+                                break;
+                        }
+                    }
+                };
+                AlertDialog.Builder delete_b = new AlertDialog.Builder(this);
+                delete_b.setMessage("Are you sure you want to delete this event?")
+                        .setTitle("Delete Event")
+                        .setPositiveButton("Yes", delete_clickListener)
+                        .setNegativeButton("No", delete_clickListener)
+                        .show();
                 break;
             case R.id.action_event_edit :
                 // TODO edit this event
-                Toast.makeText(host_event_status.this, "TODO Edit event", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(host_event_status.this, "TODO Edit event", Toast.LENGTH_SHORT).show();
                 Log.i("clicks", "Edit Event");
+                DialogInterface.OnClickListener edit_clickListener = new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface d, int id) {
+                        switch (id) {
+                            case DialogInterface.BUTTON_POSITIVE:
+                                //i.putExtra("EventKey", newEvent);
+                                //System.instance.createEvent(newEvent);
+                                //startActivity(i);
+                                break;
+                            case DialogInterface.BUTTON_NEGATIVE:
+                                break;
+                        }
+                    }
+                };
+                AlertDialog.Builder edit_b = new AlertDialog.Builder(this);
+                edit_b.setMessage("Are you sure you want to edit this event?")
+                        .setTitle("Edit Event")
+                        .setPositiveButton("Yes", edit_clickListener)
+                        .setNegativeButton("No", edit_clickListener)
+                        .show();
                 break;
             case R.id.action_event_home :
                 // TODO jump to home
-                Toast.makeText(host_event_status.this, "TODO jump to home", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(host_event_status.this, "TODO jump to home", Toast.LENGTH_SHORT).show();
                 Log.i("clicks", "Home");
-                Intent i = new Intent(this, Main.class);
-                startActivity(i);
+                DialogInterface.OnClickListener home_clickListener = new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface d, int id) {
+                        switch (id) {
+                            case DialogInterface.BUTTON_POSITIVE:
+                                //i.putExtra("EventKey", newEvent);
+                                //System.instance.createEvent(newEvent);
+                                //startActivity(i);
+                                Intent i = new Intent(host_event_status.this, Main.class);
+                                startActivity(i);
+                                break;
+                            case DialogInterface.BUTTON_NEGATIVE:
+                                break;
+                        }
+                    }
+                };
+                AlertDialog.Builder home_b = new AlertDialog.Builder(this);
+                home_b.setMessage("Are you sure you want to go to the Home Page?")
+                        .setTitle("Home Page")
+                        .setPositiveButton("Yes", home_clickListener)
+                        .setNegativeButton("No", home_clickListener)
+                        .show();
             default:
                 break;
         }

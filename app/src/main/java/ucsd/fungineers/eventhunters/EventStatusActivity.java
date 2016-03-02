@@ -1,5 +1,7 @@
 package ucsd.fungineers.eventhunters;
 
+    import android.app.AlertDialog;
+    import android.content.DialogInterface;
     import android.content.Intent;
     import android.support.v7.app.AppCompatActivity;
     import android.os.Bundle;
@@ -27,7 +29,7 @@ package ucsd.fungineers.eventhunters;
         private TextView description;
         private RatingBar eventRatingBar;
 
-        private boolean editable = false;
+        //private boolean editable = false;
         private static final String TAG = EventStatusActivity.class.getSimpleName();
         private static final SimpleDateFormat mDateFormat = new SimpleDateFormat("EEE, dd MMM yyyy", Locale.US);
         private static final SimpleDateFormat mTimeFormat = new SimpleDateFormat("h:mm aa",Locale.US);
@@ -38,7 +40,7 @@ package ucsd.fungineers.eventhunters;
         setContentView(R.layout.activity_event_status);
 
         Event event = (Event) getIntent().getSerializableExtra(getString(R.string.KEY_EVENT_OBJ));
-        editable = getIntent().getBooleanExtra(getString(R.string.KEY_EVENT_EDITABLE), false);
+        //editable = getIntent().getBooleanExtra(getString(R.string.KEY_EVENT_EDITABLE), false);
 
         android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -82,32 +84,34 @@ package ucsd.fungineers.eventhunters;
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.event_status_menu, menu);
-
-        if (!editable) {
-            menu.removeItem(R.id.action_event_delete);
-            menu.removeItem(R.id.action_event_edit);
-        }
-
+        menu.removeItem(R.id.action_event_delete);
+        menu.removeItem(R.id.action_event_edit);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_event_delete :
-                // TODO delete this event
-                Toast.makeText(EventStatusActivity.this, "TODO Delete event", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.action_event_edit :
-                // TODO edit this event
-                Toast.makeText(EventStatusActivity.this, "TODO Edit event", Toast.LENGTH_SHORT).show();
-                break;
             case R.id.action_event_home :
-                // TODO jump to home
-                Toast.makeText(EventStatusActivity.this, "TODO jump to home", Toast.LENGTH_SHORT).show();
-                Log.i("clicks", "Home");
-                Intent i = new Intent(this, AttendingEvents.class);
-                startActivity(i);
+                //Toast.makeText(EventStatusActivity.this, "TODO jump to home", Toast.LENGTH_SHORT).show();
+                Log.i("clicks", "Home");DialogInterface.OnClickListener home_clickListener = new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface d, int id) {
+                    switch (id) {
+                        case DialogInterface.BUTTON_POSITIVE:
+                            Intent i = new Intent(EventStatusActivity.this, AttendingEvents.class);
+                            startActivity(i);
+                            break;
+                        case DialogInterface.BUTTON_NEGATIVE:
+                            break;
+                    }
+                }
+            };
+                AlertDialog.Builder home_b = new AlertDialog.Builder(this);
+                home_b.setMessage("Are you sure you want to go to the Home Page?")
+                        .setTitle("Home Page")
+                        .setPositiveButton("Yes", home_clickListener)
+                        .setNegativeButton("No", home_clickListener)
+                        .show();
                 break;
             default:
                 break;

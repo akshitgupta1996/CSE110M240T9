@@ -158,7 +158,7 @@ public class CreateEvent extends AppCompatActivity {
                 };
                 AlertDialog.Builder b = new AlertDialog.Builder(this);
                 b.setMessage("Are you sure you want to create this event?")
-                        .setTitle("Create Event")
+                        .setTitle("Event Creation Confirmation")
                         .setPositiveButton("Yes", clickListener)
                         .setNegativeButton("No", clickListener)
                         .show();
