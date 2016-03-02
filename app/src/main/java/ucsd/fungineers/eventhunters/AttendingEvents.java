@@ -2,21 +2,15 @@ package ucsd.fungineers.eventhunters;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import java.util.*;
-import java.text.*;
+
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.AdapterView.*;
 import android.widget.AdapterView;
-import android.widget.Toast;
 import android.app.Activity;
-import android.widget.TextView;
-
-import com.parse.ParseException;
 
 /**
  * Created by kagcaoili on 2/21/16. extends AppCompactActivity
@@ -34,10 +28,10 @@ public class AttendingEvents extends Activity {
 
             @Override
             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
-                Object o = lv1.getItemAtPosition(position);
-                Event eventData = (Event) o;
-                //final Intent i = new Intent(this, JoinEvents.class);
-                Toast.makeText(AttendingEvents.this, "Selected :" + " " + eventData, Toast.LENGTH_LONG).show();
+                Event eventData = (Event) lv1.getItemAtPosition(position);
+                Intent intent = new Intent(AttendingEvents.this, EventStatusActivity.class);
+                intent.putExtra(getString(R.string.KEY_EVENT_OBJ), eventData);
+                startActivity(intent);
             }
         });
 
@@ -75,7 +69,7 @@ public class AttendingEvents extends Activity {
         if (calendarOne.get(Calendar.AM_PM) == 1) {
             calendarOne.set(Calendar.AM_PM, Calendar.PM);
         }
-        Event eventsDataOne = new Event(attendees, hostid, RestrictionStatus.UNDER_18, Genre.MUSIC, eventNameOne, descriptionOne, calendarOne, location);
+        Event eventsDataOne = new Event(attendees, hostid, RestrictionStatus.OVER_18, Genre.MUSIC, eventNameOne, descriptionOne, calendarOne, location);
         attendEventsArray.add(eventsDataOne);
 
         GregorianCalendar calendarTwo = new GregorianCalendar(2025,6,28,9,15);
@@ -84,7 +78,7 @@ public class AttendingEvents extends Activity {
         if (calendarTwo.get(Calendar.AM_PM) == 1) {
             calendarTwo.set(Calendar.AM_PM, Calendar.PM);
         }
-        Event eventsDataTwo = new Event(attendees, hostid, RestrictionStatus.UNDER_18, Genre.MUSIC, eventNameTwo, descriptionTwo, calendarTwo, location);
+        Event eventsDataTwo = new Event(attendees, hostid, RestrictionStatus.OVER_18, Genre.MUSIC, eventNameTwo, descriptionTwo, calendarTwo, location);
         attendEventsArray.add(eventsDataTwo);
 
         GregorianCalendar calendarThree = new GregorianCalendar(1995,4,2,20,00);
@@ -93,7 +87,7 @@ public class AttendingEvents extends Activity {
         if (calendarThree.get(Calendar.AM_PM) == 1) {
             calendarThree.set(Calendar.AM_PM, Calendar.PM);
         }
-        Event eventsDataThree = new Event(attendees, hostid, RestrictionStatus.UNDER_18, Genre.MUSIC, eventNameThree, descriptionThree, calendarThree, location);
+        Event eventsDataThree = new Event(attendees, hostid, RestrictionStatus.OVER_18, Genre.MUSIC, eventNameThree, descriptionThree, calendarThree, location);
         attendEventsArray.add(eventsDataThree);
 
         GregorianCalendar calendarFour = new GregorianCalendar(2010,12,20,3,30);
@@ -102,7 +96,7 @@ public class AttendingEvents extends Activity {
         if (calendarFour.get(Calendar.AM_PM) == 1) {
             calendarFour.set(Calendar.AM_PM, Calendar.PM);
         }
-        Event eventsDataFour = new Event(attendees, hostid, RestrictionStatus.UNDER_18, Genre.MUSIC, eventNameFour, descriptionFour, calendarFour, location);
+        Event eventsDataFour = new Event(attendees, hostid, RestrictionStatus.OVER_18, Genre.MUSIC, eventNameFour, descriptionFour, calendarFour, location);
         attendEventsArray.add(eventsDataFour);
 
         GregorianCalendar calendarFive = new GregorianCalendar(2016,2,29,19,20);
@@ -111,7 +105,7 @@ public class AttendingEvents extends Activity {
         if (calendarFive.get(Calendar.AM_PM) == 1) {
             calendarFive.set(Calendar.AM_PM, Calendar.PM);
         }
-        Event eventsDataFive = new Event(attendees, hostid, RestrictionStatus.UNDER_18, Genre.MUSIC, eventNameFive, descriptionFive, calendarFive, location);
+        Event eventsDataFive = new Event(attendees, hostid, RestrictionStatus.OVER_18, Genre.MUSIC, eventNameFive, descriptionFive, calendarFive, location);
         attendEventsArray.add(eventsDataFive);
 
         GregorianCalendar calendarSix = new GregorianCalendar(2017,8,15,11,15);
@@ -120,7 +114,7 @@ public class AttendingEvents extends Activity {
         if (calendarSix.get(Calendar.AM_PM) == 1) {
             calendarSix.set(Calendar.AM_PM, Calendar.PM);
         }
-        Event eventsDataSix = new Event(attendees, hostid, RestrictionStatus.UNDER_18, Genre.MUSIC, eventNameSix, descriptionSix, calendarSix, location);
+        Event eventsDataSix = new Event(attendees, hostid, RestrictionStatus.OVER_18, Genre.MUSIC, eventNameSix, descriptionSix, calendarSix, location);
         attendEventsArray.add(eventsDataSix);
 
         GregorianCalendar calendarSeven = new GregorianCalendar(1964,7,22,22,45);
@@ -129,7 +123,7 @@ public class AttendingEvents extends Activity {
         if (calendarSeven.get(Calendar.AM_PM) == 1) {
             calendarSeven.set(Calendar.AM_PM, Calendar.PM);
         }
-        Event eventsDataSeven = new Event(attendees, hostid, RestrictionStatus.UNDER_18, Genre.MUSIC, eventNameSeven, descriptionSeven, calendarSeven, location);
+        Event eventsDataSeven = new Event(attendees, hostid, RestrictionStatus.OVER_18, Genre.MUSIC, eventNameSeven, descriptionSeven, calendarSeven, location);
         attendEventsArray.add(eventsDataSeven);
 
         return attendEventsArray;

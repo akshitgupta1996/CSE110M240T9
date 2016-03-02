@@ -130,7 +130,7 @@ public class CreateEvent extends AppCompatActivity {
                     && !eventDescription.getText().toString().isEmpty()
                     ) {
 
-                final Intent i = new Intent(this, Event_Status.class);
+                final Intent i = new Intent(this, host_event_status.class);
 
                 i.putExtra("eventName", eventName.getText().toString());
                 i.putExtra("eventLocation", eventLocation.getText().toString());

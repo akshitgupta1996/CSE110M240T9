@@ -209,7 +209,7 @@ public class User {
  * It acts like a class.
  */
 enum RestrictionStatus {
-    NO_RESTRICTIONS(0), UNDER_18(1), UNDER_21(2);
+    NO_RESTRICTIONS(0), OVER_18(1), OVER_21(2);
 
     private final int value;
 
@@ -242,12 +242,29 @@ enum RestrictionStatus {
 
         else if (string.equals(R.string.label_18_plus))
         {
-            return RestrictionStatus.UNDER_18;
+            return RestrictionStatus.OVER_18;
         }
 
         else
         {
-            return RestrictionStatus.UNDER_21;
+            return RestrictionStatus.OVER_21;
+        }
+    }
+
+    @Override
+    public String toString() {
+        switch (this.value) {
+            case 0 :
+                return "No Restrictions";
+
+            case 1 :
+                return "18+ Only";
+
+            case 2 :
+                return "21+ Only";
+
+            default:
+                return "";
         }
     }
 }
