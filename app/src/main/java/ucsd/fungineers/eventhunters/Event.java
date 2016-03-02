@@ -11,13 +11,14 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+
+import java.io.Serializable;
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 public class Event implements Serializable {
-
     //The id that the event has in the database.
     private String eventID;
 

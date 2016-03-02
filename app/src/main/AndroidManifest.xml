@@ -58,6 +58,7 @@
             android:label="Event Status"
             android:theme="@style/AppTheme.ColoredStatusBarOnly"
             ></activity>
+
     </application>
 
 </manifest>
