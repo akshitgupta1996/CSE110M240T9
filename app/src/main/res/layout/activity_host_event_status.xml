@@ -114,11 +114,23 @@
                 android:text="18+ only"
                 android:layout_marginBottom="24dp"/>
 
-            <android.support.v7.widget.AppCompatImageView
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/event_attendeeNum"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:layout_below="@+id/event_restriction"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
+                android:drawableLeft="@drawable/ic_supervisor_account_black_24dp"
+                android:drawablePadding="16dp"
+                android:text="100"
+                android:layout_marginBottom="24dp"/>
+
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:layout_below="@+id/event_attendeeNum"
                 android:src="@drawable/ic_description"/>
 
             <android.support.v7.widget.AppCompatTextView
@@ -126,7 +138,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
-                android:layout_below="@+id/event_restriction"
+                android:layout_below="@+id/event_attendeeNum"
                 android:paddingLeft="58dp"
                 android:text="Description of the event goes here.\n\n\n\n\n"
                 android:layout_marginBottom="24dp"/>

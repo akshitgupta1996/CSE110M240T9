@@ -32,6 +32,7 @@ public class host_event_status extends AppCompatActivity {
     private TextView genre;
     private TextView restriction;
     private TextView description;
+    private TextView attendeeNum;
     //private RatingBar eventRatingBar;
 
     //private boolean editable = true;
@@ -58,6 +59,7 @@ public class host_event_status extends AppCompatActivity {
         genre = (TextView) findViewById(R.id.event_genre);
         restriction = (TextView) findViewById(R.id.event_restriction);
         description = (TextView) findViewById(R.id.event_description);
+        attendeeNum = (TextView) findViewById(R.id.event_attendeeNum);
         //eventRatingBar = (RatingBar) findViewById(R.id.event_rating_bar);
 /*
         title.setText(getIntent().getExtras().getString("eventName"));
@@ -77,6 +79,7 @@ public class host_event_status extends AppCompatActivity {
         genre.setText(event.getGenre().toString());
         restriction.setText(event.getRestrictionStatus().toString());
         description.setText(event.getDescription());
+        attendeeNum.setText("" + event.getAttendees().size());
         /*
         eventRatingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override

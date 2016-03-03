@@ -27,6 +27,7 @@ package ucsd.fungineers.eventhunters;
         private TextView genre;
         private TextView restriction;
         private TextView description;
+        private TextView attendeeNum;
         private RatingBar eventRatingBar;
 
         //private boolean editable = false;
@@ -53,6 +54,7 @@ package ucsd.fungineers.eventhunters;
         genre = (TextView) findViewById(R.id.event_genre);
         restriction = (TextView) findViewById(R.id.event_restriction);
         description = (TextView) findViewById(R.id.event_description);
+        attendeeNum = (TextView) findViewById(R.id.event_attendeeNum);
         eventRatingBar = (RatingBar) findViewById(R.id.event_rating_bar);
 
         title.setText(event.getName());
@@ -63,6 +65,7 @@ package ucsd.fungineers.eventhunters;
         genre.setText(event.getGenre().toString());
         restriction.setText(event.getRestrictionStatus().toString());
         description.setText(event.getDescription());
+        attendeeNum.setText(""+ event.getAttendees().size());
 
         eventRatingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
