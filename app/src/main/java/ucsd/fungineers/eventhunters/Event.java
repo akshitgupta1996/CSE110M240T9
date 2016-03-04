@@ -5,6 +5,7 @@ import android.content.res.Resources;
 
 import com.parse.ParseObject;
 
+import java.io.Serializable;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -15,7 +16,7 @@ import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-public class Event{
+public class Event implements Serializable{
 
     //The id that the event has in the database.
     private String eventID;

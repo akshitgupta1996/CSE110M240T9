@@ -31,6 +31,7 @@ import java.util.Locale;
 
 
 public class CreateEvent extends AppCompatActivity {
+    private boolean isOldEvent = false;
 
     private static final String TAG = CreateEvent.class.getSimpleName();
     private TextView mDatePicker;
@@ -58,6 +59,14 @@ public class CreateEvent extends AppCompatActivity {
         });*/
 
         initDateAndTimePickers();
+
+        /*If the event is actually old, we need to update instead of create a new event. */
+        if(isOldEventPage(getIntent().getExtras()))
+        {
+            Event e = (Event)getIntent().getExtras().getSerializable("event");
+           loadOldEventToForm(e);
+
+        }
     }
 
     private void initDateAndTimePickers() {
@@ -89,39 +98,30 @@ public class CreateEvent extends AppCompatActivity {
         });
     }
 
+/*If the create button is clicked, we go here.*/
     public void button_Click(View view) {
 
         String button_name = ((Button) view).getText().toString();
         if (button_name.equals("Add Event")) {
             Log.i("clicks", "Add Event");
 
-
-/*
-            LinearLayout l = (LinearLayout) findViewById(R.id.base);
-            for (int i = 0; i < l.getChildCount(); i++) {
-                if(l.getChildAt(i) instanceof TextView)
-                {
-                    EditText eventInfo = (EditText)l.getChildAt(i);
-
-                } else if (l.getChildAt(i) instanceof Spinner)
-                {
-
-                }
-                else if (l.getChildAt(i) instanceof RadioGroup)
-                {
-
-                }
-            }*/
-
+            if(isOldEvent == true)
+            {
+                //Call Update Old Event Script
+              return;
+            }
             EditText eventName = (EditText) findViewById(R.id.field_Name);
             // TODO add checks for date
 
+            /*This is where we grab the ID's for the form elements so we can change them*/
             EditText eventLocation = (EditText) findViewById(R.id.field_Location);
             Spinner eventGenre = (Spinner) findViewById(R.id.field_Spinner_Genre);
             RadioGroup eventRestriction = (RadioGroup) findViewById(R.id.radio_Restriction);
             EditText eventDescription = (EditText) findViewById(R.id.field_Description);
             int radioId = eventRestriction.getCheckedRadioButtonId();
             RadioButton selectedID = (RadioButton) findViewById(radioId);
+
+            /*Error checking, because we should only create the new form if all the required data was filled in.*/
             if (selectedID != null
                     && !eventName.getText().toString().isEmpty()
                     && !eventLocation.getText().toString().isEmpty()
@@ -130,46 +130,70 @@ public class CreateEvent extends AppCompatActivity {
                     && !eventDescription.getText().toString().isEmpty()
                     ) {
 
+                /*This is an intent, which means it creates an instance of the event status class.*/
                 final Intent i = new Intent(this, Event_Status.class);
-
+/*
                 i.putExtra("eventName", eventName.getText().toString());
                 i.putExtra("eventLocation", eventLocation.getText().toString());
                 i.putExtra("eventGenre", eventGenre.getSelectedItem().toString());
                 i.putExtra("eventRestriction", selectedID.getText().toString());
                 i.putExtra("eventDescription", eventDescription.getText().toString());
+*/
+           //     Log.d("CurrentUserCreateEvt", System.currentUser.toString());
+//TODO the user is a null pointer so i commented it out
 
-                Log.d("ASDFGHJKL", System.currentUser.toString());
-                newEvent = new Event(new ArrayList<String>(), System.currentUser.userID, RestrictionStatus.fromString(selectedID.getText().toString()), Genre.fromString(eventGenre.getSelectedItem().toString(), this), eventName.getText().toString(), eventDescription.getText().toString(), mDate, eventLocation.getText().toString());
-                System.instance.createEvent(newEvent);
+                /*this line creates a new event using the information we got from the form that the user
+                * submitted. */
+                newEvent = new Event(new ArrayList<String>(),
+                       "",// System.currentUser.userID,
+                        RestrictionStatus.fromString(selectedID.getText().toString()),
+                        Genre.fromString(eventGenre.getSelectedItem().toString(), this),
+                        eventName.getText().toString(),
+                        eventDescription.getText().toString(),
+                        mDate,
+                        eventLocation.getText().toString());
 
+
+                /*This is the event being passed between objects, so we don't
+                 need to pass all the form data manually.*/
+                i.putExtra("event",newEvent);
+
+                /*This line is responsible for creating the event.*/
+               // System.instance.createEvent(newEvent);//TODO remove this because it is below already.
+
+                /*This onclicklistener is used to check if the user wants to create an event. If they say yes the event is created. Otherwise it isn't.*/
                 DialogInterface.OnClickListener clickListener = new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface d, int id) {
                         switch (id) {
                             case DialogInterface.BUTTON_POSITIVE:
-                                System.instance.createEvent(newEvent);
+                           //     System.instance.createEvent(newEvent);
                                 startActivity(i);
+                                finish();
                                 break;
                             case DialogInterface.BUTTON_NEGATIVE:
                                 break;
                         }
                     }
                 };
+                /*This is the message asked to the user.*/
                 AlertDialog.Builder b = new AlertDialog.Builder(this);
                 b.setMessage("Are you sure you want to create this event?")
                         .setTitle("Create Event")
                         .setPositiveButton("Yes", clickListener)
                         .setNegativeButton("No", clickListener)
                         .show();
-
-
             }
+
+            /*This happens if the user has not filled in all the form data*/
             else
             {
                 DialogInterface.OnClickListener failedclickListener = new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface d, int id) {
-                        //do nothing
+                        //do nothing because we should not create event if there isnt the required info.
                     }
                 };
+
+                /*The message to display to the user.*/
                 AlertDialog.Builder failed = new AlertDialog.Builder(this);
                 failed.setMessage("Please fill in all fields.")
                         .setTitle("Failed to Create Event")
@@ -204,13 +228,58 @@ public class CreateEvent extends AppCompatActivity {
         timePickerDialog.show();
     }
 
-
     private void hideKeyboard() {
         View view = this.getCurrentFocus();
         if (view != null) {
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
+    }
+
+    private boolean isOldEventPage(Bundle data)
+    {
+        if(data == null) {
+            isOldEvent = false;
+            return false;
+        }
+        else {
+            isOldEvent = true;
+            return true;
+        }
+    }
+
+    private void loadOldEventToForm(Event e)
+    {
+        /*These are the form elements we are going to change*/
+        EditText eventLocation = (EditText) findViewById(R.id.field_Location);
+        Spinner eventGenre = (Spinner) findViewById(R.id.field_Spinner_Genre);
+        RadioGroup eventRestriction = (RadioGroup) findViewById(R.id.radio_Restriction);
+        EditText eventDescription = (EditText) findViewById(R.id.field_Description);
+        int radioId = eventRestriction.getCheckedRadioButtonId();
+        RadioButton selectedID = (RadioButton) findViewById(radioId);
+
+        eventLocation.setText(e.getLocation());
+        eventGenre.setSelection(0);//TODO fix this
+        eventDescription.setText(e.getDescription());
+        //TODO add date from loaded event
+        eventRestriction.check(/*put the button id in here*/0);
+    }
+    private int getRadioButtonID(Event e)
+    {
+        if (e.getRestrictionStatus() == RestrictionStatus.NO_RESTRICTIONS)
+        {
+
+        }
+        else if(e.getRestrictionStatus() == RestrictionStatus.UNDER_18)
+        {
+
+        }
+        else if (e.getRestrictionStatus() == RestrictionStatus.UNDER_21)
+        {
+
+        }
+
+
     }
 }
 
