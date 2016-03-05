@@ -46,4 +46,7 @@
     <string name="label_18_plus">18+ Only</string>
     <string name="label_21_plus">21+ Only</string>
     <string name="label_event_description">Event Description</string>
+    <string name="KEY_EVENT_OBJ">KEY_EVENT_OBJECT</string>
+    <string name="label_ratings">Rating</string>
+    <string name="KEY_EVENT_EDITABLE">KEY_EVENT_EDITABLE</string>
 </resources>

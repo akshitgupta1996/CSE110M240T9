@@ -296,12 +296,13 @@ public class System {
     public List<Event> getAttendingEventsByUser(String userId) throws ParseException {
 
        ParseQuery<ParseUser> query = ParseUser.getQuery();
-
+        Log.i("cheddar", userId);
 
         query.get(userId);
         //query.whereEqualTo(System.objectId, userId);
 
         List<ParseUser> foundUser = query.find();
+        Log.i("cheddar", "foundUser:" + foundUser);
 
         if (foundUser == null) {
 
@@ -311,6 +312,7 @@ public class System {
 
         List<Event> eventList = (List<Event>)foundUser.get(0).get(System.attendingEvents);
 
+        Log.i("cheddar", "eventList" + eventList);
         return eventList;
 
     }

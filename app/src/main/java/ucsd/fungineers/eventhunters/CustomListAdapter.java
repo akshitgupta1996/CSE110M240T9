@@ -15,7 +15,7 @@ public class CustomListAdapter extends BaseAdapter{
 
     private ArrayList<Event> listData;
     private LayoutInflater layoutInflater;
-    private SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy EEE hh:mm aa");
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, dd MMM yyyy hh:mm aa");
     private SimpleDateFormat overlayFormat = new SimpleDateFormat("MMM dd");
 
     public CustomListAdapter(Context aContext, ArrayList<Event> listData) {

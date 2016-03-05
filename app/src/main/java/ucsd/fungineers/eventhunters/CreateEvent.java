@@ -85,7 +85,7 @@ public class CreateEvent extends AppCompatActivity {
 
         mTimePicker = (TextView) findViewById(R.id.create_event_time_picker);
         // TODO set the default value for the time in mDate and update the time picker's text
-        mDate = new GregorianCalendar();
+        //mDate = new GregorianCalendar();
         mTimePicker.setText(mTimeFormat.format(mDate.getTime()));
 
 
@@ -108,6 +108,7 @@ public class CreateEvent extends AppCompatActivity {
             if(isOldEvent == true)
             {
                 //Call Update Old Event Script
+               // System.instance.updateEvent(newEvent);
               return;
             }
             EditText eventName = (EditText) findViewById(R.id.field_Name);
@@ -130,45 +131,24 @@ public class CreateEvent extends AppCompatActivity {
                     && !eventDescription.getText().toString().isEmpty()
                     ) {
 
-                /*This is an intent, which means it creates an instance of the event status class.*/
-                final Intent i = new Intent(this, Event_Status.class);
-/*
-                i.putExtra("eventName", eventName.getText().toString());
-                i.putExtra("eventLocation", eventLocation.getText().toString());
-                i.putExtra("eventGenre", eventGenre.getSelectedItem().toString());
-                i.putExtra("eventRestriction", selectedID.getText().toString());
-                i.putExtra("eventDescription", eventDescription.getText().toString());
-*/
-           //     Log.d("CurrentUserCreateEvt", System.currentUser.toString());
-//TODO the user is a null pointer so i commented it out
 
-                /*this line creates a new event using the information we got from the form that the user
-                * submitted. */
-                newEvent = new Event(new ArrayList<String>(),
-                       "",// System.currentUser.userID,
-                        RestrictionStatus.fromString(selectedID.getText().toString()),
-                        Genre.fromString(eventGenre.getSelectedItem().toString(), this),
-                        eventName.getText().toString(),
-                        eventDescription.getText().toString(),
-                        mDate,
-                        eventLocation.getText().toString());
+                final Intent i = new Intent(this, host_event_status.class);
 
 
-                /*This is the event being passed between objects, so we don't
-                 need to pass all the form data manually.*/
-                i.putExtra("event",newEvent);
+                Log.d("ASDFGHJKL", System.currentUser.toString());
+                newEvent = new Event(new ArrayList<String>(), System.currentUser.userID, RestrictionStatus.fromString(selectedID.getText().toString()), Genre.fromString(eventGenre.getSelectedItem().toString(), this), eventName.getText().toString(), eventDescription.getText().toString(), mDate, eventLocation.getText().toString());
+                System.instance.createEvent(newEvent);
 
-                /*This line is responsible for creating the event.*/
-               // System.instance.createEvent(newEvent);//TODO remove this because it is below already.
 
-                /*This onclicklistener is used to check if the user wants to create an event. If they say yes the event is created. Otherwise it isn't.*/
                 DialogInterface.OnClickListener clickListener = new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface d, int id) {
                         switch (id) {
                             case DialogInterface.BUTTON_POSITIVE:
-                           //     System.instance.createEvent(newEvent);
+
+                                i.putExtra("EventKey", newEvent);
+                               System.instance.createEvent(newEvent);
                                 startActivity(i);
-                                finish();
+                               finish();
                                 break;
                             case DialogInterface.BUTTON_NEGATIVE:
                                 break;
@@ -178,7 +158,7 @@ public class CreateEvent extends AppCompatActivity {
                 /*This is the message asked to the user.*/
                 AlertDialog.Builder b = new AlertDialog.Builder(this);
                 b.setMessage("Are you sure you want to create this event?")
-                        .setTitle("Create Event")
+                        .setTitle("Event Creation Confirmation")
                         .setPositiveButton("Yes", clickListener)
                         .setNegativeButton("No", clickListener)
                         .show();
@@ -270,16 +250,16 @@ public class CreateEvent extends AppCompatActivity {
         {
 
         }
-        else if(e.getRestrictionStatus() == RestrictionStatus.UNDER_18)
+        else if(e.getRestrictionStatus() == RestrictionStatus.OVER_18)
         {
 
         }
-        else if (e.getRestrictionStatus() == RestrictionStatus.UNDER_21)
+        else if (e.getRestrictionStatus() == RestrictionStatus.OVER_21)
         {
 
         }
 
-
+        return 0;
     }
 }
 

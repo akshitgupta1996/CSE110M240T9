@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+
+import java.io.Serializable;
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
@@ -239,6 +241,21 @@ enum Genre{
         else
         {
             return Genre.PARTY;
+        }
+    }
+
+
+    @Override
+    public String toString() {
+        switch (this.value) {
+            case 0 :
+                return "Music";
+
+            case 1 :
+                return "Party";
+
+            default:
+                return "";
         }
     }
 }
