@@ -137,6 +137,7 @@ public class host_event_status extends AppCompatActivity {
                         .show();
                 break;
             case R.id.action_event_edit :
+                final Intent i = new Intent(this, CreateEvent.class);
                 // TODO edit this event
                 //Toast.makeText(host_event_status.this, "TODO Edit event", Toast.LENGTH_SHORT).show();
                 Log.i("clicks", "Edit Event");
@@ -144,9 +145,11 @@ public class host_event_status extends AppCompatActivity {
                     public void onClick(DialogInterface d, int id) {
                         switch (id) {
                             case DialogInterface.BUTTON_POSITIVE:
-                                //i.putExtra("EventKey", newEvent);
-                                //System.instance.createEvent(newEvent);
-                                //startActivity(i);
+
+                                i.putExtra("EventKey", event);
+                                //System.instance.createEvent(event);
+                                startActivity(i);
+                                finish();
                                 break;
                             case DialogInterface.BUTTON_NEGATIVE:
                                 break;
