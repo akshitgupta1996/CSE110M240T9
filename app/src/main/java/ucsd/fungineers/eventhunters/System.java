@@ -47,7 +47,7 @@ public class System {
     public static String hostRating = "HostRating";
     public static String totalHostRatingVotes = "TotalHostRatingVotes";
 
-
+    private Event storedEvent;
 
     final int MAX_SCORE = 5;
 
@@ -219,18 +219,23 @@ public class System {
     public void createEvent(Event event)
     {
         final ParseObject dbEvent = new ParseObject("Events");
+
         dbEvent.put(System.name, event.getName());
         dbEvent.put(System.hostId, event.getHost());
         dbEvent.put(System.attendeeList, event.getAttendees());
         dbEvent.put(System.date, event.getDate().getTime());
+        dbEvent.put(System.location, event.getLocation());
         dbEvent.put(System.restrictionStatus, event.getRestrictionStatus().toString());
         dbEvent.put(System.genre, event.getGenre().toString());
         dbEvent.put(System.description, event.getDescription());
+
+        storedEvent = event;
+
         dbEvent.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
                 //Need to set the event's id at some point.
-                //event.setEventID(dbEvent.getObjectId());
+                storedEvent.setEventID(dbEvent.getObjectId());
             }
         });
 

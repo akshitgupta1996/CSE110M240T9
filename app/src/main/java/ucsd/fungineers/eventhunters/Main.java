@@ -171,6 +171,9 @@ public class Main extends AppCompatActivity {
         hostView.setAdapter(hostEvents);
         //end event example
 
+
+        
+
     }
 */
 
