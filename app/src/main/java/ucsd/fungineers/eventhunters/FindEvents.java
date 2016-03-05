@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -25,9 +26,9 @@ public class FindEvents extends AppCompatActivity {
 
         aContext = this;
 
-        ArrayList thisWeek_details = getThisWeekData();
-        final ListView lv1 = (ListView) findViewById(R.id.ThisWeek);
-        lv1.setAdapter(new CustomListAdapter(this, thisWeek_details));
+        ArrayList allEvent_details = getAllEventData();
+        final ListView lv1 = (ListView) findViewById(R.id.AllEvents);
+        lv1.setAdapter(new CustomListAdapter(this, allEvent_details));
         lv1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
@@ -42,7 +43,7 @@ public class FindEvents extends AppCompatActivity {
 
     }
 
-    private ArrayList getThisWeekData() {
+    private ArrayList getAllEventData() {
 
 
         //test 1
@@ -136,5 +137,24 @@ public class FindEvents extends AppCompatActivity {
         return attendEventsArray;
 
 
+        /*
+        ArrayList<Event> thisWeekEvents = new ArrayList<Event>();
+        try {
+            thisWeekEvents = (ArrayList) System.instance.getAllEvents(RestrictionStatus.NO_RESTRICTIONS);
+        } catch (com.parse.ParseException e) {
+            e.printStackTrace();
+        }
+        return thisWeekEvents;
+        */
+    }
+
+    /*This is a button click method, which will activate when any button is clicked.*/
+    public void button_click(View view){
+        String button_name = ((Button) view).getText().toString();
+        if(button_name.equals("Home"))
+        {
+            Intent i = new Intent(this, Main.class);
+            startActivity(i);
+        }
     }
 }
