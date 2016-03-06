@@ -512,8 +512,8 @@ public class System {
         loadedEvent.put(System.hostId, eventToUpdate.getHost());
         loadedEvent.put(System.attendeeList, eventToUpdate.getAttendees());
         loadedEvent.put(System.date, eventToUpdate.getDate().getTime());
-        loadedEvent.put(System.restrictionStatus, eventToUpdate.getRestrictionStatus());
-        loadedEvent.put(System.genre, eventToUpdate.getGenre());
+        loadedEvent.put(System.restrictionStatus, eventToUpdate.getRestrictionStatus().toString());
+        loadedEvent.put(System.genre, eventToUpdate.getGenre().toString());
         loadedEvent.put(System.description, eventToUpdate.getDescription());
 
     }
