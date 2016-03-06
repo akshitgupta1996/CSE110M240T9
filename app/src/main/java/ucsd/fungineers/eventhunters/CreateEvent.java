@@ -31,16 +31,19 @@ import java.util.Locale;
 
 
 public class CreateEvent extends AppCompatActivity {
+    //this variable tells if the event is old or not. If it is old, we need to load the old data and update.
+    private boolean isOldEvent = false;
 
+    //This is something to do with dates
     private static final String TAG = CreateEvent.class.getSimpleName();
     private TextView mDatePicker;
     private TextView mTimePicker;
 
     private GregorianCalendar mDate;
-    //private Calendar mTimerDate;
     private static final SimpleDateFormat mDateFormat = new SimpleDateFormat("EEE, dd MMM yyyy", Locale.US);
     private static final SimpleDateFormat mTimeFormat = new SimpleDateFormat("h:mm aa",Locale.US);
 
+    //This is the event of this form
     private Event newEvent;
 
     @Override
@@ -58,6 +61,14 @@ public class CreateEvent extends AppCompatActivity {
         });*/
 
         initDateAndTimePickers();
+
+        /*If the event is actually old, we need to update instead of create a new event. */
+        if(isOldEventPage(getIntent().getExtras()))
+        {
+            Event e = (Event)getIntent().getExtras().getSerializable("EventKey");
+           loadOldEventToForm(e);
+
+        }
     }
 
     private void initDateAndTimePickers() {
@@ -89,6 +100,7 @@ public class CreateEvent extends AppCompatActivity {
         });
     }
 
+/*If the create button is clicked, we go here.*/
     public void button_Click(View view) {
 
         if (view.getId() == R.id.button_AddEvent) {
@@ -96,33 +108,24 @@ public class CreateEvent extends AppCompatActivity {
         if (button_name.equals("Add Event")) {*/
             Log.i("clicks", "Add Event");
 
-
-/*
-            LinearLayout l = (LinearLayout) findViewById(R.id.base);
-            for (int i = 0; i < l.getChildCount(); i++) {
-                if(l.getChildAt(i) instanceof TextView)
-                {
-                    EditText eventInfo = (EditText)l.getChildAt(i);
-
-                } else if (l.getChildAt(i) instanceof Spinner)
-                {
-
-                }
-                else if (l.getChildAt(i) instanceof RadioGroup)
-                {
-
-                }
-            }*/
-
+            if(isOldEvent == true)
+            {
+                //Call Update Old Event Script
+               // System.instance.updateEvent(newEvent);
+              return;
+            }
             EditText eventName = (EditText) findViewById(R.id.field_Name);
             // TODO add checks for date
 
+            /*This is where we grab the ID's for the form elements so we can change them*/
             EditText eventLocation = (EditText) findViewById(R.id.field_Location);
             Spinner eventGenre = (Spinner) findViewById(R.id.field_Spinner_Genre);
             RadioGroup eventRestriction = (RadioGroup) findViewById(R.id.radio_Restriction);
             EditText eventDescription = (EditText) findViewById(R.id.field_Description);
             int radioId = eventRestriction.getCheckedRadioButtonId();
             RadioButton selectedID = (RadioButton) findViewById(radioId);
+
+            /*Error checking, because we should only create the new form if all the required data was filled in.*/
             if (selectedID != null
                     && !eventName.getText().toString().isEmpty()
                     && !eventLocation.getText().toString().isEmpty()
@@ -131,48 +134,49 @@ public class CreateEvent extends AppCompatActivity {
                     && !eventDescription.getText().toString().isEmpty()
                     ) {
 
+
                 final Intent i = new Intent(this, host_event_status.class);
 
-                //Event newEvent = new Event(null, null, null, null, eventName.getText().toString(), eventDescription.getText().toString(), mDate, eventLocation.getText().toString());
-                //i.putExtra("eventName", eventName.getText().toString());
-                //i.putExtra("eventLocation", eventLocation.getText().toString());
-                //i.putExtra("eventGenre", eventGenre.getSelectedItem().toString());
-                //i.putExtra("eventRestriction", selectedID.getText().toString());
-                //i.putExtra("eventDescription", eventDescription.getText().toString());
 
                 Log.d("ASDFGHJKL", System.currentUser.toString());
                 newEvent = new Event(new ArrayList<String>(), System.currentUser.userID, RestrictionStatus.fromString(selectedID.getText().toString()), Genre.fromString(eventGenre.getSelectedItem().toString(), this), eventName.getText().toString(), eventDescription.getText().toString(), mDate, eventLocation.getText().toString());
-                System.instance.createEvent(newEvent);
 
+
+               final CreateEvent x = this;
                 DialogInterface.OnClickListener clickListener = new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface d, int id) {
                         switch (id) {
                             case DialogInterface.BUTTON_POSITIVE:
+
                                 i.putExtra("EventKey", newEvent);
-                                System.instance.createEvent(newEvent);
-                                startActivity(i);
+                               System.instance.createEvent(newEvent, i, x);
+                             //   startActivity(i);
+                                finish();
                                 break;
                             case DialogInterface.BUTTON_NEGATIVE:
                                 break;
                         }
                     }
                 };
+                /*This is the message asked to the user.*/
                 AlertDialog.Builder b = new AlertDialog.Builder(this);
                 b.setMessage("Are you sure you want to create this event?")
                         .setTitle("Event Creation Confirmation")
                         .setPositiveButton("Yes", clickListener)
                         .setNegativeButton("No", clickListener)
                         .show();
-
-
             }
+
+            /*This happens if the user has not filled in all the form data*/
             else
             {
                 DialogInterface.OnClickListener failedclickListener = new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface d, int id) {
-                        //do nothing
+                        //do nothing because we should not create event if there isnt the required info.
                     }
                 };
+
+                /*The message to display to the user.*/
                 AlertDialog.Builder failed = new AlertDialog.Builder(this);
                 failed.setMessage("Please fill in all fields.")
                         .setTitle("Failed to Create Event")
@@ -210,13 +214,62 @@ public class CreateEvent extends AppCompatActivity {
         timePickerDialog.show();
     }
 
-
     private void hideKeyboard() {
         View view = this.getCurrentFocus();
         if (view != null) {
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
+    }
+
+    private boolean isOldEventPage(Bundle data)
+    {
+        if(data == null) {
+            isOldEvent = false;
+            return false;
+        }
+        else {
+            isOldEvent = true;
+            return true;
+        }
+    }
+
+    private void loadOldEventToForm(Event e)
+    {
+        /*These are the form elements we are going to change*/
+        EditText eventName = (EditText) findViewById(R.id.field_Name);
+        EditText eventLocation = (EditText) findViewById(R.id.field_Location);
+        Spinner eventGenre = (Spinner) findViewById(R.id.field_Spinner_Genre);
+        RadioGroup eventRestriction = (RadioGroup) findViewById(R.id.radio_Restriction);
+        EditText eventDescription = (EditText) findViewById(R.id.field_Description);
+        int radioId = eventRestriction.getCheckedRadioButtonId();
+      //  RadioButton selectedID = (RadioButton) findViewById(radioId);
+        eventName.setText(e.getName());
+        eventLocation.setText(e.getLocation());
+        eventGenre.setSelection(e.getGenre().getValue());
+        eventDescription.setText(e.getDescription());
+        eventRestriction.check(getRadioButtonID(e));
+    }
+    private int getRadioButtonID(Event e)
+    {
+        if (e.getRestrictionStatus() == RestrictionStatus.NO_RESTRICTIONS)
+        {
+            return R.id.ratio_NoRestrictions;
+        }
+        else if(e.getRestrictionStatus() == RestrictionStatus.OVER_18)
+        {
+            return R.id.radio_18Plus;
+        }
+        else if (e.getRestrictionStatus() == RestrictionStatus.OVER_21)
+        {
+            return R.id.radio21Plus;
+        }
+
+        return 0;
+    }
+     void createEvent()
+    {
+        final Intent i = new Intent(this, host_event_status.class);
     }
 }
 

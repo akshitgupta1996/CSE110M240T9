@@ -41,15 +41,15 @@
         <activity
             android:name=".EventsActivity"
             android:label="@string/title_activity_events" />
-        //new eventhunters home
-        <activity android:name=".EventHunters_Home" />
-        <activity
-            android:name=".CreateEvent"
-            android:label="Create Event" />
+=======
+
+
+      <!--  <activity android:name=".EventHunters_Home" /> -->
+        <activity android:name=".CreateEvent" android:label="Create Event"/>
         <activity android:name=".Event_Status" />
         <activity android:name=".AttendingEvents" />
         <activity android:name=".FindEvents" />
-        <activity android:name=".JoinEvents" />
+      <!--  <activity android:name=".JoinEvents" />-->
         <activity
             android:name=".EventStatusActivity"
             android:label="Event Status"

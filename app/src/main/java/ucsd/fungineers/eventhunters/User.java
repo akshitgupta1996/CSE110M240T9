@@ -69,8 +69,8 @@ public class User {
         Log.d("ASDFGHJKL",user.toString());
         setName((String) user.get(System.name));
         setUserID(user.getObjectId());
-        setAttendeeEventList((ArrayList<String>) user.get(System.attendingEvents));
-        setHostEventList((ArrayList<String>) user.get(System.hostingEvents));
+        //setAttendeeEventList((ArrayList<String>) user.get(System.attendingEvents));
+        //setHostEventList((ArrayList<String>) user.get(System.hostingEvents));
 
         /*
         setAttendeeRating((float) user.get(System.attendeeRating));

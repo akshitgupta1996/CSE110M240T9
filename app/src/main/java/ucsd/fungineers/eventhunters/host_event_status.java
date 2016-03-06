@@ -32,7 +32,9 @@ public class host_event_status extends AppCompatActivity {
     private TextView genre;
     private TextView restriction;
     private TextView description;
+    private TextView attendeeNum;
     //private RatingBar eventRatingBar;
+    private Event event;
 
     //private boolean editable = true;
     private static final String TAG = host_event_status.class.getSimpleName();
@@ -44,7 +46,7 @@ public class host_event_status extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_host_event_status1);
 
-        Event event = (Event) getIntent().getSerializableExtra("EventKey");
+         event = (Event) getIntent().getSerializableExtra("EventKey");
         //editable = getIntent().getBooleanExtra(getString(R.string.KEY_EVENT_EDITABLE), false);
 
         android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
@@ -58,6 +60,7 @@ public class host_event_status extends AppCompatActivity {
         genre = (TextView) findViewById(R.id.event_genre);
         restriction = (TextView) findViewById(R.id.event_restriction);
         description = (TextView) findViewById(R.id.event_description);
+        attendeeNum = (TextView) findViewById(R.id.event_attendeeNum);
         //eventRatingBar = (RatingBar) findViewById(R.id.event_rating_bar);
 /*
         title.setText(getIntent().getExtras().getString("eventName"));
@@ -77,6 +80,7 @@ public class host_event_status extends AppCompatActivity {
         genre.setText(event.getGenre().toString());
         restriction.setText(event.getRestrictionStatus().toString());
         description.setText(event.getDescription());
+        attendeeNum.setText("" + event.getAttendees().size());
         /*
         eventRatingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
@@ -97,16 +101,19 @@ public class host_event_status extends AppCompatActivity {
     public void button_Click(View view) {
         switch (view.getId()) {
             case R.id.buttonEditEvent: {
+                final Intent i = new Intent(this, CreateEvent.class);
+                // TODO edit this event
+                //Toast.makeText(host_event_status.this, "TODO Edit event", Toast.LENGTH_SHORT).show();
                 Log.i("clicks", "Edit Event");
-
                 DialogInterface.OnClickListener edit_clickListener = new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface d, int id) {
                         switch (id) {
                             case DialogInterface.BUTTON_POSITIVE:
-                                Toast.makeText(host_event_status.this, "TODO Edit event", Toast.LENGTH_SHORT).show();
-                                //i.putExtra("EventKey", newEvent);
-                                //System.instance.createEvent(newEvent);
-                                //startActivity(i);
+
+                                i.putExtra("EventKey", event);
+                                //System.instance.createEvent(event);
+                                startActivity(i);
+                                finish();
                                 break;
                             case DialogInterface.BUTTON_NEGATIVE:
                                 break;
@@ -122,15 +129,14 @@ public class host_event_status extends AppCompatActivity {
                 break;
             }
             case R.id.buttonDeleteEvent: {
+                // TODO delete this event
+                //.makeText(host_event_status.this, "TODO Delete event", Toast.LENGTH_SHORT).show();
                 Log.i("clicks", "Delete Event");
                 DialogInterface.OnClickListener delete_clickListener = new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface d, int id) {
                         switch (id) {
                             case DialogInterface.BUTTON_POSITIVE:
-                                Toast.makeText(host_event_status.this, "TODO Delete event", Toast.LENGTH_SHORT).show();
-                                //i.putExtra("EventKey", newEvent);
-                                //System.instance.createEvent(newEvent);
-                                //startActivity(i);
+                                System.instance.deleteEvent(event.getEventID());
                                 break;
                             case DialogInterface.BUTTON_NEGATIVE:
                                 break;

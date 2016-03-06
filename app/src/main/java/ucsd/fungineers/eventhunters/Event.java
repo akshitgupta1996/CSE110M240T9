@@ -18,7 +18,8 @@ import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-public class Event implements Serializable {
+public class Event implements Serializable{
+
     //The id that the event has in the database.
     private String eventID;
 
@@ -162,6 +163,11 @@ public class Event implements Serializable {
     public void setGenre(Genre genre) {
         this.genre = genre;
     }
+
+    /*public void setGenre(String genre) {
+
+      Genre.fromString(genre, this);
+    }*/
 
     public String getDescription() {
 

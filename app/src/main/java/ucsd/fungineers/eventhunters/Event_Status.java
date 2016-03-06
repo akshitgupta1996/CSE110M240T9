@@ -10,11 +10,14 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+
 /**
  * Created by Nick on 2/15/2016.
  */
 public class Event_Status extends AppCompatActivity {
 
+    Event e;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,33 +28,20 @@ public class Event_Status extends AppCompatActivity {
 
         Bundle transmitted_Data = getIntent().getExtras();
 
-      /*  if(transmitted_Data != null) {
-            LinearLayout l = (LinearLayout) findViewById(R.id.event_status);
-            for (int i = 0; i < l.getChildCount(); i++) {
-                if(l.getChildAt(i) instanceof TextView)
-                {
-                    TextView eventInfo = (TextView)l.getChildAt(i);
-                    for(int j = 0; j < transmitted_Data.size(); j++)
-                    {
-                        if(transmitted_Data.getString(eventInfo.get))
-                    }
-                }
-            }
-        }*/
-
-
 
         if(transmitted_Data!= null){
+            e = (Event)transmitted_Data.getSerializable("event");
             TextView eventName = (TextView) findViewById(R.id.data_Name);
-            eventName.setText(eventName.getText() + transmitted_Data.getString("eventName"));
+            eventName.setText(eventName.getText() + e.getName());
             TextView eventDate = (TextView) findViewById(R.id.data_Date);
-            eventDate.setText(eventDate.getText() + transmitted_Data.getString("eventDate"));
+          //  SimpleDateFormat fmt = new SimpleDateFormat("MM-DD-YY");
+          // eventDate.setText(eventDate.getText() + fmt.format(e.getDate()));
             TextView eventLocation = (TextView) findViewById(R.id.data_Location);
-            eventLocation.setText(eventLocation.getText() + transmitted_Data.getString("eventLocation"));
+            eventLocation.setText(eventLocation.getText() + e.getLocation());
             TextView eventRestriction = (TextView) findViewById(R.id.data_Restriction);
-            eventRestriction.setText(eventRestriction.getText() + transmitted_Data.getString("eventRestriction"));
+            eventRestriction.setText(eventRestriction.getText() + e.getRestrictionStatus().toString());
             TextView eventDescription = (TextView) findViewById(R.id.data_Description);
-            eventDescription.setText(eventDescription.getText() + transmitted_Data.getString("eventDescription"));
+            eventDescription.setText(eventDescription.getText() + e.getDescription());
 
         }
 
@@ -72,6 +62,7 @@ public class Event_Status extends AppCompatActivity {
         else if (button_name.equals("Delete Event"))
         {
             Log.i("clicks", "Delete Event");
+            System.instance.deleteEvent(e.getEventID());
         }
         else if (button_name.equals("OtherStuff"))
         {
