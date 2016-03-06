@@ -49,4 +49,9 @@
     <string name="KEY_EVENT_OBJ">KEY_EVENT_OBJECT</string>
     <string name="label_ratings">Rating</string>
     <string name="KEY_EVENT_EDITABLE">KEY_EVENT_EDITABLE</string>
+
+    <!-- Utilized in findevents.xml -->
+    <string name="homeButton">Home</string>
+    <string name="upcomingEvents"><u>All Upcoming Events</u></string>
+
 </resources>

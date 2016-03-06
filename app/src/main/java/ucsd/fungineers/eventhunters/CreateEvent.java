@@ -31,17 +31,19 @@ import java.util.Locale;
 
 
 public class CreateEvent extends AppCompatActivity {
+    //this variable tells if the event is old or not. If it is old, we need to load the old data and update.
     private boolean isOldEvent = false;
 
+    //This is something to do with dates
     private static final String TAG = CreateEvent.class.getSimpleName();
     private TextView mDatePicker;
     private TextView mTimePicker;
 
     private GregorianCalendar mDate;
-    //private Calendar mTimerDate;
     private static final SimpleDateFormat mDateFormat = new SimpleDateFormat("EEE, dd MMM yyyy", Locale.US);
     private static final SimpleDateFormat mTimeFormat = new SimpleDateFormat("h:mm aa",Locale.US);
 
+    //This is the event of this form
     private Event newEvent;
 
     @Override
@@ -63,7 +65,7 @@ public class CreateEvent extends AppCompatActivity {
         /*If the event is actually old, we need to update instead of create a new event. */
         if(isOldEventPage(getIntent().getExtras()))
         {
-            Event e = (Event)getIntent().getExtras().getSerializable("event");
+            Event e = (Event)getIntent().getExtras().getSerializable("EventKey");
            loadOldEventToForm(e);
 
         }
@@ -139,15 +141,16 @@ public class CreateEvent extends AppCompatActivity {
                 newEvent = new Event(new ArrayList<String>(), System.currentUser.userID, RestrictionStatus.fromString(selectedID.getText().toString()), Genre.fromString(eventGenre.getSelectedItem().toString(), this), eventName.getText().toString(), eventDescription.getText().toString(), mDate, eventLocation.getText().toString());
 
 
+               final CreateEvent x = this;
                 DialogInterface.OnClickListener clickListener = new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface d, int id) {
                         switch (id) {
                             case DialogInterface.BUTTON_POSITIVE:
 
                                 i.putExtra("EventKey", newEvent);
-                               System.instance.createEvent(newEvent);
-                                startActivity(i);
-                               finish();
+                               System.instance.createEvent(newEvent, i, x);
+                             //   startActivity(i);
+                                finish();
                                 break;
                             case DialogInterface.BUTTON_NEGATIVE:
                                 break;
@@ -230,35 +233,39 @@ public class CreateEvent extends AppCompatActivity {
     private void loadOldEventToForm(Event e)
     {
         /*These are the form elements we are going to change*/
+        EditText eventName = (EditText) findViewById(R.id.field_Name);
         EditText eventLocation = (EditText) findViewById(R.id.field_Location);
         Spinner eventGenre = (Spinner) findViewById(R.id.field_Spinner_Genre);
         RadioGroup eventRestriction = (RadioGroup) findViewById(R.id.radio_Restriction);
         EditText eventDescription = (EditText) findViewById(R.id.field_Description);
         int radioId = eventRestriction.getCheckedRadioButtonId();
-        RadioButton selectedID = (RadioButton) findViewById(radioId);
-
+      //  RadioButton selectedID = (RadioButton) findViewById(radioId);
+        eventName.setText(e.getName());
         eventLocation.setText(e.getLocation());
-        eventGenre.setSelection(0);//TODO fix this
+        eventGenre.setSelection(e.getGenre().getValue());
         eventDescription.setText(e.getDescription());
-        //TODO add date from loaded event
-        eventRestriction.check(/*put the button id in here*/0);
+        eventRestriction.check(getRadioButtonID(e));
     }
     private int getRadioButtonID(Event e)
     {
         if (e.getRestrictionStatus() == RestrictionStatus.NO_RESTRICTIONS)
         {
-
+            return R.id.ratio_NoRestrictions;
         }
         else if(e.getRestrictionStatus() == RestrictionStatus.OVER_18)
         {
-
+            return R.id.radio_18Plus;
         }
         else if (e.getRestrictionStatus() == RestrictionStatus.OVER_21)
         {
-
+            return R.id.radio21Plus;
         }
 
         return 0;
+    }
+     void createEvent()
+    {
+        final Intent i = new Intent(this, host_event_status.class);
     }
 }
 

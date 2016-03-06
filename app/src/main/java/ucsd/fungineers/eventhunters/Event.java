@@ -163,12 +163,12 @@ public class Event implements Serializable{
     public void setGenre(Genre genre) {
         this.genre = genre;
     }
-
+/*TODO FIND OUT WHAT THIS IS FOR
     public void setGenre(String genre) {
 
     //  Genre.fromString(genre, this);
 
-    }
+    }*/
 
     public String getDescription() {
 

@@ -1,22 +1,37 @@
 package ucsd.fungineers.eventhunters;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.os.Bundle;
 import android.util.Log;
 
+import com.facebook.AccessToken;
 import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.HttpMethod;
 import com.parse.FindCallback;
 import com.parse.LogInCallback;
 import com.parse.Parse;
 import com.parse.ParseACL;
 import com.parse.ParseException;
 import com.parse.ParseFacebookUtils;
+import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 
@@ -46,6 +61,8 @@ public class System {
 
     public static String hostRating = "HostRating";
     public static String totalHostRatingVotes = "TotalHostRatingVotes";
+
+    public String username;
 
     private Event storedEvent;
 
@@ -129,25 +146,10 @@ public class System {
                     Log.d("MyApp", "Uh oh. The user cancelled the Facebook login.");
                 } else if (user.isNew()) {
                     Log.d("MyApp", "User signed up and logged in through Facebook!");
-                    Log.d("TESTEST", "id:" + currentParseUser.getObjectId());
-                    //TODO: Initialize Fields
-                    currentParseUser = user;
-                    currentParseUser.put(System.name, "Default mcDefault");
-                    currentParseUser.put(System.attendingEvents, new ArrayList<Integer>());
-                    currentParseUser.put(System.hostingEvents, new ArrayList<Integer>());
-                    currentParseUser.put(System.attendeeRating, 0);
-                    currentParseUser.put(System.hostRating,0);
-                    currentParseUser.put(System.restrictionStatus, 0);
-                    currentParseUser.put(System.totalAttendeeRatingVotes,0);
-                    currentParseUser.put(System.totalHostRatingVotes, 0);
-                    //currentParseUser.saveInBackground();
-                    //currentUser = new User(currentParseUser);
-                    currentParseUser.saveInBackground(new SaveCallback() {
-                        @Override
-                        public void done(ParseException e) {
-                            currentUser = new User(currentParseUser);
-                        }
-                    });
+                    //
+
+                    //Log.d("TESTEST", "id:" + currentParseUser.getObjectId());
+                    getFBInfo();
 
                 } else {
                     Log.d("MyApp", "User logged in through Facebook!");
@@ -160,6 +162,75 @@ public class System {
                     Log.d("HELPUSER", currentUser.toString());
                 }
 //                testAddEvent();
+            }
+        });
+    }
+
+    private void getFBInfo()
+    {
+        Bundle parameters = new Bundle();
+        parameters.putString("fields", "name,picture");
+
+
+
+        new GraphRequest(
+                AccessToken.getCurrentAccessToken(),
+                "/me",
+                parameters,
+                HttpMethod.GET,
+                new GraphRequest.Callback() {
+                    public void onCompleted(GraphResponse response) {
+         /* handle the result */
+                        try {
+
+
+                            username = response.getJSONObject().getString("name");
+
+
+                            JSONObject picture = response.getJSONObject().getJSONObject("picture");
+                            JSONObject data = picture.getJSONObject("data");
+                            //  Returns a 50x50 profile picture
+                            String pictureUrl = data.getString("url");
+
+                            new ProfilePicAsync(pictureUrl).execute();
+
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+        ).executeAsync();
+    }
+
+    public void saveNewUser()
+    {
+        //TODO: Initialize Fields
+        currentParseUser = ParseUser.getCurrentUser();
+        currentParseUser.put(System.name, username);
+        currentParseUser.put(System.attendingEvents, new ArrayList<Integer>());
+        currentParseUser.put(System.hostingEvents, new ArrayList<Integer>());
+        currentParseUser.put(System.attendeeRating, 0);
+        currentParseUser.put(System.hostRating,0);
+        currentParseUser.put(System.restrictionStatus, 0);
+        currentParseUser.put(System.totalAttendeeRatingVotes,0);
+        currentParseUser.put(System.totalHostRatingVotes, 0);
+
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        Bitmap bitmap = ProfilePicAsync.bitmap;
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 70, stream);
+        byte[] data = stream.toByteArray();
+        String thumbName = currentParseUser.getUsername().replaceAll("\\s+", "");
+        final ParseFile parseFile = new ParseFile(thumbName + "_thumb.jpg", data);
+
+        currentParseUser.put("profileThumb", parseFile);
+        //currentParseUser.saveInBackground();
+        //currentUser = new User(currentParseUser);
+        currentParseUser.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                currentUser = new User(currentParseUser);
             }
         });
     }
@@ -216,7 +287,7 @@ public class System {
      * Creates an event in the database based on an Event object
      * @param event event to create a ParseObject from and put in database
      */
-    public void createEvent(Event event)
+    public void createEvent(Event event, final Intent i, final CreateEvent evtClass)
     {
         final ParseObject dbEvent = new ParseObject("Events");
 
@@ -234,6 +305,23 @@ public class System {
         dbEvent.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
+
+                GregorianCalendar calendar = new GregorianCalendar();
+                calendar.setTime((Date) dbEvent.get(System.date));
+
+                Event evt = new Event((ArrayList)dbEvent.get(System.attendeeList),
+                        (String)dbEvent.get(System.hostId),RestrictionStatus.fromString((String) dbEvent.get(System.restrictionStatus)),
+                         Genre.fromString((String)dbEvent.get(System.genre),evtClass),
+                         (String)dbEvent.get(System.name),
+                        (String)dbEvent.get(System.description),
+                        calendar,
+                        (String)dbEvent.get(System.location));
+
+                evt.setEventID(dbEvent.getObjectId());
+                i.putExtra("EventKey", evt);
+
+                RestrictionStatus.fromString((String) dbEvent.get(System.restrictionStatus));
+                evtClass.startActivity(i);
                 //Need to set the event's id at some point.
                 storedEvent.setEventID(dbEvent.getObjectId());
                 addEventsToUser(EventType.HOSTING, storedEvent.getEventID());
