@@ -166,7 +166,7 @@ public class Event implements Serializable{
 /*TODO FIND OUT WHAT THIS IS FOR
     public void setGenre(String genre) {
 
-      Genre.fromString(genre, this);
+    //  Genre.fromString(genre, this);
 
     }*/
 
