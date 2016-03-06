@@ -257,7 +257,6 @@ public class System {
             array = currentParseUser.getList(System.hostingEvents);
         }
 
-        Log.d("ASDF", array.toString());
         return array;
     }
 
@@ -484,24 +483,20 @@ public class System {
         loadedUser.put(System.attendeeRating,userToUpdate.getAttendeeRating());
         loadedUser.put(System.totalAttendeeRatingVotes,userToUpdate.getTotalAttendeeVotes());
         loadedUser.put(System.hostRating,userToUpdate.getHostRating());
-        loadedUser.put(System.totalHostRatingVotes,userToUpdate.getTotalHostVotes());
+        loadedUser.put(System.totalHostRatingVotes, userToUpdate.getTotalHostVotes());
     }
 
     public void updateEvent(Event eventToUpdate) throws ParseException {
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Events");
 
-        query.get(eventToUpdate.getEventID());
+        ParseObject loadedEvent = query.get(eventToUpdate.getEventID());
 
-        List<ParseObject> loadedEvents = query.find();
-
-        if (loadedEvents == null) {
+        if (loadedEvent == null) {
 
             return;
 
         }
-
-        ParseObject loadedEvent = loadedEvents.get(0);
 
         loadedEvent.put(System.name, eventToUpdate.getName());
         loadedEvent.put(System.hostId, eventToUpdate.getHost());
