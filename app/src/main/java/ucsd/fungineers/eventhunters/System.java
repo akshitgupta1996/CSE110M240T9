@@ -257,7 +257,7 @@ public class System {
             array = currentParseUser.getList(System.hostingEvents);
         }
 
-
+        Log.d("ASDF", array.toString());
         return array;
     }
 
