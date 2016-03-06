@@ -70,7 +70,8 @@ package ucsd.fungineers.eventhunters;
         eventRatingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                // TODO save the newer set rating for this user
+                Toast.makeText(EventStatusActivity.this, String.valueOf(ratingBar.getRating()),
+                        Toast.LENGTH_SHORT).show();
             }
         });
 
