@@ -113,6 +113,7 @@ public class CreateEvent extends AppCompatActivity {
                 try {
 
                     System.instance.updateEvent(newEvent);
+                    Log.d("Updated lol", System.hostId);
                 }
                 catch( Exception e)
                 {
@@ -145,7 +146,13 @@ Log.d("Error Updating",e.getMessage());
                 final Intent i = new Intent(this, host_event_status.class);
 
                 Log.d("ASDFGHJKL", System.currentUser.toString());
-                newEvent = new Event(new ArrayList<String>(), System.currentUser.userID, RestrictionStatus.fromString(selectedID.getText().toString()), Genre.fromString(eventGenre.getSelectedItem().toString(), this), eventName.getText().toString(), eventDescription.getText().toString(), mDate, eventLocation.getText().toString());
+                newEvent = new Event(new ArrayList<String>(),
+                        System.currentUser.userID, RestrictionStatus.fromString(selectedID.getText().toString()),
+                        Genre.fromString(eventGenre.getSelectedItem().toString(), this),
+                        eventName.getText().toString(),
+                        eventDescription.getText().toString(),
+                        mDate,
+                        eventLocation.getText().toString());
 
                final CreateEvent x = this;
                 DialogInterface.OnClickListener clickListener = new DialogInterface.OnClickListener() {

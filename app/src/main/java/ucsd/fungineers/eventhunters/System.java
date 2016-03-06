@@ -247,6 +247,7 @@ public class System {
     public List<String> getEventsFromUser(EventType type)
     {
         List<String> array = new ArrayList<String>();
+
         if(type == EventType.ATTENDING)
         {
             array = currentParseUser.getList(System.attendingEvents);
@@ -329,7 +330,7 @@ public class System {
         });
 
 
-        Log.d("EVENTS WHOA", "Event created. ID: " + event.getEventID());
+     //   Log.d("EVENTS WHOA", "Event created. ID: " + event.getEventID());
 
     }
 
