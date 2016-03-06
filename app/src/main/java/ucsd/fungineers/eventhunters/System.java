@@ -244,9 +244,10 @@ public class System {
         }
     }
 
-    public List<Integer> getEventsFromUser (EventType type)
+    public List<String> getEventsFromUser(EventType type)
     {
-        List<Integer> array = new ArrayList<Integer>();
+        List<String> array = new ArrayList<String>();
+
         if(type == EventType.ATTENDING)
         {
             array = currentParseUser.getList(System.attendingEvents);
@@ -256,7 +257,7 @@ public class System {
             array = currentParseUser.getList(System.hostingEvents);
         }
 
-
+        Log.d("ASDF", array.toString());
         return array;
     }
 
@@ -264,9 +265,9 @@ public class System {
      * @param type Type of event (Hosting or Attending)
      * @param eventID ID of event
      */
-    public void addEventsToUser (EventType type, int eventID)
+    public void addEventsToUser (EventType type, String eventID)
     {
-        List<Integer> array = getEventsFromUser(type);
+        List<String> array = getEventsFromUser(type);
 
         array.add(eventID);
 
@@ -324,11 +325,12 @@ public class System {
                 evtClass.startActivity(i);
                 //Need to set the event's id at some point.
                 storedEvent.setEventID(dbEvent.getObjectId());
+                addEventsToUser(EventType.HOSTING, storedEvent.getEventID());
             }
         });
 
 
-        Log.d("EVENTS WHOA", "Event created. ID: " + event.getEventID());
+     //   Log.d("EVENTS WHOA", "Event created. ID: " + event.getEventID());
 
     }
 
@@ -343,7 +345,6 @@ public class System {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Events");
 
         query.get(id);
-        //query.whereEqualTo(System.objectId, id);
 
         List<ParseObject> foundEvent = query.find();
 
@@ -392,7 +393,6 @@ public class System {
         Log.i("cheddar", userId);
 
         query.get(userId);
-        //query.whereEqualTo(System.objectId, userId);
 
         List<ParseUser> foundUser = query.find();
         Log.i("cheddar", "foundUser:" + foundUser);
@@ -421,7 +421,6 @@ public class System {
         ParseQuery<ParseUser> query = ParseUser.getQuery();
 
         query.get(userId);
-        //query.whereEqualTo(System.objectId, userId);
 
         List<ParseUser> foundUser = query.find();
 
@@ -448,7 +447,6 @@ public class System {
         ParseQuery<ParseUser> query = ParseUser.getQuery();
 
         query.get(userId);
-        //query.whereEqualTo(System.objectId, userId);
 
         List<ParseUser> foundUser = query.find();
 
@@ -480,7 +478,6 @@ public class System {
 
         ParseUser loadedUser = loadedUsers.get(0);
 
-        //loadedUser.put(System.objectId, userToUpdate.getUserID());
         loadedUser.put(System.name, userToUpdate.getName());
         loadedUser.put(System.attendingEvents, userToUpdate.getAttendeeEventList());
         loadedUser.put(System.hostingEvents, userToUpdate.getHostEventList());
@@ -495,7 +492,6 @@ public class System {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Events");
 
         query.get(eventToUpdate.getEventID());
-        //query.whereEqualTo(System.objectId, eventToUpdate.getEventID());
 
         List<ParseObject> loadedEvents = query.find();
 
@@ -507,14 +503,15 @@ public class System {
 
         ParseObject loadedEvent = loadedEvents.get(0);
 
-        //loadedEvent.put(System.objectId, eventToUpdate.getEventID());
         loadedEvent.put(System.name, eventToUpdate.getName());
         loadedEvent.put(System.hostId, eventToUpdate.getHost());
         loadedEvent.put(System.attendeeList, eventToUpdate.getAttendees());
         loadedEvent.put(System.date, eventToUpdate.getDate().getTime());
-        loadedEvent.put(System.restrictionStatus, eventToUpdate.getRestrictionStatus());
-        loadedEvent.put(System.genre, eventToUpdate.getGenre());
+        loadedEvent.put(System.restrictionStatus, eventToUpdate.getRestrictionStatus().toString());
+        loadedEvent.put(System.genre, eventToUpdate.getGenre().toString());
         loadedEvent.put(System.description, eventToUpdate.getDescription());
+
+        loadedEvent.saveInBackground();
 
     }
 
@@ -561,12 +558,13 @@ public class System {
     }
 
     public void testAddEvent() {
+        /*
         Log.d("test", "add event");
         addEventsToUser(EventType.HOSTING, 23);
         addEventsToUser(EventType.HOSTING, 45);
         addEventsToUser(EventType.ATTENDING, 86);
         addEventsToUser(EventType.ATTENDING, 24);
-
+        */
 
     }
 
@@ -611,8 +609,4 @@ public class System {
             return value;
         }
     }
-
-
-
-
 }
