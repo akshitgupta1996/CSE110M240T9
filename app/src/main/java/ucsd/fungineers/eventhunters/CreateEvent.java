@@ -65,8 +65,8 @@ public class CreateEvent extends AppCompatActivity {
         /*If the event is actually old, we need to update instead of create a new event. */
         if(isOldEventPage(getIntent().getExtras()))
         {
-            Event e = (Event)getIntent().getExtras().getSerializable("EventKey");
-           loadOldEventToForm(e);
+            newEvent = (Event)getIntent().getExtras().getSerializable("EventKey");
+           loadOldEventToForm(newEvent);
 
         }
     }
@@ -111,7 +111,16 @@ public class CreateEvent extends AppCompatActivity {
             if(isOldEvent == true)
             {
                 //Call Update Old Event Script
-               // System.instance.updateEvent(newEvent);
+                try {
+
+                    System.instance.updateEvent(newEvent);
+                    Log.d("Updated lol", System.hostId);
+                }
+                catch( Exception e)
+                {
+Log.d("Error Updating",e.getMessage());
+                }
+
               return;
             }
             EditText eventName = (EditText) findViewById(R.id.field_Name);
@@ -137,10 +146,14 @@ public class CreateEvent extends AppCompatActivity {
 
                 final Intent i = new Intent(this, host_event_status.class);
 
-
                 Log.d("ASDFGHJKL", System.currentUser.toString());
-                newEvent = new Event(new ArrayList<String>(), System.currentUser.userID, RestrictionStatus.fromString(selectedID.getText().toString()), Genre.fromString(eventGenre.getSelectedItem().toString(), this), eventName.getText().toString(), eventDescription.getText().toString(), mDate, eventLocation.getText().toString());
-
+                newEvent = new Event(new ArrayList<String>(),
+                        System.currentUser.userID, RestrictionStatus.fromString(selectedID.getText().toString()),
+                        Genre.fromString(eventGenre.getSelectedItem().toString(), this),
+                        eventName.getText().toString(),
+                        eventDescription.getText().toString(),
+                        mDate,
+                        eventLocation.getText().toString());
 
                final CreateEvent x = this;
                 DialogInterface.OnClickListener clickListener = new DialogInterface.OnClickListener() {
@@ -267,10 +280,10 @@ public class CreateEvent extends AppCompatActivity {
 
         return 0;
     }
-     void createEvent()
+    /*void createEvent()
     {
         final Intent i = new Intent(this, host_event_status.class);
-    }
+    }*/
 }
 
 

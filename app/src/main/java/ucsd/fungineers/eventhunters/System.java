@@ -2,20 +2,32 @@ package ucsd.fungineers.eventhunters;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.os.Bundle;
 import android.util.Log;
 
+import com.facebook.AccessToken;
 import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.HttpMethod;
 import com.parse.FindCallback;
 import com.parse.LogInCallback;
 import com.parse.Parse;
 import com.parse.ParseACL;
 import com.parse.ParseException;
 import com.parse.ParseFacebookUtils;
+import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -49,6 +61,8 @@ public class System {
 
     public static String hostRating = "HostRating";
     public static String totalHostRatingVotes = "TotalHostRatingVotes";
+
+    public String username;
 
     private Event storedEvent;
 
@@ -132,25 +146,10 @@ public class System {
                     Log.d("MyApp", "Uh oh. The user cancelled the Facebook login.");
                 } else if (user.isNew()) {
                     Log.d("MyApp", "User signed up and logged in through Facebook!");
-                    Log.d("TESTEST", "id:" + currentParseUser.getObjectId());
-                    //TODO: Initialize Fields
-                    currentParseUser = user;
-                    currentParseUser.put(System.name, "Default mcDefault");
-                    currentParseUser.put(System.attendingEvents, new ArrayList<Integer>());
-                    currentParseUser.put(System.hostingEvents, new ArrayList<Integer>());
-                    currentParseUser.put(System.attendeeRating, 0);
-                    currentParseUser.put(System.hostRating,0);
-                    currentParseUser.put(System.restrictionStatus, 0);
-                    currentParseUser.put(System.totalAttendeeRatingVotes,0);
-                    currentParseUser.put(System.totalHostRatingVotes, 0);
-                    //currentParseUser.saveInBackground();
-                    //currentUser = new User(currentParseUser);
-                    currentParseUser.saveInBackground(new SaveCallback() {
-                        @Override
-                        public void done(ParseException e) {
-                            currentUser = new User(currentParseUser);
-                        }
-                    });
+                    //
+
+                    //Log.d("TESTEST", "id:" + currentParseUser.getObjectId());
+                    getFBInfo();
 
                 } else {
                     Log.d("MyApp", "User logged in through Facebook!");
@@ -167,6 +166,75 @@ public class System {
         });
     }
 
+    private void getFBInfo()
+    {
+        Bundle parameters = new Bundle();
+        parameters.putString("fields", "name,picture");
+
+
+
+        new GraphRequest(
+                AccessToken.getCurrentAccessToken(),
+                "/me",
+                parameters,
+                HttpMethod.GET,
+                new GraphRequest.Callback() {
+                    public void onCompleted(GraphResponse response) {
+         /* handle the result */
+                        try {
+
+
+                            username = response.getJSONObject().getString("name");
+
+
+                            JSONObject picture = response.getJSONObject().getJSONObject("picture");
+                            JSONObject data = picture.getJSONObject("data");
+                            //  Returns a 50x50 profile picture
+                            String pictureUrl = data.getString("url");
+
+                            new ProfilePicAsync(pictureUrl).execute();
+
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+        ).executeAsync();
+    }
+
+    public void saveNewUser()
+    {
+        //TODO: Initialize Fields
+        currentParseUser = ParseUser.getCurrentUser();
+        currentParseUser.put(System.name, username);
+        currentParseUser.put(System.attendingEvents, new ArrayList<Integer>());
+        currentParseUser.put(System.hostingEvents, new ArrayList<Integer>());
+        currentParseUser.put(System.attendeeRating, 0);
+        currentParseUser.put(System.hostRating,0);
+        currentParseUser.put(System.restrictionStatus, 0);
+        currentParseUser.put(System.totalAttendeeRatingVotes,0);
+        currentParseUser.put(System.totalHostRatingVotes, 0);
+
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        Bitmap bitmap = ProfilePicAsync.bitmap;
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 70, stream);
+        byte[] data = stream.toByteArray();
+        String thumbName = currentParseUser.getUsername().replaceAll("\\s+", "");
+        final ParseFile parseFile = new ParseFile(thumbName + "_thumb.jpg", data);
+
+        currentParseUser.put("profileThumb", parseFile);
+        //currentParseUser.saveInBackground();
+        //currentUser = new User(currentParseUser);
+        currentParseUser.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                currentUser = new User(currentParseUser);
+            }
+        });
+    }
+
     private void testAddRating()
     {
         try {
@@ -176,9 +244,10 @@ public class System {
         }
     }
 
-    public List<Integer> getEventsFromUser (EventType type)
+    public List<String> getEventsFromUser(EventType type)
     {
-        List<Integer> array = new ArrayList<Integer>();
+        List<String> array = new ArrayList<String>();
+
         if(type == EventType.ATTENDING)
         {
             array = currentParseUser.getList(System.attendingEvents);
@@ -188,7 +257,7 @@ public class System {
             array = currentParseUser.getList(System.hostingEvents);
         }
 
-
+        Log.d("ASDF", array.toString());
         return array;
     }
 
@@ -196,9 +265,9 @@ public class System {
      * @param type Type of event (Hosting or Attending)
      * @param eventID ID of event
      */
-    public void addEventsToUser (EventType type, int eventID)
+    public void addEventsToUser (EventType type, String eventID)
     {
-        List<Integer> array = getEventsFromUser(type);
+        List<String> array = getEventsFromUser(type);
 
         array.add(eventID);
 
@@ -256,11 +325,12 @@ public class System {
                 evtClass.startActivity(i);
                 //Need to set the event's id at some point.
                 storedEvent.setEventID(dbEvent.getObjectId());
+                addEventsToUser(EventType.HOSTING, storedEvent.getEventID());
             }
         });
 
 
-        Log.d("EVENTS WHOA", "Event created. ID: " + event.getEventID());
+     //   Log.d("EVENTS WHOA", "Event created. ID: " + event.getEventID());
 
     }
 
@@ -275,7 +345,6 @@ public class System {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Events");
 
         query.get(id);
-        //query.whereEqualTo(System.objectId, id);
 
         List<ParseObject> foundEvent = query.find();
 
@@ -324,7 +393,6 @@ public class System {
         Log.i("cheddar", userId);
 
         query.get(userId);
-        //query.whereEqualTo(System.objectId, userId);
 
         List<ParseUser> foundUser = query.find();
         Log.i("cheddar", "foundUser:" + foundUser);
@@ -353,7 +421,6 @@ public class System {
         ParseQuery<ParseUser> query = ParseUser.getQuery();
 
         query.get(userId);
-        //query.whereEqualTo(System.objectId, userId);
 
         List<ParseUser> foundUser = query.find();
 
@@ -380,7 +447,6 @@ public class System {
         ParseQuery<ParseUser> query = ParseUser.getQuery();
 
         query.get(userId);
-        //query.whereEqualTo(System.objectId, userId);
 
         List<ParseUser> foundUser = query.find();
 
@@ -412,7 +478,6 @@ public class System {
 
         ParseUser loadedUser = loadedUsers.get(0);
 
-        //loadedUser.put(System.objectId, userToUpdate.getUserID());
         loadedUser.put(System.name, userToUpdate.getName());
         loadedUser.put(System.attendingEvents, userToUpdate.getAttendeeEventList());
         loadedUser.put(System.hostingEvents, userToUpdate.getHostEventList());
@@ -427,7 +492,6 @@ public class System {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Events");
 
         query.get(eventToUpdate.getEventID());
-        //query.whereEqualTo(System.objectId, eventToUpdate.getEventID());
 
         List<ParseObject> loadedEvents = query.find();
 
@@ -439,14 +503,15 @@ public class System {
 
         ParseObject loadedEvent = loadedEvents.get(0);
 
-        //loadedEvent.put(System.objectId, eventToUpdate.getEventID());
         loadedEvent.put(System.name, eventToUpdate.getName());
         loadedEvent.put(System.hostId, eventToUpdate.getHost());
         loadedEvent.put(System.attendeeList, eventToUpdate.getAttendees());
         loadedEvent.put(System.date, eventToUpdate.getDate().getTime());
-        loadedEvent.put(System.restrictionStatus, eventToUpdate.getRestrictionStatus());
-        loadedEvent.put(System.genre, eventToUpdate.getGenre());
+        loadedEvent.put(System.restrictionStatus, eventToUpdate.getRestrictionStatus().toString());
+        loadedEvent.put(System.genre, eventToUpdate.getGenre().toString());
         loadedEvent.put(System.description, eventToUpdate.getDescription());
+
+        loadedEvent.saveInBackground();
 
     }
 
@@ -493,12 +558,13 @@ public class System {
     }
 
     public void testAddEvent() {
+        /*
         Log.d("test", "add event");
         addEventsToUser(EventType.HOSTING, 23);
         addEventsToUser(EventType.HOSTING, 45);
         addEventsToUser(EventType.ATTENDING, 86);
         addEventsToUser(EventType.ATTENDING, 24);
-
+        */
 
     }
 
@@ -543,8 +609,4 @@ public class System {
             return value;
         }
     }
-
-
-
-
 }
