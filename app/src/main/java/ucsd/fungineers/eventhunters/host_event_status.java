@@ -42,7 +42,7 @@ public class host_event_status extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_host_event_status);
+        setContentView(R.layout.activity_host_event_status1);
 
         Event event = (Event) getIntent().getSerializableExtra("EventKey");
         //editable = getIntent().getBooleanExtra(getString(R.string.KEY_EVENT_EDITABLE), false);
@@ -94,30 +94,40 @@ public class host_event_status extends AppCompatActivity {
         });
     }
 
+    public void button_Click(View view) {
+        switch (view.getId()) {
+            case R.id.buttonEditEvent: {
+                Log.i("clicks", "Edit Event");
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.event_status_menu, menu);
-
-        /*if (editable) {
-            menu.removeItem(R.id.action_event_delete);
-            menu.removeItem(R.id.action_event_edit);
-        }*/
-
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_event_delete :
-                // TODO delete this event
-                //.makeText(host_event_status.this, "TODO Delete event", Toast.LENGTH_SHORT).show();
+                DialogInterface.OnClickListener edit_clickListener = new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface d, int id) {
+                        switch (id) {
+                            case DialogInterface.BUTTON_POSITIVE:
+                                Toast.makeText(host_event_status.this, "TODO Edit event", Toast.LENGTH_SHORT).show();
+                                //i.putExtra("EventKey", newEvent);
+                                //System.instance.createEvent(newEvent);
+                                //startActivity(i);
+                                break;
+                            case DialogInterface.BUTTON_NEGATIVE:
+                                break;
+                        }
+                    }
+                };
+                AlertDialog.Builder edit_b = new AlertDialog.Builder(this);
+                edit_b.setMessage("Are you sure you want to edit this event?")
+                        .setTitle("Edit Event")
+                        .setPositiveButton("Yes", edit_clickListener)
+                        .setNegativeButton("No", edit_clickListener)
+                        .show();
+                break;
+            }
+            case R.id.buttonDeleteEvent: {
                 Log.i("clicks", "Delete Event");
                 DialogInterface.OnClickListener delete_clickListener = new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface d, int id) {
                         switch (id) {
                             case DialogInterface.BUTTON_POSITIVE:
+                                Toast.makeText(host_event_status.this, "TODO Delete event", Toast.LENGTH_SHORT).show();
                                 //i.putExtra("EventKey", newEvent);
                                 //System.instance.createEvent(newEvent);
                                 //startActivity(i);
@@ -134,29 +144,27 @@ public class host_event_status extends AppCompatActivity {
                         .setNegativeButton("No", delete_clickListener)
                         .show();
                 break;
+            }
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.event_status_menu, menu);
+            menu.removeItem(R.id.action_event_delete);
+            menu.removeItem(R.id.action_event_edit);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_event_delete :
+                // TODO delete this event
+                break;
             case R.id.action_event_edit :
                 // TODO edit this event
-                //Toast.makeText(host_event_status.this, "TODO Edit event", Toast.LENGTH_SHORT).show();
-                Log.i("clicks", "Edit Event");
-                DialogInterface.OnClickListener edit_clickListener = new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface d, int id) {
-                        switch (id) {
-                            case DialogInterface.BUTTON_POSITIVE:
-                                //i.putExtra("EventKey", newEvent);
-                                //System.instance.createEvent(newEvent);
-                                //startActivity(i);
-                                break;
-                            case DialogInterface.BUTTON_NEGATIVE:
-                                break;
-                        }
-                    }
-                };
-                AlertDialog.Builder edit_b = new AlertDialog.Builder(this);
-                edit_b.setMessage("Are you sure you want to edit this event?")
-                        .setTitle("Edit Event")
-                        .setPositiveButton("Yes", edit_clickListener)
-                        .setNegativeButton("No", edit_clickListener)
-                        .show();
                 break;
             case R.id.action_event_home :
                 // TODO jump to home

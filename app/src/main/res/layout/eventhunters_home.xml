@@ -1,38 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:id="@+id/hunter_home"
     android:layout_height="match_parent">
-
-    <LinearLayout
-        android:orientation="vertical"
+    <android.support.v7.widget.LinearLayoutCompat
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1">
+        android:layout_weight="2">
 
-        <Button
+        <android.support.v7.widget.AppCompatImageButton
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Create Event"
-            android:id="@+id/button10"
-            android:layout_marginLeft="5dp"
+            android:text="Host"
+            android:id="@+id/buttonHost"
             android:onClick="button_Click"
-            android:layout_marginRight="5dp"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
+            android:layout_weight="1"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
+            android:textStyle="bold"
+            style="@style/Base.Widget.AppCompat.Button.Colored"
             android:textColor="#ffffff"
-            style="@style/Base.Widget.AppCompat.Button.Colored"/>
+            android:src="@drawable/ic_person"
+            android:backgroundTint="@color/colorPrimary"/>
 
-        <TextView
+        <android.support.v7.widget.AppCompatImageButton
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="@string/upcoming_events"
-            android:id="@+id/textView13"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline" />
-    </LinearLayout>
+            android:text="Attendee"
+            android:onClick="button_Click"
+            android:id="@+id/buttonAttendee"
+            android:layout_weight="1"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
+            style="@style/Base.Widget.AppCompat.Button.Colored"
+            android:textColor="#ffffff"
+            android:src="@drawable/ic_group"
+            android:backgroundTint="@color/colorAccent"/>
+    </android.support.v7.widget.LinearLayoutCompat>
 
-    <LinearLayout
+    <android.support.v7.widget.AppCompatTextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/upcoming_events"
+        android:id="@+id/textView13"
+        android:gravity="center"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline" />
+
+    <android.support.v7.widget.LinearLayoutCompat
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
@@ -44,37 +57,26 @@
             android:id="@+id/UpcomingEventsHost"
             android:clickable="false" />
 
+    </android.support.v7.widget.LinearLayoutCompat>
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
+    <android.support.v7.widget.LinearLayoutCompat
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="2">
+        android:layout_weight="1">
 
-        <Button
+        <!--android.support.v7.widget.AppCompatButton
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Host"
-            android:id="@+id/button4"
+            android:text="Create Event"
+            android:id="@+id/buttonCE"
+            android:layout_marginLeft="5dp"
             android:onClick="button_Click"
-            android:layout_weight="1"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
-            android:textStyle="bold"
-            style="@style/Base.Widget.AppCompat.Button.Colored"
-            android:textColor="#ffffff"/>
+            android:layout_marginRight="5dp"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
+            android:textColor="#ffffff"
+            style="@style/Base.Widget.AppCompat.Button.Colored"/-->
 
-        <Button
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Attendee"
-            android:onClick="button_Click"
-            android:id="@+id/button5"
-            android:layout_weight="1"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
-            style="@style/Base.Widget.AppCompat.Button.Colored"
-            android:textColor="#ffffff"/>
-    </LinearLayout>
+    </android.support.v7.widget.LinearLayoutCompat>
 
-</LinearLayout>
+</android.support.v7.widget.LinearLayoutCompat>

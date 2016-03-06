@@ -11,13 +11,14 @@
 
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/event_item_date_overlay"
-            android:layout_width="80dp"
+            android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="FEB\n09"
             android:textColor="#000000"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Display1"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
             android:layout_marginLeft="10dp"
+            android:layout_marginTop="6dp"
             android:background="@drawable/date_border"
             android:layout_alignTop="@+id/event_item_name" />
 
@@ -26,18 +27,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Event Name"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
-            android:layout_marginLeft="100dp"
-            android:textSize="20dp" />
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
+            android:layout_marginLeft="100dp" />
 
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/event_item_date_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_schedule_pin"
             android:text="February 09, 2016"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
             android:layout_marginLeft="0dp"
-            android:textSize="15dp"
             android:layout_below="@+id/event_item_name"
             android:layout_alignStart="@+id/event_item_name" />
 
@@ -47,9 +47,8 @@
             android:layout_height="wrap_content"
             android:text="Location (San Diego, CA)"
             android:drawableLeft="@drawable/ic_location_pin"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
             android:layout_marginLeft="0dp"
-            android:textSize="15dp"
             android:layout_below="@+id/event_item_date_text"
             android:layout_alignStart="@+id/event_item_date_text" />
 
@@ -59,9 +58,8 @@
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:text="Description"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
             android:layout_marginLeft="0dp"
-            android:textSize="15dp"
             android:layout_below="@+id/event_item_location"
             android:layout_alignStart="@+id/event_item_location" />
 

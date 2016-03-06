@@ -46,7 +46,7 @@ public class CreateEvent extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.createevent);
+        setContentView(R.layout.activity_createevent);
         /*eventDate.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v)
             {
@@ -91,8 +91,9 @@ public class CreateEvent extends AppCompatActivity {
 
     public void button_Click(View view) {
 
-        String button_name = ((Button) view).getText().toString();
-        if (button_name.equals("Add Event")) {
+        if (view.getId() == R.id.button_AddEvent) {
+        /*String button_name = ((Button) view).getText().toString();
+        if (button_name.equals("Add Event")) {*/
             Log.i("clicks", "Add Event");
 
 
@@ -178,6 +179,9 @@ public class CreateEvent extends AppCompatActivity {
                         .setNegativeButton("OK", failedclickListener)
                         .show();
             }
+        }
+        else if(view.getId() == R.id.button_cancel){
+            finish();
         }
     }
 

@@ -3,8 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="ucsd.fungineers.eventhunters.Main">
     <item
+        android:id="@+id/action_my_events"
+        android:orderInCategory="1"
+        android:title="My Events"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/action_settings"
-        android:orderInCategory="100"
+        android:orderInCategory="2"
         android:title="@string/action_settings"
         app:showAsAction="never" />
 </menu>

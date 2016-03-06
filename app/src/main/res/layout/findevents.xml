@@ -1,40 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:weightSum="1">
+    android:layout_height="match_parent">
 
-    <GridLayout
+    <android.support.v7.widget.LinearLayoutCompat
         android:layout_width="match_parent"
-        android:layout_height="47dp"
-        android:layout_row="0"
-        android:layout_column="0">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_weight="2">
 
-        <Button
-            android:layout_width="195dp"
+        <android.support.v7.widget.AppCompatButton
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Find"
-            android:id="@+id/button2"
-            android:layout_row="0"
-            android:layout_column="0" />
+            android:onClick="button_Click"
+            android:id="@+id/buttonFind"
+            android:layout_weight="1"/>
 
-        <Button
-            android:layout_width="191dp"
+        <android.support.v7.widget.AppCompatButton
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="My Events"
-            android:id="@+id/button3"
-            android:layout_row="0"
-            android:layout_column="16" />
-    </GridLayout>
+            android:onClick="button_Click"
+            android:id="@+id/buttonMyEvents"
+            android:layout_weight="1"/>
+    </android.support.v7.widget.LinearLayoutCompat>
 
-    <LinearLayout
+    <!--android.support.v7.widget.LinearLayoutCompat
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="146dp"
         android:layout_row="1"
         android:layout_column="0">
 
-        <TextView
+        <android.support.v7.widget.AppCompatTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
@@ -43,12 +42,12 @@
             android:textStyle="normal|bold"
             android:gravity="top|center_horizontal" />
 
-        <LinearLayout
+        <android.support.v7.widget.LinearLayoutCompat
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="60dp">
 
-            <TextView
+            <android.support.v7.widget.AppCompatTextView
                 android:layout_width="80dp"
                 android:layout_height="match_parent"
                 android:textAppearance="?android:attr/textAppearanceLarge"
@@ -57,21 +56,21 @@
                 android:layout_gravity="left"
                 android:gravity="center_horizontal" />
 
-            <TextView
+            <android.support.v7.widget.AppCompatTextView
                 android:layout_width="fill_parent"
                 android:layout_height="match_parent"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="The Great EVENT"
                 android:id="@+id/textView3"
                 android:gravity="center_horizontal" />
-        </LinearLayout>
+        </android.support.v7.widget.LinearLayoutCompat>
 
-        <LinearLayout
+        <android.support.v7.widget.LinearLayoutCompat
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="60dp" >
 
-            <TextView
+            <android.support.v7.widget.AppCompatTextView
                 android:layout_width="80dp"
                 android:layout_height="match_parent"
                 android:textAppearance="?android:attr/textAppearanceLarge"
@@ -80,7 +79,7 @@
                 android:layout_gravity="left"
                 android:gravity="center_horizontal" />
 
-            <TextView
+            <android.support.v7.widget.AppCompatTextView
                 android:layout_width="fill_parent"
                 android:layout_height="match_parent"
                 android:textAppearance="?android:attr/textAppearanceLarge"
@@ -89,9 +88,9 @@
                 android:gravity="center_horizontal"
                 android:shadowColor="#ffffff"
                 android:background="#ffffff" />
-        </LinearLayout>
+        </android.support.v7.widget.LinearLayoutCompat>
 
-    </LinearLayout>
+    </android.support.v7.widget.LinearLayoutCompat>
 
     <LinearLayout
         android:orientation="vertical"
@@ -217,6 +216,6 @@
                 android:id="@+id/textView15"
                 android:gravity="center_horizontal" />
         </LinearLayout>
-    </LinearLayout>
+    </LinearLayout-->
 
-</GridLayout>
+</android.support.v7.widget.LinearLayoutCompat>
