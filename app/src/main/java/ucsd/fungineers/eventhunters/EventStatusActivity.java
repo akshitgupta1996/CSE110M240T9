@@ -38,7 +38,7 @@ package ucsd.fungineers.eventhunters;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_event_status);
+        setContentView(R.layout.content_attendee_event_status);
 
         Event event = (Event) getIntent().getSerializableExtra(getString(R.string.KEY_EVENT_OBJ));
         //editable = getIntent().getBooleanExtra(getString(R.string.KEY_EVENT_EDITABLE), false);

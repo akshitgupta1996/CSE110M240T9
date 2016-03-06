@@ -2,6 +2,7 @@ package ucsd.fungineers.eventhunters;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
@@ -10,12 +11,15 @@ import java.util.*;
 
 import java.text.*;
 import android.content.Context;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.AdapterView.*;
 import android.widget.AdapterView;
 import android.app.Activity;
+import android.widget.Toast;
 
 
 /**
@@ -27,7 +31,7 @@ public class AttendingEvents extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.attendingevents);
+        setContentView(R.layout.activity_attendee_home);
         aContext = this;
 
         ArrayList image_details = getListData();
@@ -172,23 +176,50 @@ public class AttendingEvents extends AppCompatActivity {
 
     /*This is a button click method, which will activate when any button is clicked.*/
     public void button_Click(View view){
-        String button_name = ((Button) view).getText().toString();
-        if(button_name.equals("Find Events"))
-        {
-            Intent i = new Intent(this, FindEvents.class);
-            startActivity(i);
-        }
-        else if (button_name.equals("Host"))
-        {
-            Log.i("clicks", "Host");
-            Intent i = new Intent(this, Main.class);
-            startActivity(i);
+        switch (view.getId()) {
+            case R.id.event_find: {
+                Log.i("clicks", "Find Events");
+                Intent i = new Intent(this, FindEvents.class);
+                startActivity(i);
+                break;
+            }
 
+            case R.id.buttonHostA: {
+                Log.i("clicks", "Host");
+                Toast.makeText(this, "Host Mode", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(this, Main.class);
+                startActivity(i);
+                break;
+            }
+
+            case R.id.buttonAttendeeA: {
+                Log.i("clicks", "Attendee");
+                //Snackbar.make(view, "Attendee View", Snackbar.LENGTH_SHORT)
+                //        .setAction("Action", null).show();
+                break;
+            }
         }
-        else if (button_name.equals("Attendee"))
-        {
-            Log.i("clicks", "Attendee");
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
         }
+
+        return super.onOptionsItemSelected(item);
     }
 
 }

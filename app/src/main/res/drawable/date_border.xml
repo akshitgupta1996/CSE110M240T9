@@ -2,5 +2,5 @@
 <!-- Creates a rectangular border for the date_overlay in event_item which is utilized in both home pages -->
 <shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle" >
     <solid android:color="#ffffff" />
-    <stroke android:width="1dip" android:color="#f9b283"/>
+    <stroke android:width="1dip" android:color="#607D8B"/>
 </shape>
