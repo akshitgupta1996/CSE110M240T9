@@ -267,15 +267,14 @@ public class Main extends AppCompatActivity {
         hostEventsArray.add(eventsDataSeven);
 
 
-        /*
+     /*
         ArrayList<Event> hostEventsArray= new ArrayList<Event>();
         try {
             hostEventsArray = (ArrayList) System.instance.getHostingEventsByUser(System.currentUser.getUserID());
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        */
-
+*/
         return hostEventsArray;
     }
 

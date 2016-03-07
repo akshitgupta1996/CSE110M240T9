@@ -148,4 +148,8 @@
     <string name="homeButton">Home</string>
     <string name="upcomingEvents"><u>All Upcoming Events</u></string>
 
+    <string name="title_activity_loading_page">loading_page</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+
 </resources>

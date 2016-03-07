@@ -136,7 +136,7 @@ public class CreateEvent extends AppCompatActivity {
                 }
                 catch( Exception e)
                 {
-Log.d("Error Updating",e.getMessage());
+                    Log.d("Error Updating",e.getMessage());
                 }
 
               return;

@@ -160,6 +160,7 @@ public class System {
 
                     currentUser = new User(currentParseUser);
                     Log.d("HELPUSER", currentUser.toString());
+
                 }
 //                testAddEvent();
             }
