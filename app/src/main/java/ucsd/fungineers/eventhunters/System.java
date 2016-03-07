@@ -309,14 +309,17 @@ public class System {
             //creates a new arraylist with the attendees of the loaded event
             ArrayList<String> attendees = eventToUpdate.getAttendees();
 
-            //adds the current user to the list of attendees
-            attendees.add(currentUser.getUserID());
+            if (!attendees.contains(currentUser.getUserID())) {
 
-            //updates attendee arraylist of the event
-            eventToUpdate.setAttendees(attendees);
+                //adds the current user to the list of attendees
+                attendees.add(currentUser.getUserID());
 
-            //updates the event in the database
-            updateEvent(eventToUpdate);
+                //updates attendee arraylist of the event
+                eventToUpdate.setAttendees(attendees);
+
+                //updates the event in the database
+                updateEvent(eventToUpdate);
+            }
 
             currentParseUser.put(System.attendingEvents, array);
         }
@@ -326,6 +329,7 @@ public class System {
         }
         currentParseUser.saveInBackground();
     }
+
 
     enum EventType {HOSTING, ATTENDING};
 
@@ -577,7 +581,7 @@ public class System {
         loadedEvent.put(System.restrictionStatus, eventToUpdate.getRestrictionStatus().toString());
         loadedEvent.put(System.genre, eventToUpdate.getGenre().toString());
         loadedEvent.put(System.description, eventToUpdate.getDescription());
-        loadedEvent.put(System.location,eventToUpdate.getLocation());
+        loadedEvent.put(System.location, eventToUpdate.getLocation());
 
         loadedEvent.saveInBackground();
 
@@ -663,6 +667,22 @@ public class System {
         updateUser(user);
 
         return;
+    }
+
+    public List<Event> getLoadedEvents() {
+        return loadedEvents;
+    }
+
+    public List<Event> getLoadedAttendingEvents() {
+        return loadedAttendingEvents;
+    }
+
+    public List<Event> getLoadedHostingEvents() {
+        return loadedHostingEvents;
+    }
+
+    public static User getCurrentUser() {
+        return currentUser;
     }
 
     enum RatingType {
