@@ -101,12 +101,6 @@ public class System {
             fbLogin(activity);
         }
 
-        try {
-            loadAllEvents();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
         instance = this;
 
     }
@@ -295,15 +289,40 @@ public class System {
      * @param type Type of event (Hosting or Attending)
      * @param eventID ID of event
      */
-    public void addEventsToUser (EventType type, String eventID)
-    {
+    public void addEventsToUser (EventType type, String eventID) throws ParseException {
+
         List<String> array = getEventsFromUser(type);
 
         array.add(eventID);
 
         if(type == EventType.ATTENDING)
         {
-            currentParseUser.put(System.attendingEvents, array);
+            //creates a query
+            ParseQuery<ParseObject> query = ParseQuery.getQuery("Events");
+
+            //gets the event from the database
+            ParseObject event = query.get(eventID);
+
+            //creates a new event with the parse object
+            Event eventToUpdate = new Event(event);
+
+            //creates a new arraylist with the attendees of the loaded event
+            ArrayList<String> attendees = eventToUpdate.getAttendees();
+
+            if (!attendees.contains(currentUser.getUserID())) {
+
+                //adds the current user to the list of attendees
+                attendees.add(currentUser.getUserID());
+
+                //updates attendee arraylist of the event
+                eventToUpdate.setAttendees(attendees);
+
+                //updates the event in the database
+                updateEvent(eventToUpdate);
+
+                currentParseUser.put(System.attendingEvents, array);
+            }
+
         }
         else
         {
@@ -311,6 +330,7 @@ public class System {
         }
         currentParseUser.saveInBackground();
     }
+
 
     enum EventType {HOSTING, ATTENDING};
 
@@ -356,7 +376,11 @@ public class System {
                 evtClass.startActivity(i);
                 //Need to set the event's id at some point.
                 storedEvent.setEventID(dbEvent.getObjectId());
-                addEventsToUser(EventType.HOSTING, storedEvent.getEventID());
+                try {
+                    addEventsToUser(EventType.HOSTING, storedEvent.getEventID());
+                } catch (ParseException e1) {
+                    e1.printStackTrace();
+                }
 
             }
         });
@@ -421,19 +445,22 @@ public class System {
                 //if there was no exception
                 if (e == null) {
 
-                    Log.d("ALL EVENTS: ", "" + objects.size());
-                    loadedEvents.clear();
+                    loadedEvents = new ArrayList<Event>();
                     setLoadedEvents(objects);
 
                     try {
                         loadHostingEvents();
+                        loadAttendingEvents();
+                        Main.main.getListData();
+
                     } catch (ParseException e1) {
                         e1.printStackTrace();
                     }
 
-                } else {
+                }
 
-                    Log.d("POTATO", "Crai there was an exception ;(");
+                else {
+
                 }
             }
         });
@@ -441,17 +468,39 @@ public class System {
 
     public void loadHostingEvents() throws ParseException {
 
+        loadedHostingEvents = new ArrayList<Event>();
 
+        for (int i = 0; i < loadedEvents.size(); i++) {
+
+            if (loadedEvents.get(i).getHost().equals(currentUser.getUserID())) {
+
+                loadedHostingEvents.add(loadedEvents.get(i));
+
+            }
+        }
     }
 
     public void loadAttendingEvents() throws ParseException {
 
+        loadedAttendingEvents = new ArrayList<Event>();
 
+        for (int i = 0; i < loadedEvents.size(); i++) {
+
+            ArrayList<String> attendees = loadedEvents.get(i).getAttendees();
+
+            for (int j = 0; j < attendees.size(); j++) {
+
+              if (attendees.get(j).equals(currentUser.getUserID())) {
+
+                  loadedAttendingEvents.add(loadedEvents.get(i));
+
+              }
+            }
+        }
     }
 
     public List<Event> getAllEvents(RestrictionStatus restriction)  {
 
-        Log.d("LOADED EVENT SIZE: ", "" + loadedEvents.size());
         List<Event> allEvents = new ArrayList<Event>();
 
         for (int i = 0; i < loadedEvents.size(); i++) {
@@ -536,7 +585,7 @@ public class System {
         loadedEvent.put(System.restrictionStatus, eventToUpdate.getRestrictionStatus().toString());
         loadedEvent.put(System.genre, eventToUpdate.getGenre().toString());
         loadedEvent.put(System.description, eventToUpdate.getDescription());
-        loadedEvent.put(System.location,eventToUpdate.getLocation());
+        loadedEvent.put(System.location, eventToUpdate.getLocation());
 
         loadedEvent.saveInBackground();
 
@@ -622,6 +671,22 @@ public class System {
         updateUser(user);
 
         return;
+    }
+
+    public List<Event> getLoadedEvents() {
+        return loadedEvents;
+    }
+
+    public List<Event> getLoadedAttendingEvents() {
+        return loadedAttendingEvents;
+    }
+
+    public List<Event> getLoadedHostingEvents() {
+        return loadedHostingEvents;
+    }
+
+    public static User getCurrentUser() {
+        return currentUser;
     }
 
     enum RatingType {
