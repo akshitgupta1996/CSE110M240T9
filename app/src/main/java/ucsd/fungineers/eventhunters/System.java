@@ -484,7 +484,7 @@ public class System {
         loadedUser.put(System.attendeeRating,userToUpdate.getAttendeeRating());
         loadedUser.put(System.totalAttendeeRatingVotes,userToUpdate.getTotalAttendeeVotes());
         loadedUser.put(System.hostRating,userToUpdate.getHostRating());
-        loadedUser.put(System.totalHostRatingVotes,userToUpdate.getTotalHostVotes());
+        loadedUser.put(System.totalHostRatingVotes, userToUpdate.getTotalHostVotes());
     }
 
     public void updateEvent(Event eventToUpdate) throws ParseException {
@@ -510,6 +510,7 @@ public class System {
         loadedEvent.put(System.restrictionStatus, eventToUpdate.getRestrictionStatus().toString());
         loadedEvent.put(System.genre, eventToUpdate.getGenre().toString());
         loadedEvent.put(System.description, eventToUpdate.getDescription());
+        loadedEvent.put(System.location,eventToUpdate.getLocation());
 
         loadedEvent.saveInBackground();
 
