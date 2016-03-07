@@ -33,6 +33,7 @@ package ucsd.fungineers.eventhunters;
         private TextView restriction;
         private TextView description;
         private TextView attendeeNum;
+        private SwitchCompat switch1;
         private RatingBar eventRatingBar;
 
         //private boolean editable = false;
@@ -60,6 +61,7 @@ package ucsd.fungineers.eventhunters;
         restriction = (TextView) findViewById(R.id.event_restriction);
         description = (TextView) findViewById(R.id.event_description);
         attendeeNum = (TextView) findViewById(R.id.event_attendeeNum);
+        switch1 = (SwitchCompat) findViewById(R.id.Switch);
         //eventRatingBar = (RatingBar) findViewById(R.id.event_rating_bar);
 
         title.setText(event.getName());
@@ -71,7 +73,8 @@ package ucsd.fungineers.eventhunters;
         restriction.setText(event.getRestrictionStatus().toString());
         description.setText(event.getDescription());
         attendeeNum.setText(""+ event.getAttendees().size());
-
+        System.instance.currentUser.getLoadedAttendingEvents()  
+        if()
         /*eventRatingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
