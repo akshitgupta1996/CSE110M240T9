@@ -153,7 +153,14 @@ public class Event extends AppCompatActivity implements Serializable{
      * Sets the restriction status of this event
      */
     public void setRestrictionStatus(RestrictionStatus restrictionStatus) {
+
         this.restrictionStatus = restrictionStatus;
+    }
+
+    public void setRestrictionStatus(String restrictionStatus) {
+
+        this.restrictionStatus = RestrictionStatus.fromString(restrictionStatus);
+
     }
 
     public Genre getGenre() {
