@@ -16,6 +16,7 @@ import java.io.Serializable;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -63,6 +64,7 @@ public class Event implements Serializable{
         setDescription(description);
         setDate(date);
         setLocation(location);
+
 
     }
 
@@ -169,12 +171,13 @@ public class Event implements Serializable{
     }
 
     public void setGenre(Genre genre) {
+
         this.genre = genre;
     }
 
     public void setGenre(String genre) {
 
-      Genre.fromString(genre);
+      this.genre = Genre.fromString(genre);
 
     }
 
