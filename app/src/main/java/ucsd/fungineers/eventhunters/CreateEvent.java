@@ -112,9 +112,27 @@ public class CreateEvent extends AppCompatActivity {
             {
                 //Call Update Old Event Script
                 try {
+                    EditText eventName = (EditText) findViewById(R.id.field_Name);
+                    // TODO add checks for date
 
-                    System.instance.updateEvent(newEvent);
-                    Log.d("Updated lol", System.hostId);
+            /*This is where we grab the ID's for the form elements so we can change them*/
+                    EditText eventLocation = (EditText) findViewById(R.id.field_Location);
+                    Spinner eventGenre = (Spinner) findViewById(R.id.field_Spinner_Genre);
+                    RadioGroup eventRestriction = (RadioGroup) findViewById(R.id.radio_Restriction);
+                    EditText eventDescription = (EditText) findViewById(R.id.field_Description);
+                    int radioId = eventRestriction.getCheckedRadioButtonId();
+                    RadioButton selectedID = (RadioButton) findViewById(radioId);
+                    Event x = new Event(new ArrayList<String>(),
+                            System.currentUser.userID, RestrictionStatus.fromString(selectedID.getText().toString()),
+                            Genre.fromString(eventGenre.getSelectedItem().toString(), this),
+                            eventName.getText().toString(),
+                            eventDescription.getText().toString(),
+                            mDate,
+                            eventLocation.getText().toString());
+                            x.setHost(newEvent.getHost());
+                            x.setEventID(newEvent.getEventID());
+                    System.instance.updateEvent(x);
+                    Log.d("Updated lol", x.getLocation());
                 }
                 catch( Exception e)
                 {
