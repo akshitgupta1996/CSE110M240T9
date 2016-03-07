@@ -72,8 +72,8 @@ public class Event extends AppCompatActivity implements Serializable{
         setName((String) parseEvent.get(System.name));
         setHost((String) parseEvent.get(System.hostId));
         setAttendees((ArrayList<String>) parseEvent.get(System.attendeeList));
-        setRestrictionStatus((RestrictionStatus) parseEvent.get(System.restrictionStatus));
-        setGenre((Genre) parseEvent.get(System.genre));
+        setRestrictionStatus((String) parseEvent.get(System.restrictionStatus));
+        setGenre((String) parseEvent.get(System.genre));
         setDescription((String) parseEvent.get(System.description));
         setLocation((String) parseEvent.get(System.location));
 
