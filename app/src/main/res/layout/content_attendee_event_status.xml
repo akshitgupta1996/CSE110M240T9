@@ -223,6 +223,7 @@
                 android:textOff="Not Going"
                 app:showText="false"
                 android:text="Going     "
+                android:onClick="button_Click"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
                 android:background="@android:color/transparent"
                 android:textColor="@color/colorPrimaryDark"

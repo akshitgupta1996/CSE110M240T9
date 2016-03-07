@@ -5,12 +5,15 @@ package ucsd.fungineers.eventhunters;
     import android.content.Intent;
     import android.support.v7.app.AppCompatActivity;
     import android.os.Bundle;
+    import android.support.v7.widget.SwitchCompat;
     import android.util.Log;
     import android.view.Menu;
     import android.view.MenuItem;
     import android.view.View;
+    import android.widget.EditText;
     import android.widget.ImageView;
     import android.widget.RatingBar;
+    import android.widget.Switch;
     import android.widget.TextView;
     import android.widget.Toast;
 
@@ -34,13 +37,13 @@ package ucsd.fungineers.eventhunters;
         private static final String TAG = EventStatusActivity.class.getSimpleName();
         private static final SimpleDateFormat mDateFormat = new SimpleDateFormat("EEE, dd MMM yyyy", Locale.US);
         private static final SimpleDateFormat mTimeFormat = new SimpleDateFormat("h:mm aa",Locale.US);
-
+        private Event event;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_attendee_event_status);
 
-        Event event = (Event) getIntent().getSerializableExtra(getString(R.string.KEY_EVENT_OBJ));
+        event = (Event) getIntent().getSerializableExtra(getString(R.string.KEY_EVENT_OBJ));
         //editable = getIntent().getBooleanExtra(getString(R.string.KEY_EVENT_EDITABLE), false);
 
         android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
@@ -123,4 +126,18 @@ package ucsd.fungineers.eventhunters;
 
         return true;
     }
+        public void button_Click(View v){
+            if(v.getId() == R.id.Switch)
+            {
+                SwitchCompat s = (SwitchCompat) findViewById(R.id.Switch);
+                if(s.isChecked() == true)
+                {
+                    System.instance.addEventsToUser(System.EventType.ATTENDING,event.getEventID());
+                }
+                else
+                {
+                    //are you sure you no longer want to attend this event?
+                }
+            }
+        }
 }
