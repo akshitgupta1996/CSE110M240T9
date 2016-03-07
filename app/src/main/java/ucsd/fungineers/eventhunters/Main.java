@@ -60,7 +60,7 @@ public class Main extends AppCompatActivity {
         /*create the view --> don't change or move this*/
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.eventhunters_home);
+        setContentView(R.layout.activity_host_home);
         aContext = this;
 
         ArrayList image_details = getListData();
@@ -194,7 +194,7 @@ public class Main extends AppCompatActivity {
         String eventNameFive = "Halloween Dance";
         String eventNameSix = "Study Party";
         String eventNameSeven = "Ingress Tournament";
-        String descriptionOne = "Let's go to a concert!";
+        String descriptionOne = "@string/large_text";
         String descriptionTwo = "Downtown party! Let's go!";
         String descriptionThree = "Let's go down the yellow brick road";
         String descriptionFour = "So many people, so much dancing";
@@ -282,23 +282,26 @@ public class Main extends AppCompatActivity {
 
 
     /*This is a button click method, which will activate when any button is clicked.*/
-    public void button_Click(View view){
-        String button_name = ((Button) view).getText().toString();
-        if(button_name.equals("Create Event"))
-        {
-            Intent i = new Intent(this, CreateEvent.class);
-            startActivity(i);
-        }
-        else if (button_name.equals("Host"))
-        {
-            Log.i("clicks", "Host");
+    public void button_Click(View view) {
+        switch (view.getId()) {
+            case R.id.buttonCE: {
+                Intent i = new Intent(this, CreateEvent.class);
+                startActivity(i);
+                break;
+            }
 
-        }
-        else if (button_name.equals("Attendee"))
-        {
-            Log.i("clicks", "Attendee");
-            Intent i = new Intent(this, AttendingEvents.class);
-            startActivity(i);
+            case R.id.buttonHost: {
+                Log.i("clicks", "Host");
+                break;
+            }
+
+            case R.id.buttonAttendee: {
+                Log.i("clicks", "Attendee");
+                Toast.makeText(this, "Attendee Mode", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(this, AttendingEvents.class);
+                startActivity(i);
+                break;
+            }
         }
     }
 

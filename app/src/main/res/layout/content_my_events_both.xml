@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="ucsd.fungineers.eventhunters.myEvents_both"
+    tools:showIn="@layout/activity_my_events_both">
+
+
+    <RelativeLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent">
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Hosting"
+            android:id="@+id/myEventsHostLabel"
+            android:gravity="left"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="10dp"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"/>
+        <ListView
+            android:layout_below="@+id/myEventsHostLabel"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/myEventsHostingList" />
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_below="@+id/myEventsHostingList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Attending"
+            android:id="@+id/myEventsAttendLabel"
+            android:gravity="left"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="0"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"/>
+        <ListView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/myEventsAttendingList"
+            android:layout_below="@+id/myEventsAttendLabel"/>
+    </RelativeLayout>
+    <!--TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/text_margin"
+        android:text="@string/large_text" /-->
+
+</android.support.v4.widget.NestedScrollView>

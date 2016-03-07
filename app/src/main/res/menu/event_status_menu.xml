@@ -5,17 +5,17 @@
         android:id="@+id/action_event_delete"
         android:orderInCategory="150"
         android:title="Delete"
-        app:showAsAction="always"
+        app:showAsAction="ifRoom"
         android:icon="@drawable/ic_delete"/>
     <item
         android:id="@+id/action_event_edit"
         android:orderInCategory="100"
         android:title="Edit"
-        app:showAsAction="always"
+        app:showAsAction="ifRoom"
         android:icon="@drawable/ic_edit"/>
     <item
         android:id="@+id/action_event_home"
-        android:orderInCategory="50"
+        android:orderInCategory="1"
         android:title="Home"
         app:showAsAction="always"
         android:icon="@drawable/ic_home"/>

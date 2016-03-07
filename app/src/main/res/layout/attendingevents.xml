@@ -1,39 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:id="@+id/attending_events"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:orientation="vertical"
+    <android.support.v7.widget.LinearLayoutCompat
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1">
+        android:layout_weight="2">
 
-        <Button
+        <android.support.v7.widget.AppCompatImageButton
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="@string/event_find"
-            android:id="@+id/event_find"
-            android:layout_marginLeft="5dp"
+            android:text="Host"
+            android:id="@+id/buttonHostA"
             android:onClick="button_Click"
-            android:layout_marginRight="5dp"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
+            android:layout_weight="1"
+            style="@style/Base.Widget.AppCompat.Button.Colored"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
             android:textColor="#ffffff"
-            style="@style/Base.Widget.AppCompat.Button.Colored"/>
+            android:src="@drawable/ic_person"
+            android:backgroundTint="@color/colorAccent"
+            />
 
-        <TextView
+        <android.support.v7.widget.AppCompatImageButton
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="@string/upcoming_events"
-            android:id="@+id/title_label"
-            android:gravity="center"
+            android:text="Attendee"
+            android:onClick="button_Click"
+            android:id="@+id/buttonAttendeeA"
+            android:layout_weight="1"
+            style="@style/Base.Widget.AppCompat.Button.Colored"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
             android:textStyle="bold"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"/>
+            android:textColor="#ffffff"
+            android:src="@drawable/ic_group"
+            android:backgroundTint="@color/colorPrimary"
+            />
 
-    </LinearLayout>
+    </android.support.v7.widget.LinearLayoutCompat>
 
-    <LinearLayout
+    <android.support.v7.widget.AppCompatTextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/upcoming_events"
+        android:id="@+id/title_label"
+        android:gravity="center"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"/>
+
+    <android.support.v7.widget.LinearLayoutCompat
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
@@ -43,44 +59,27 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:id="@+id/UpcomingEventsAttendee" />
+    </android.support.v7.widget.LinearLayoutCompat>
 
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
+    <android.support.v7.widget.LinearLayoutCompat
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="2">
+        android:layout_weight="1">
 
-        <Button
+        <!--android.support.v7.widget.AppCompatButton
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Host"
-            android:id="@+id/button4"
+            android:text="@string/event_find"
+            android:id="@+id/event_find"
+            android:layout_marginLeft="5dp"
             android:onClick="button_Click"
-            android:layout_weight="1"
-            style="@style/Base.Widget.AppCompat.Button.Colored"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
-            android:textColor="#ffffff"/>
-            <!--android:textColor="#000000" -->
-
-        <android.support.v7.widget.AppCompatButton
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Attendee"
-            android:onClick="button_Click"
-            android:id="@+id/button5"
-            android:layout_weight="1"
-            style="@style/Base.Widget.AppCompat.Button.Colored"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
-            android:textStyle="bold"
+            android:layout_marginRight="5dp"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
             android:textColor="#ffffff"
-            />
-            <!--android:background="#1d3565"
-            android:textColor="#ffffff"-->
+            style="@style/Base.Widget.AppCompat.Button.Colored"/-->
+
+    </android.support.v7.widget.LinearLayoutCompat>
 
 
-    </LinearLayout>
-
-</LinearLayout>
+</android.support.v7.widget.LinearLayoutCompat>

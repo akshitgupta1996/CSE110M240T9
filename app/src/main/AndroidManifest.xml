@@ -26,8 +26,7 @@
 
         <activity
             android:name=".Main"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -42,6 +41,7 @@
         <activity
             android:name=".EventsActivity"
             android:label="@string/title_activity_events" />
+=======
 
 
       <!--  <activity android:name=".EventHunters_Home" /> -->
@@ -57,9 +57,11 @@
         <activity
             android:name=".host_event_status"
             android:label="Event Status"
-            android:theme="@style/AppTheme.ColoredStatusBarOnly"
-            ></activity>
-
+            android:theme="@style/AppTheme.ColoredStatusBarOnly" />
+        <activity
+            android:name=".myEvents_both"
+            android:label="My Events"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

@@ -143,6 +143,28 @@
                 android:text="Description of the event goes here.\n\n\n\n\n"
                 android:layout_marginBottom="24dp"/>
 
+            <!--android.support.design.widget.FloatingActionButton
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:id="@+id/buttonEditEvent"
+                android:onClick="button_Click"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/event_description"
+                android:layout_margin="@dimen/fab_margin"
+                android:src="@drawable/ic_edit" />
+
+            <android.support.design.widget.FloatingActionButton
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:id="@+id/buttonDeleteEvent"
+                android:onClick="button_Click"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/buttonEditEvent"
+                android:layout_margin="@dimen/fab_margin"
+                android:src="@drawable/ic_delete" /-->
+
             <!--android.support.v7.widget.AppCompatTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -230,6 +252,10 @@
                 android:layout_below="@+id/event_rating_bar"
                 /-->
 
+
+
         </RelativeLayout>
     </ScrollView>
+
 </RelativeLayout>
+
