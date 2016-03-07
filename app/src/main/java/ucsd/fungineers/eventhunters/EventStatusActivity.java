@@ -141,28 +141,33 @@ package ucsd.fungineers.eventhunters;
 
         return true;
     }
-        public void button_Click(View v){
-            if(v.getId() == R.id.Switch)
-            {
-                SwitchCompat s = (SwitchCompat) findViewById(R.id.Switch);
-                if(s.isChecked() == true)
-                {
 
-                    try {
-                        System.instance.addEventsToUser(System.EventType.ATTENDING,event.getEventID());
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-                else
-                {
-                    try {
-                       // System.instance.addEventsToUser(System.EventType.ATTENDING,event.getEventID());
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    //are you sure you no longer want to attend this event?
+    public void button_Click(View v) {
+
+        Log.d("CAPTAINS_LOG", "THE CAPTAIN HAS ARRIVED");
+
+        if(v.getId() == R.id.Switch)
+        {
+            SwitchCompat s = (SwitchCompat) findViewById(R.id.Switch);
+            Log.d("CAPTAINS_LOG", "" + s.isChecked());
+            if(s.isChecked() == true)
+            {
+
+                try {
+                    System.instance.addEventsToUser(System.EventType.ATTENDING,event.getEventID());
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
+            else
+            {
+                try {
+                   // System.instance.addEventsToUser(System.EventType.ATTENDING,event.getEventID());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                //are you sure you no longer want to attend this event?
+            }
         }
+    }
 }

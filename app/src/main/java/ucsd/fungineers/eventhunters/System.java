@@ -311,6 +311,8 @@ public class System {
 
             if (!attendees.contains(currentUser.getUserID())) {
 
+                Log.d("CAPTAINS_LOG", "UNIQUE USER");
+
                 //adds the current user to the list of attendees
                 attendees.add(currentUser.getUserID());
 
@@ -323,11 +325,58 @@ public class System {
                 currentParseUser.put(System.attendingEvents, array);
             }
 
+            Log.d("CAPTAINS_LOG", "ADDING TO EVENT");
+
         }
         else
         {
             currentParseUser.put(System.hostingEvents, array);
         }
+        currentParseUser.saveInBackground();
+    }
+
+    public void removeEventsFromUser (EventType type, String eventID) throws ParseException {
+
+        List<String> array = getEventsFromUser(type);
+
+        array.remove(eventID);
+
+        if(type == EventType.ATTENDING)
+        {
+            //creates a query
+            ParseQuery<ParseObject> query = ParseQuery.getQuery("Events");
+
+            //gets the event from the database
+            ParseObject event = query.get(eventID);
+
+            //creates a new event with the parse object
+            Event eventToUpdate = new Event(event);
+
+            //creates a new arraylist with the attendees of the loaded event
+            ArrayList<String> attendees = eventToUpdate.getAttendees();
+
+            if (attendees.contains(currentUser.getUserID())) {
+
+                //adds the current user to the list of attendees
+                attendees.remove(currentUser.getUserID());
+
+                //updates attendee arraylist of the event
+                eventToUpdate.setAttendees(attendees);
+
+                //updates the event in the database
+                updateEvent(eventToUpdate);
+
+                currentParseUser.put(System.attendingEvents, array);
+            }
+
+            Log.d("CAPTAINS_LOG", "ADDING TO EVENT");
+
+        }
+        else
+        {
+            currentParseUser.put(System.hostingEvents, array);
+        }
+
         currentParseUser.saveInBackground();
     }
 
