@@ -219,11 +219,9 @@ public class FindEvents extends AppCompatActivity {
 
 
         ArrayList<Event> thisWeekEvents = new ArrayList<Event>();
-        try {
+
             thisWeekEvents = (ArrayList) System.instance.getAllEvents(RestrictionStatus.OVER_21);
-        } catch (com.parse.ParseException e) {
-            e.printStackTrace();
-        }
+
         return thisWeekEvents;
 
     }
