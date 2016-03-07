@@ -188,6 +188,7 @@ public class AttendingEvents extends AppCompatActivity {
                 Log.i("clicks", "Host");
                 Toast.makeText(this, "Host Mode", Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(this, Main.class);
+
                 startActivity(i);
                 break;
             }

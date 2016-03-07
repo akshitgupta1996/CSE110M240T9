@@ -449,6 +449,9 @@ public class System {
 
                     try {
                         loadHostingEvents();
+                        loadAttendingEvents();
+                        Main.main.getListData();
+
                     } catch (ParseException e1) {
                         e1.printStackTrace();
                     }
