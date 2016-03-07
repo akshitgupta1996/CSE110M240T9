@@ -140,20 +140,21 @@ package ucsd.fungineers.eventhunters;
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_event_home :
+            case R.id.action_event_home:
                 //Toast.makeText(EventStatusActivity.this, "TODO jump to home", Toast.LENGTH_SHORT).show();
-                Log.i("clicks", "Home");DialogInterface.OnClickListener home_clickListener = new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface d, int id) {
-                    switch (id) {
-                        case DialogInterface.BUTTON_POSITIVE:
-                            Intent i = new Intent(EventStatusActivity.this, AttendingEvents.class);
-                            startActivity(i);
-                            break;
-                        case DialogInterface.BUTTON_NEGATIVE:
-                            break;
+                Log.i("clicks", "Home");
+                DialogInterface.OnClickListener home_clickListener = new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface d, int id) {
+                        switch (id) {
+                            case DialogInterface.BUTTON_POSITIVE:
+                                Intent i = new Intent(EventStatusActivity.this, AttendingEvents.class);
+                                startActivity(i);
+                                break;
+                            case DialogInterface.BUTTON_NEGATIVE:
+                                break;
+                        }
                     }
-                }
-            };
+                };
                 AlertDialog.Builder home_b = new AlertDialog.Builder(this);
                 home_b.setMessage("Are you sure you want to go to the Home Page?")
                         .setTitle("Home Page")
@@ -167,29 +168,4 @@ package ucsd.fungineers.eventhunters;
 
         return true;
     }
-     /*   public void button_Click(View v){
-            if(v.getId() == R.id.Switch)
-            {
-             //   Log.d("working");
-                SwitchCompat s = (SwitchCompat) findViewById(R.id.Switch);
-                if(s.isChecked() == true)
-                {
-
-                    try {
-                        System.instance.addEventsToUser(System.EventType.ATTENDING,event.getEventID());
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-                else
-                {
-                    try {
-                       // System.instance.addEventsToUser(System.EventType.ATTENDING,event.getEventID());
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    //are you sure you no longer want to attend this event?
-                }
-            }
-        }*/
 }
