@@ -53,7 +53,7 @@ public class FindEvents extends AppCompatActivity {
     public void button_Click(View view) {
         //Toast.makeText(this, "this is my Toast message!!! =)",
         //        Toast.LENGTH_SHORT).show();
-        switch (view.getId()) {
+        /*switch (view.getId()) {
             case R.id.buttonFind: {
                 Log.i("clicks", "Find");
                 break;
@@ -85,8 +85,6 @@ public class FindEvents extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_event_home :
-                // TODO jump to home
-                //Toast.makeText(host_event_status.this, "TODO jump to home", Toast.LENGTH_SHORT).show();
                 Log.i("clicks", "Home");
                 DialogInterface.OnClickListener home_clickListener = new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface d, int id) {
