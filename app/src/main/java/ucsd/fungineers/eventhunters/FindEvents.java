@@ -125,7 +125,7 @@ public class FindEvents extends AppCompatActivity {
 
     private ArrayList getAllEventData() {
 
-
+        /*
         //test 1
 
         ArrayList<Event> attendEventsArray = new ArrayList<Event>();
@@ -215,16 +215,16 @@ public class FindEvents extends AppCompatActivity {
 
 
         return attendEventsArray;
+        */
 
 
-        /*
         ArrayList<Event> thisWeekEvents = new ArrayList<Event>();
         try {
-            thisWeekEvents = (ArrayList) System.instance.getAllEvents(RestrictionStatus.NO_RESTRICTIONS);
+            thisWeekEvents = (ArrayList) System.instance.getAllEvents(RestrictionStatus.OVER_21);
         } catch (com.parse.ParseException e) {
             e.printStackTrace();
         }
         return thisWeekEvents;
-        */
+
     }
 }

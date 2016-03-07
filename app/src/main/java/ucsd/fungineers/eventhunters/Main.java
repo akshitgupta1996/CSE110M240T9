@@ -66,19 +66,7 @@ public class Main extends AppCompatActivity {
         ArrayList image_details = getListData();
         final ListView lv1 = (ListView) findViewById(R.id.UpcomingEventsHost);
         lv1.setAdapter(new CustomListAdapter(this, image_details));
-        /*lv1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-            @Override
-            public void onItemClick(AdapterView<?> a, View v, int position, long id) {
-                Object o = lv1.getItemAtPosition(position);
-                Event eventData = (Event) o;
-
-                //final Intent i = new Intent(aContext, Attendee_Event_Details.class);
-                //i.putExtra("selectedEvent", eventData);
-                Toast.makeText(Main.this, "Selected :" + " " + eventData, Toast.LENGTH_LONG).show();
-                //startActivity(i);
-            }
-        });*/
         lv1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
@@ -270,6 +258,7 @@ public class Main extends AppCompatActivity {
         /*
         ArrayList<Event> hostEventsArray= new ArrayList<Event>();
         try {
+            Log.i("ocean", System.currentUser.getUserID());
             hostEventsArray = (ArrayList) System.instance.getHostingEventsByUser(System.currentUser.getUserID());
         } catch (ParseException e) {
             e.printStackTrace();
