@@ -43,21 +43,6 @@ public class Main extends AppCompatActivity {
         attendees.add("ccccc");
         Date date = new Date();
 
-/*
-        //Parse.enableLocalDatastore(this);
-        Parse.initialize(this);
-        FacebookSdk.sdkInitialize(getApplicationContext());
-        ParseFacebookUtils.initialize(getApplicationContext() );
-
-        //ParseUser.enableAutomaticUser();
-        ParseACL defaultACL = new ParseACL();
-        ParseACL.setDefaultACL(defaultACL, true);
-
-        defaultACL.setPublicWriteAccess(true);
-*/
-        //ParseObject testObject = new ParseObject("TestObject");
-        //testObject.put("hello", "tim");
-        //testObject.saveInBackground();
         /*create the view --> don't change or move this*/
 
         super.onCreate(savedInstanceState);
@@ -80,89 +65,6 @@ public class Main extends AppCompatActivity {
             }
         });
     }
-
-
-
-
-        /*---------------------------------------------*/
-
-
-        //Add your test code here.
-
-
-        //String name = "test";
-        //ArrayList<Event> upcomingEvents = new ArrayList<Event>();
-        //ArrayList<Event> pastEvents = new ArrayList<Event>();
-        //float rating = 0;
-        //int userid = 42;
-        //User user1 = new User (name, userid);
-        /*
-        AttendeeComponent attendee = new AttendeeComponent(upcomingEvents, pastEvents,
-                RestrictionStatus.NO_RESTRICTIONS, rating, user1);
-
-        ArrayList<AttendeeComponent> attendees = new ArrayList<AttendeeComponent>();
-        int eventid = 24;
-        Event newEvent = new Event(attendees, new HostComponent(), eventid, RestrictionStatus.NO_RESTRICTIONS,
-                Genre.MUSIC, "Test Event");
-
-        attendee.joinEvent(newEvent);
-        Log.d("UpcomingEvents", newEvent.getAttendees().get(0).getUser().name);
-
-        HostComponent testHost = new HostComponent();
-        testHost.createEvent(RestrictionStatus.NO_RESTRICTIONS, Genre.MUSIC, "Anish Is Cool");
-        Log.d("HostTest", Main.system.tempEventList.get(0).toString());
-*/
-        /*
-        ParseFacebookUtils.logInWithReadPermissionsInBackground(this, null, new LogInCallback() {
-            @Override
-            public void done(ParseUser user, ParseException err) {
-                if (user == null) {
-                    Log.d("MyApp", "Uh oh. The user cancelled the Facebook login.");
-                } else if (user.isNew()) {
-                    Log.d("MyApp", "User signed up and logged in through Facebook!");
-                    //currentUser = user;
-                } else {
-                    Log.d("MyApp", "User logged in through Facebook!");
-                    //currentUser = user;
-                }
-
-            }
-        });*/
-
-        //system.fbLogin(this);
-
-       // Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-       // setSupportActionBar(toolbar);
-
-       /* FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
-/*
-        Log.i("clicks", "You are in main");
-
-
-        //Creating an example of a scrollable event bar thing
-        String[]  myEventArray={"Chill Party","Movie Night at Connors","Get Drunk", "Eat Ice Cream", "Lunar New Year", "Go Eat Sushi", "Blah", "Blah Blah", "Board Games", "Hi", "Bye", "This is a scroll test", "Scroll more"};
-        ArrayAdapter<String> hostEvents=new
-                ArrayAdapter<>(
-                this,
-                android.R.layout.simple_list_item_1,
-                myEventArray);
-        ListView hostView=(ListView)
-                findViewById(R.id.UpcomingEventsHost);
-        hostView.setAdapter(hostEvents);
-        //end event example
-
-
-        
-
-    }
-*/
 
     private ArrayList getListData() {
 
