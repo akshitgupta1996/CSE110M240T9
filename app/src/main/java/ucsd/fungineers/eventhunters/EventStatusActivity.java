@@ -55,7 +55,7 @@ package ucsd.fungineers.eventhunters;
         restriction = (TextView) findViewById(R.id.event_restriction);
         description = (TextView) findViewById(R.id.event_description);
         attendeeNum = (TextView) findViewById(R.id.event_attendeeNum);
-        eventRatingBar = (RatingBar) findViewById(R.id.event_rating_bar);
+        //eventRatingBar = (RatingBar) findViewById(R.id.event_rating_bar);
 
         title.setText(event.getName());
         subtitle.setText("Hosted by " + event.getHost());
@@ -67,14 +67,14 @@ package ucsd.fungineers.eventhunters;
         description.setText(event.getDescription());
         attendeeNum.setText(""+ event.getAttendees().size());
 
-        eventRatingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+        /*eventRatingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
                 Toast.makeText(EventStatusActivity.this, String.valueOf(ratingBar.getRating()),
                         Toast.LENGTH_SHORT).show();
             }
         });
-
+*/
         ImageView closeButton = (ImageView) findViewById(R.id.close_activity_button);
         closeButton.setOnClickListener(new View.OnClickListener() {
             @Override
