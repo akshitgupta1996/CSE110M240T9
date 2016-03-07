@@ -28,14 +28,17 @@ import android.widget.Button;
 
 //Apparently this is an empty event.
 public class Main extends AppCompatActivity {
-    public static System system;
+
+    public static Main main;
 
     private Context aContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        system = new System(this);
+
+        new System(this);
+        main = this;
 
         ArrayList<String> attendees = new ArrayList<>();
         attendees.add("aaa");
@@ -49,27 +52,14 @@ public class Main extends AppCompatActivity {
         setContentView(R.layout.activity_host_home);
         aContext = this;
 
-        ArrayList image_details = getListData();
-        final ListView lv1 = (ListView) findViewById(R.id.UpcomingEventsHost);
-        lv1.setAdapter(new CustomListAdapter(this, image_details));
 
-        lv1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> a, View v, int position, long id) {
-                Event eventData = (Event) lv1.getItemAtPosition(position);
-                Intent intent = new Intent(Main.this, host_event_status.class);
-                intent.putExtra("EventKey", eventData);
-                startActivity(intent);
-
-            }
-        });
     }
 
-    private ArrayList getListData() {
+    public void getListData() {
 
         //test 1
 
+        /*
         ArrayList<Event> hostEventsArray = new ArrayList<Event>();
         ArrayList<String> attendees = new ArrayList<>();
         attendees.add("Connor");
@@ -155,17 +145,28 @@ public class Main extends AppCompatActivity {
         Event eventsDataSeven = new Event(attendees, hostid, RestrictionStatus.OVER_18, Genre.MUSIC, eventNameSeven, descriptionSeven, calendarSeven, location);
         hostEventsArray.add(eventsDataSeven);
 
+        */
 
-     /*
         ArrayList<Event> hostEventsArray= new ArrayList<Event>();
-        try {
-            Log.i("ocean", System.currentUser.getUserID());
-            hostEventsArray = (ArrayList) System.instance.getHostingEventsByUser(System.currentUser.getUserID());
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-*/
-        return hostEventsArray;
+
+        hostEventsArray = (ArrayList) System.instance.getLoadedHostingEvents();
+
+        ArrayList image_details = hostEventsArray;
+
+        final ListView lv1 = (ListView) findViewById(R.id.UpcomingEventsHost);
+        lv1.setAdapter(new CustomListAdapter(this, image_details));
+
+        lv1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> a, View v, int position, long id) {
+                Event eventData = (Event) lv1.getItemAtPosition(position);
+                Intent intent = new Intent(Main.this, host_event_status.class);
+                intent.putExtra("EventKey", eventData);
+                startActivity(intent);
+
+            }
+        });
     }
 
 
