@@ -167,16 +167,16 @@ public class CreateEvent extends AppCompatActivity {
 
               return;
             }
-            EditText eventName = (EditText) findViewById(R.id.field_Name);
+            final EditText eventName = (EditText) findViewById(R.id.field_Name);
             // TODO add checks for date
 
             /*This is where we grab the ID's for the form elements so we can change them*/
-            EditText eventLocation = (EditText) findViewById(R.id.field_Location);
-            Spinner eventGenre = (Spinner) findViewById(R.id.field_Spinner_Genre);
+            final EditText eventLocation = (EditText) findViewById(R.id.field_Location);
+            final Spinner eventGenre = (Spinner) findViewById(R.id.field_Spinner_Genre);
             RadioGroup eventRestriction = (RadioGroup) findViewById(R.id.radio_Restriction);
-            EditText eventDescription = (EditText) findViewById(R.id.field_Description);
+            final EditText eventDescription = (EditText) findViewById(R.id.field_Description);
             int radioId = eventRestriction.getCheckedRadioButtonId();
-            RadioButton selectedID = (RadioButton) findViewById(radioId);
+            final RadioButton selectedID = (RadioButton) findViewById(radioId);
 
             /*Error checking, because we should only create the new form if all the required data was filled in.*/
             if (selectedID != null
@@ -190,20 +190,22 @@ public class CreateEvent extends AppCompatActivity {
 
                 final Intent i = new Intent(this, host_event_status.class);
 
-                Log.d("ASDFGHJKL", System.currentUser.toString());
-                newEvent = new Event(new ArrayList<String>(),
-                        System.currentUser.userID, RestrictionStatus.fromString(selectedID.getText().toString()),
-                        Genre.fromString(eventGenre.getSelectedItem().toString()),
-                        eventName.getText().toString(),
-                        eventDescription.getText().toString(),
-                        mDate,
-                        eventLocation.getText().toString());
+                //Log.d("ASDFGHJKL", System.currentUser.toString());
+                /*
+
+                        */
                final CreateEvent x = this;
                 DialogInterface.OnClickListener clickListener = new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface d, int id) {
                         switch (id) {
                             case DialogInterface.BUTTON_POSITIVE:
-
+                                newEvent = new Event(new ArrayList<String>(),
+                                        System.currentUser.userID, RestrictionStatus.fromString(selectedID.getText().toString()),
+                                        Genre.fromString(eventGenre.getSelectedItem().toString()),
+                                        eventName.getText().toString(),
+                                        eventDescription.getText().toString(),
+                                        mDate,
+                                        eventLocation.getText().toString());
                                 i.putExtra("EventKey", newEvent);
 
                                System.instance.createEvent(newEvent, i, x);

@@ -44,7 +44,7 @@
     <android.support.v7.widget.AppCompatTextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/upcoming_events"
+        android:text="Upcoming Attending Events"
         android:id="@+id/title_label"
         android:gravity="center"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"/>

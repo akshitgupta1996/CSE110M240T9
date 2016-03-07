@@ -50,6 +50,7 @@ package ucsd.fungineers.eventhunters;
         setContentView(R.layout.content_attendee_event_status);
 
         event = (Event) getIntent().getSerializableExtra(getString(R.string.KEY_EVENT_OBJ));
+        boolean attending = (Boolean) getIntent().getSerializableExtra("attending");
         //editable = getIntent().getBooleanExtra(getString(R.string.KEY_EVENT_EDITABLE), false);
 
         android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
@@ -76,22 +77,8 @@ package ucsd.fungineers.eventhunters;
         restriction.setText(event.getRestrictionStatus().toString());
         description.setText(event.getDescription());
         attendeeNum.setText("" + event.getAttendees().size());
-       List<Event> s =  System.instance.getLoadedAttendingEvents();
-     //   boolean attending = false;
+        switch1.setChecked(attending);
 
-        System.instance.attendthing = this;
-        for(int i = 0; i < s.size();i++)
-        {
-            if(s.get(i).getEventID().equals(event.getEventID()))
-            {
-                switch1.setChecked(true);
-                break;
-
-            }
-            else {
-                switch1.setChecked(false);
-            }
-        }
         /*eventRatingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {

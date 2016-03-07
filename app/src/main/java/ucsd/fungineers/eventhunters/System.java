@@ -157,10 +157,10 @@ public class System {
                     return;
                 } else if (user.isNew()) {
                     Log.d("MyApp", "User signed up and logged in through Facebook!");
-                    currentParseUser.put(System.restrictionStatus, RestrictionStatus.OVER_21.getValue());
-                    currentParseUser.saveInBackground();
+                    //currentParseUser.put(System.restrictionStatus, RestrictionStatus.OVER_21.getValue());
+                    //currentParseUser.saveInBackground();
 
-                    currentUser = new User(currentParseUser);
+                    //currentUser = new User(currentParseUser);
                     getFBInfo();
 
                 } else {
@@ -242,6 +242,7 @@ public class System {
         currentParseUser.put(System.restrictionStatus, 0);
         currentParseUser.put(System.totalAttendeeRatingVotes,0);
         currentParseUser.put(System.totalHostRatingVotes, 0);
+        currentParseUser.put(System.restrictionStatus, RestrictionStatus.OVER_21.getValue());
 
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         Bitmap bitmap = ProfilePicAsync.bitmap;
