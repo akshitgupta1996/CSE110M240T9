@@ -41,6 +41,21 @@ public class AttendingEvents extends AppCompatActivity {
                 Event eventData = (Event) lv1.getItemAtPosition(position);
                 Intent intent = new Intent(AttendingEvents.this, EventStatusActivity.class);
                 intent.putExtra(getString(R.string.KEY_EVENT_OBJ), eventData);
+                List<Event> s =  System.instance.getLoadedAttendingEvents();
+                boolean attending = false;
+                for(int i = 0; i < s.size();i++)
+                {
+                    if(s.get(i).getEventID().equals(eventData.getEventID()))
+                    {
+                        attending = true;
+                        break;
+
+                    }
+                    else {
+                        attending = false;
+                    }
+                }
+                intent.putExtra("attending",attending);
                 startActivity(intent);
 
             }

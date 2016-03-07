@@ -30,38 +30,39 @@ import static org.hamcrest.Matchers.is;
  * Created by Timothy on 3/6/2016.
  */
 @RunWith(AndroidJUnit4.class)
-public class HostEventStatusTest {
+public class AttendeeEventStatusTest {
 
     private String mEventTitle;
     private String mLocation;
     private String mDesc;
 
     @Rule
-    public ActivityTestRule<host_event_status> mActivityRule = new ActivityTestRule(host_event_status.class, false, false);
+    public ActivityTestRule<EventStatusActivity> mActivityRule = new ActivityTestRule(EventStatusActivity.class, false, false);
 
     @Before
     public void initValidString() {
         // Specify a valid string.
-        mEventTitle = "Host Test Event Name";
-        mLocation = "Host Espresso Test Location";
-        mDesc = "Host Espresso Test Description";
+        mEventTitle = "Attendee Test Title";
+        mLocation = "Attendee Test Location";
+        mDesc = "Attendee Test Description";
     }
 
     @Test
-    public void hostEventStatus() {
+    public void attendeeEventStatus() {
 
         ArrayList<String> test = new ArrayList<String>();
         GregorianCalendar cal = new GregorianCalendar();
-        Event testEvent = new Event(test, "Test Host Id", RestrictionStatus.OVER_21, Genre.PARTY, mEventTitle, mDesc, cal, mLocation);
+        Event testEvent = new Event(test, "Test Host Id", RestrictionStatus.OVER_18, Genre.PARTY, mEventTitle, mDesc, cal, mLocation);
         Intent i = new Intent();
-        i.putExtra("EventKey", testEvent);
+        i.putExtra("KEY_EVENT_OBJECT", testEvent);
+        i.putExtra("attending",true);
         mActivityRule.launchActivity(i);
 
         onView(withId(R.id.event_title)).check(matches(withText(mEventTitle)));
         onView(withId(R.id.event_location)).check(matches(withText(mLocation)));
         onView(withId(R.id.event_genre)).check(matches(withText(Genre.PARTY.toString())));
-        onView(withId(R.id.event_restriction)).check(matches(withText(RestrictionStatus.OVER_21.toString())));
-        
+        onView(withId(R.id.event_restriction)).check(matches(withText(RestrictionStatus.OVER_18.toString())));
+
 
 
 
