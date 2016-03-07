@@ -78,6 +78,8 @@ package ucsd.fungineers.eventhunters;
         attendeeNum.setText("" + event.getAttendees().size());
        List<Event> s =  System.instance.getLoadedAttendingEvents();
      //   boolean attending = false;
+
+        System.instance.attendthing = this;
         for(int i = 0; i < s.size();i++)
         {
             if(s.get(i).getEventID().equals(event.getEventID()))
@@ -120,7 +122,7 @@ package ucsd.fungineers.eventhunters;
                 else
                 {
                     try {
-                    //    System.instance.removeEventsFromUser(System.EventType.ATTENDING,event.getEventID());
+                     System.instance.removeEventsFromUser(System.EventType.ATTENDING,event.getEventID());
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

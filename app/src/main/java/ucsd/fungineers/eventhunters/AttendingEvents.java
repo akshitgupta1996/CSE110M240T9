@@ -179,12 +179,21 @@ public class AttendingEvents extends AppCompatActivity {
             }
 
             case R.id.buttonHostA: {
-                Log.i("clicks", "Host");
-                Toast.makeText(this, "Host Mode", Toast.LENGTH_SHORT).show();
-                Intent i = new Intent(this, Main.class);
+                if(System.instance.hostthing != null)
+                {
+                    Intent lolIntent = new Intent(System.instance.hostthing, Main.class);
+                    lolIntent.setFlags(4194304);
 
-                startActivity(i);
-                break;
+                    startActivity(lolIntent);
+                }else {
+
+                    Log.i("clicks", "Host");
+                    Toast.makeText(this, "Host Mode", Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent(this, Main.class);
+
+                    startActivity(i);
+                    break;
+                }
             }
 
             case R.id.buttonAttendeeA: {

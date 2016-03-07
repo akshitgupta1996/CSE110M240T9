@@ -200,12 +200,22 @@ public class Main extends AppCompatActivity {
             }
 
             case R.id.buttonAttendee: {
-                Log.i("clicks", "Attendee");
-                Toast.makeText(this, "Attendee Mode", Toast.LENGTH_SHORT).show();
-                Intent i = new Intent(this, AttendingEvents.class);
-                startActivity(i);
+                if(System.instance.attendthing != null)
+                {
+                    System.instance.hostthing = this;
+                   Intent lolIntent = new Intent(System.instance.attendthing, AttendingEvents.class);
+                    lolIntent.setFlags(4194304);
 
-                break;
+                    startActivity(lolIntent);
+                }else {
+                    System.instance.attendthing = this;
+                    Log.i("clicks", "Attendee");
+                    Toast.makeText(this, "Attendee Mode", Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent(this, AttendingEvents.class);
+                    startActivity(i);
+
+                    break;
+                }
             }
         }
     }
@@ -233,13 +243,18 @@ public class Main extends AppCompatActivity {
         }
         else if(id == R.id.action_refresh)
         {
-            Intent mStartActivity = new Intent(this, Main.class);
-            int mPendingIntentId = 123456;
+          /*  Intent mStartActivity = new Intent(this, Main.class);
+            int mPendingIntentId = 1276868687;
             PendingIntent mPendingIntent = PendingIntent.getActivity(Main.this, mPendingIntentId, mStartActivity,
                     PendingIntent.FLAG_CANCEL_CURRENT);
             AlarmManager mgr = (AlarmManager) Main.this.getSystemService(Context.ALARM_SERVICE);
-            mgr.set(AlarmManager.RTC, java.lang.System.currentTimeMillis() + 100, mPendingIntent);
-            java.lang.System.exit(0);
+            mgr.set(AlarmManager.RTC, java.lang.System.currentTimeMillis() + 500, mPendingIntent);
+            java.lang.System.exit(0);*/
+            try {
+                System.instance.loadAllEvents();
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
         }
 
         return super.onOptionsItemSelected(item);

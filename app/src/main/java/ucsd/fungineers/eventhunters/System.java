@@ -86,6 +86,9 @@ public class System {
     //Keeps track of every user ever. Soon to be replaced by database.
     public ArrayList<User> tempUserList;
 
+    public Activity attendthing;
+    public Activity hostthing;
+
     /**
      * This constructor will start a connection to the database and set the connectionEstablished
      * variable.
