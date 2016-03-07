@@ -124,7 +124,7 @@ public class CreateEvent extends AppCompatActivity {
                     RadioButton selectedID = (RadioButton) findViewById(radioId);
                     Event x = new Event(new ArrayList<String>(),
                             System.currentUser.userID, RestrictionStatus.fromString(selectedID.getText().toString()),
-                            Genre.fromString(eventGenre.getSelectedItem().toString(), this),
+                            Genre.fromString(eventGenre.getSelectedItem().toString()),
                             eventName.getText().toString(),
                             eventDescription.getText().toString(),
                             mDate,
@@ -167,7 +167,7 @@ Log.d("Error Updating",e.getMessage());
                 Log.d("ASDFGHJKL", System.currentUser.toString());
                 newEvent = new Event(new ArrayList<String>(),
                         System.currentUser.userID, RestrictionStatus.fromString(selectedID.getText().toString()),
-                        Genre.fromString(eventGenre.getSelectedItem().toString(), this),
+                        Genre.fromString(eventGenre.getSelectedItem().toString()),
                         eventName.getText().toString(),
                         eventDescription.getText().toString(),
                         mDate,
