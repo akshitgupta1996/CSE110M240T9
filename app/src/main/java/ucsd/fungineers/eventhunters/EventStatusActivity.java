@@ -68,7 +68,7 @@ package ucsd.fungineers.eventhunters;
         //eventRatingBar = (RatingBar) findViewById(R.id.event_rating_bar);
 
         title.setText(event.getName());
-        subtitle.setText("Hosted by " + event.getHost());
+        //subtitle.setText("Hosted by " + event.getHost());
         date.setText(mDateFormat.format(event.getDate().getTime()));
         time.setText(mTimeFormat.format(event.getDate().getTime()));
         location.setText(event.getLocation());
@@ -85,6 +85,7 @@ package ucsd.fungineers.eventhunters;
             if(s.get(i).getEventID().equals(event.getEventID()))
             {
                 switch1.setChecked(true);
+                break;
 
             }
             else {

@@ -73,7 +73,7 @@ public class host_event_status extends AppCompatActivity {
         description.setText(getIntent().getExtras().getString("eventDescription"));
 */
         title.setText(event.getName());
-        subtitle.setText("Hosted by " + event.getHost());
+        //subtitle.setText("Hosted by " + event.getHost());
         date.setText(mDateFormat.format(event.getDate().getTime()));
         time.setText(mTimeFormat.format(event.getDate().getTime()));
         location.setText(event.getLocation());
