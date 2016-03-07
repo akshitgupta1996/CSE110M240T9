@@ -505,6 +505,7 @@ public class System {
         loadedEvent.put(System.restrictionStatus, eventToUpdate.getRestrictionStatus().toString());
         loadedEvent.put(System.genre, eventToUpdate.getGenre().toString());
         loadedEvent.put(System.description, eventToUpdate.getDescription());
+        loadedEvent.put(System.location,eventToUpdate.getLocation());
 
         loadedEvent.saveInBackground();
 

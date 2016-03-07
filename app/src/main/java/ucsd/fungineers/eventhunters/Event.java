@@ -15,10 +15,11 @@ import java.util.GregorianCalendar;
 import java.io.Serializable;
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-public class Event implements Serializable{
+public class Event extends AppCompatActivity implements Serializable{
 
     //The id that the event has in the database.
     private String eventID;
@@ -164,11 +165,11 @@ public class Event implements Serializable{
         this.genre = genre;
     }
 
+    public void setGenre(String genre) {
 
-//TODO FIND OUT WHAT THIS IS FOR
-    /*public void setGenre(String genre) {
-    //  Genre.fromString(genre, this);
-    }*/
+      Genre.fromString(genre, this);
+
+    }
 
     public String getDescription() {
 
