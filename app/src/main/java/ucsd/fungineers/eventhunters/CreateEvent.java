@@ -111,7 +111,7 @@ public class CreateEvent extends AppCompatActivity {
             if(isOldEvent == true)
             {
                 //Call Update Old Event Script
-                try {
+
                     EditText eventName = (EditText) findViewById(R.id.field_Name);
                     // TODO add checks for date
 
@@ -122,22 +122,48 @@ public class CreateEvent extends AppCompatActivity {
                     EditText eventDescription = (EditText) findViewById(R.id.field_Description);
                     int radioId = eventRestriction.getCheckedRadioButtonId();
                     RadioButton selectedID = (RadioButton) findViewById(radioId);
-                    Event x = new Event(new ArrayList<String>(),
+
+                 final Event x = new Event(new ArrayList<String>(),
                             System.currentUser.userID, RestrictionStatus.fromString(selectedID.getText().toString()),
-                            Genre.fromString(eventGenre.getSelectedItem().toString(), this),
+                            Genre.fromString(eventGenre.getSelectedItem().toString()),
+
                             eventName.getText().toString(),
                             eventDescription.getText().toString(),
                             mDate,
                             eventLocation.getText().toString());
                             x.setHost(newEvent.getHost());
                             x.setEventID(newEvent.getEventID());
-                    System.instance.updateEvent(x);
-                    Log.d("Updated lol", x.getLocation());
-                }
-                catch( Exception e)
-                {
-                    Log.d("Error Updating",e.getMessage());
-                }
+
+                    final Intent i = new Intent(this, host_event_status.class);
+
+                    DialogInterface.OnClickListener clickListener = new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface d, int id) {
+                            switch (id) {
+                                case DialogInterface.BUTTON_POSITIVE:
+                                    try {
+                                    i.putExtra("EventKey", x);
+                                    startActivity(i);
+                                    System.instance.updateEvent(x);
+                                  //  Log.d("Updated lol", selectedID.getText().toString());
+                                    finish();
+                                    }
+                                    catch( Exception e)
+                                    {
+                                        Log.d("Error Updating",e.getMessage());
+                                    }
+                                    break;
+                                case DialogInterface.BUTTON_NEGATIVE:
+                                    break;
+                            }
+                        }
+                    };
+                /*This is the message asked to the user.*/
+                    AlertDialog.Builder b = new AlertDialog.Builder(this);
+                    b.setMessage("Are you sure you want to update this event?")
+                            .setTitle("Event Creation Confirmation")
+                            .setPositiveButton("Yes", clickListener)
+                            .setNegativeButton("No", clickListener)
+                            .show();
 
               return;
             }
@@ -167,12 +193,11 @@ public class CreateEvent extends AppCompatActivity {
                 Log.d("ASDFGHJKL", System.currentUser.toString());
                 newEvent = new Event(new ArrayList<String>(),
                         System.currentUser.userID, RestrictionStatus.fromString(selectedID.getText().toString()),
-                        Genre.fromString(eventGenre.getSelectedItem().toString(), this),
+                        Genre.fromString(eventGenre.getSelectedItem().toString()),
                         eventName.getText().toString(),
                         eventDescription.getText().toString(),
                         mDate,
                         eventLocation.getText().toString());
-
                final CreateEvent x = this;
                 DialogInterface.OnClickListener clickListener = new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface d, int id) {
@@ -180,6 +205,7 @@ public class CreateEvent extends AppCompatActivity {
                             case DialogInterface.BUTTON_POSITIVE:
 
                                 i.putExtra("EventKey", newEvent);
+
                                System.instance.createEvent(newEvent, i, x);
                              //   startActivity(i);
                                 finish();

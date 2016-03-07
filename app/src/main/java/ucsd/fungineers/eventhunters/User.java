@@ -233,12 +233,12 @@ enum RestrictionStatus {
     //Get a restriction status from a string.
     public static RestrictionStatus fromString(String string)
     {
-        if (string.equals(R.string.label_no_restrictions))
+        if (string.contains("No"))
         {
             return RestrictionStatus.NO_RESTRICTIONS;
         }
 
-        else if (string.equals(R.string.label_18_plus))
+        else if (string.contains("18"))
         {
             return RestrictionStatus.OVER_18;
         }
