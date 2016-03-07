@@ -20,6 +20,7 @@ package ucsd.fungineers.eventhunters;
     import com.parse.ParseException;
 
     import java.text.SimpleDateFormat;
+    import java.util.List;
     import java.util.Locale;
 
     public class EventStatusActivity extends AppCompatActivity {
@@ -72,9 +73,20 @@ package ucsd.fungineers.eventhunters;
         genre.setText(event.getGenre().toString());
         restriction.setText(event.getRestrictionStatus().toString());
         description.setText(event.getDescription());
-        attendeeNum.setText(""+ event.getAttendees().size());
-        System.instance.currentUser.getLoadedAttendingEvents()  
-        if()
+        attendeeNum.setText("" + event.getAttendees().size());
+       List<Event> s =  System.instance.getLoadedAttendingEvents();
+        boolean attending = false;
+        for(int i = 0; i < s.size();i++)
+        {
+            if(s.get(i).getAttendees().contains(System.instance.currentUser))
+            {
+                switch1.setChecked(true);
+
+            }
+            else {
+                switch1.setChecked(false);
+            }
+        }
         /*eventRatingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
