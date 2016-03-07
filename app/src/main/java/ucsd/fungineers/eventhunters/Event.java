@@ -245,12 +245,12 @@ enum Genre{
 
     public static Genre fromString(String string)
     {
-        if (string.equals("MUSIC"))
+        if (string.toLowerCase().contains("music"))
         {
             return Genre.MUSIC;
         }
 
-        else if (string.equals("PARTY"))
+        else if (string.toLowerCase().contains("party"))
         {
             return Genre.PARTY;
         }
