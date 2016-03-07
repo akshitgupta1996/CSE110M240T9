@@ -254,6 +254,7 @@ public class System {
         }
         else
         {
+            Log.d("MYGREATUSER", currentParseUser.toString());
             array = currentParseUser.getList(System.hostingEvents);
         }
 
