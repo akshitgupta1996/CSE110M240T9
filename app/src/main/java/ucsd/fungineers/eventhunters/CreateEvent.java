@@ -122,10 +122,11 @@ public class CreateEvent extends AppCompatActivity {
                     EditText eventDescription = (EditText) findViewById(R.id.field_Description);
                     int radioId = eventRestriction.getCheckedRadioButtonId();
                     RadioButton selectedID = (RadioButton) findViewById(radioId);
+
                  final Event x = new Event(new ArrayList<String>(),
-                            System.currentUser.userID,
-                            RestrictionStatus.fromString(selectedID.getText().toString()),
-                            Genre.fromString(eventGenre.getSelectedItem().toString(), this),
+                            System.currentUser.userID, RestrictionStatus.fromString(selectedID.getText().toString()),
+                            Genre.fromString(eventGenre.getSelectedItem().toString()),
+
                             eventName.getText().toString(),
                             eventDescription.getText().toString(),
                             mDate,
@@ -200,12 +201,11 @@ public class CreateEvent extends AppCompatActivity {
                 Log.d("ASDFGHJKL", System.currentUser.toString());
                 newEvent = new Event(new ArrayList<String>(),
                         System.currentUser.userID, RestrictionStatus.fromString(selectedID.getText().toString()),
-                        Genre.fromString(eventGenre.getSelectedItem().toString(), this),
+                        Genre.fromString(eventGenre.getSelectedItem().toString()),
                         eventName.getText().toString(),
                         eventDescription.getText().toString(),
                         mDate,
                         eventLocation.getText().toString());
-
                final CreateEvent x = this;
                 DialogInterface.OnClickListener clickListener = new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface d, int id) {
@@ -213,6 +213,7 @@ public class CreateEvent extends AppCompatActivity {
                             case DialogInterface.BUTTON_POSITIVE:
 
                                 i.putExtra("EventKey", newEvent);
+
                                System.instance.createEvent(newEvent, i, x);
                              //   startActivity(i);
                                 finish();

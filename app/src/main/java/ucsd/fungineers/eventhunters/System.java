@@ -254,6 +254,7 @@ public class System {
         }
         else
         {
+            Log.d("MYGREATUSER", currentParseUser.toString());
             array = currentParseUser.getList(System.hostingEvents);
         }
 
@@ -311,7 +312,7 @@ public class System {
 
                 Event evt = new Event((ArrayList)dbEvent.get(System.attendeeList),
                         (String)dbEvent.get(System.hostId),RestrictionStatus.fromString((String) dbEvent.get(System.restrictionStatus)),
-                         Genre.fromString((String)dbEvent.get(System.genre),evtClass),
+                         Genre.fromString((String)dbEvent.get(System.genre)),
                          (String)dbEvent.get(System.name),
                         (String)dbEvent.get(System.description),
                         calendar,

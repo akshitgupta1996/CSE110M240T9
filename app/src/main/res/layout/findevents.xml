@@ -9,10 +9,11 @@
         android:orientation="horizontal"
         android:layout_weight="1">
 
-        <!--android.support.v7.widget.AppCompatButton
+        <android.support.v7.widget.AppCompatButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Find"
+            style="@style/Base.Widget.AppCompat.Button.Colored"
             android:onClick="button_Click"
             android:id="@+id/buttonFind"
             android:layout_weight="1"/>
@@ -21,11 +22,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="My Events"
+            style="@style/Base.Widget.AppCompat.Button.Colored"
             android:onClick="button_Click"
             android:id="@+id/buttonMyEvents"
             android:layout_weight="1"/>
-    </android.support.v7.widget.LinearLayoutCompat-->
-        <Button
+    </android.support.v7.widget.LinearLayoutCompat>
+        <!--Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/homeButton"
@@ -33,8 +35,8 @@
             style="@style/Base.Widget.AppCompat.Button.Colored"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
             android:textColor="#ffffff"
-            android:onClick="button_click" />
-    </android.support.v7.widget.LinearLayoutCompat>
+            android:onClick="button_click" /-->
+    <!--/android.support.v7.widget.LinearLayoutCompat-->
 
     <android.support.v7.widget.LinearLayoutCompat
         android:orientation="vertical"
