@@ -67,8 +67,10 @@ public class System {
 
     private Event storedEvent;
 
-    private boolean eventLoadComplete = false;
     private List<Event> loadedEvents;
+    private List<Event> loadedHostingEvents;
+    private List<Event> loadedAttendingEvents;
+
 
     final int MAX_SCORE = 5;
 
@@ -98,6 +100,13 @@ public class System {
         if(instance == null) {
             fbLogin(activity);
         }
+
+        try {
+            loadAllEvents();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
         instance = this;
 
     }
@@ -148,11 +157,13 @@ public class System {
             public void done(ParseUser user, ParseException err) {
                 if (user == null) {
                     Log.d("MyApp", "Uh oh. The user cancelled the Facebook login.");
+                    return;
                 } else if (user.isNew()) {
                     Log.d("MyApp", "User signed up and logged in through Facebook!");
-                    //
+                    currentParseUser.put(System.restrictionStatus, RestrictionStatus.OVER_21.getValue());
+                    currentParseUser.saveInBackground();
 
-                    //Log.d("TESTEST", "id:" + currentParseUser.getObjectId());
+                    currentUser = new User(currentParseUser);
                     getFBInfo();
 
                 } else {
@@ -165,6 +176,21 @@ public class System {
                     currentUser = new User(currentParseUser);
                     Log.d("HELPUSER", currentUser.toString());
                 }
+
+                ParseACL defaultACL = new ParseACL();
+// Optionally enable public read access while disabling public write access.
+                defaultACL.setPublicReadAccess(true);
+                defaultACL.setPublicWriteAccess(true);
+                ParseACL.setDefaultACL(defaultACL, true);
+
+                try {
+                    loadAllEvents();
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+
+
 //                testAddEvent();
             }
         });
@@ -258,7 +284,6 @@ public class System {
         }
         else
         {
-            Log.d("MYGREATUSER", currentParseUser.toString());
             array = currentParseUser.getList(System.hostingEvents);
         }
 
@@ -311,6 +336,7 @@ public class System {
             @Override
             public void done(ParseException e) {
 
+
                 GregorianCalendar calendar = new GregorianCalendar();
                 calendar.setTime((Date) dbEvent.get(System.date));
 
@@ -330,6 +356,7 @@ public class System {
                 //Need to set the event's id at some point.
                 storedEvent.setEventID(dbEvent.getObjectId());
                 addEventsToUser(EventType.HOSTING, storedEvent.getEventID());
+
             }
         });
 
@@ -379,12 +406,10 @@ public class System {
 
     /**
      * Gets all events matching the restriction status
-     * @param restrictionStatus Restriction status of events to get
      * @return A list of events matching the restriction status
      */
-    public List<Event> getAllEvents(RestrictionStatus restrictionStatus) throws ParseException {
+    public void loadAllEvents() throws ParseException {
 
-        eventLoadComplete = false;
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Events");
 
         //get the first matching item
@@ -395,8 +420,15 @@ public class System {
                 //if there was no exception
                 if (e == null) {
 
+                    Log.d("ALL EVENTS: ", "" + objects.size());
+                    loadedEvents.clear();
                     setLoadedEvents(objects);
-                    eventLoadComplete = true;
+
+                    try {
+                        loadHostingEvents();
+                    } catch (ParseException e1) {
+                        e1.printStackTrace();
+                    }
 
                 } else {
 
@@ -404,71 +436,33 @@ public class System {
                 }
             }
         });
-
-        while (!eventLoadComplete) {
-
-
-        }
-
-        return loadedEvents;
     }
 
+    public void loadHostingEvents() throws ParseException {
 
-
-
-    /**
-     * Gets a list of events that a user is attending
-     * @param userId ID of user to get attending events from
-     * @return List of events that the user is attending
-     * @throws ParseException
-     */
-    public List<Event> getAttendingEventsByUser(String userId) throws ParseException {
-
-       ParseQuery<ParseUser> query = ParseUser.getQuery();
-        Log.i("cheddar", userId);
-
-        query.get(userId);
-
-        List<ParseUser> foundUser = query.find();
-        Log.i("cheddar", "foundUser:" + foundUser);
-
-        if (foundUser == null) {
-
-            return null;
-
-        }
-
-        List<Event> eventList = (List<Event>)foundUser.get(0).get(System.attendingEvents);
-
-        Log.i("cheddar", "eventList" + eventList);
-        return eventList;
 
     }
 
-    /**
-     * Get's a list of events that a user is hosting
-     * @param userId ID of user to get events from
-     * @return List of events that the user is hosting
-     * @throws ParseException
-     */
-    public List<Event> getHostingEventsByUser(String userId) throws ParseException {
+    public void loadAttendingEvents() throws ParseException {
 
-        ParseQuery<ParseUser> query = ParseUser.getQuery();
 
-        query.get(userId);
+    }
 
-        List<ParseUser> foundUser = query.find();
+    public List<Event> getAllEvents(RestrictionStatus restriction)  {
 
-        if (foundUser == null) {
+        Log.d("LOADED EVENT SIZE: ", "" + loadedEvents.size());
+        List<Event> allEvents = new ArrayList<Event>();
 
-            return null;
+        for (int i = 0; i < loadedEvents.size(); i++) {
 
+            if (currentUser.getRestrictionStatus().compareTo(loadedEvents.get(i).getRestrictionStatus()) >= 0) {
+
+                allEvents.add(loadedEvents.get(i));
+
+            }
         }
 
-        List<Event> eventList = (List<Event>)foundUser.get(0).get(System.hostingEvents);
-
-        return eventList;
-
+        return allEvents;
     }
 
     /**
@@ -481,7 +475,7 @@ public class System {
 
         ParseQuery<ParseUser> query = ParseUser.getQuery();
 
-        query.get(userId);
+        ParseObject newEvent = query.get(userId);
 
         List<ParseUser> foundUser = query.find();
 

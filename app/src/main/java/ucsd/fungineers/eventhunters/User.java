@@ -68,6 +68,7 @@ public class User {
     public User(ParseUser user) {
         Log.d("ASDFGHJKL",user.toString());
         setName((String) user.get(System.name));
+        setRestrictionStatus((int)user.get(System.restrictionStatus));
         setUserID(user.getObjectId());
 
         /*
@@ -138,6 +139,25 @@ public class User {
     public ArrayList<String> getAttendeeEventList() {
 
         return attendeeEventList;
+
+    }
+
+    public void setRestrictionStatus(RestrictionStatus restriction) {
+
+        this.restrictionStatus = restriction;
+
+    }
+
+    public void setRestrictionStatus(int restriction) {
+
+
+        this.restrictionStatus = RestrictionStatus.fromInt(restriction);
+
+    }
+
+    public RestrictionStatus getRestrictionStatus() {
+
+        return restrictionStatus;
 
     }
 
