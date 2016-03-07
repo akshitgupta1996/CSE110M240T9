@@ -275,6 +275,7 @@ public class Main extends AppCompatActivity {
             case R.id.buttonCE: {
                 Intent i = new Intent(this, CreateEvent.class);
                 startActivity(i);
+                finish();
                 break;
             }
 
@@ -288,6 +289,7 @@ public class Main extends AppCompatActivity {
                 Toast.makeText(this, "Attendee Mode", Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(this, AttendingEvents.class);
                 startActivity(i);
+                finish();
                 break;
             }
         }
