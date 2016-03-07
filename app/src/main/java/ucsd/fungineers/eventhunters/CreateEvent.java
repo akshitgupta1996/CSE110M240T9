@@ -263,7 +263,8 @@ public class CreateEvent extends AppCompatActivity {
                                 eventLocation.setText("");
                                 eventGenre.setSelection(0);
                                 eventDescription.setText("");
-                                eventRestriction.check(getRadioButtonID(newEvent));
+                                eventRestriction.clearCheck();
+                                initDateAndTimePickers();
 
                             }
                             catch( Exception e)

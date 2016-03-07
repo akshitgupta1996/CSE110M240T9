@@ -28,13 +28,14 @@ import android.widget.Button;
 
 //Apparently this is an empty event.
 public class Main extends AppCompatActivity {
-
+    public static System system;
 
     private Context aContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+        system = new System(this);
 
         ArrayList<String> attendees = new ArrayList<>();
         attendees.add("aaa");
