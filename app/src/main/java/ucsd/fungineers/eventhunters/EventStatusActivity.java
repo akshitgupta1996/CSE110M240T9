@@ -10,6 +10,8 @@ package ucsd.fungineers.eventhunters;
     import android.view.Menu;
     import android.view.MenuItem;
     import android.view.View;
+    import android.widget.CheckBox;
+    import android.widget.CompoundButton;
     import android.widget.EditText;
     import android.widget.ImageView;
     import android.widget.RatingBar;
@@ -34,7 +36,7 @@ package ucsd.fungineers.eventhunters;
         private TextView restriction;
         private TextView description;
         private TextView attendeeNum;
-        private SwitchCompat switch1;
+        private CheckBox switch1;
         private RatingBar eventRatingBar;
 
         //private boolean editable = false;
@@ -62,7 +64,7 @@ package ucsd.fungineers.eventhunters;
         restriction = (TextView) findViewById(R.id.event_restriction);
         description = (TextView) findViewById(R.id.event_description);
         attendeeNum = (TextView) findViewById(R.id.event_attendeeNum);
-        switch1 = (SwitchCompat) findViewById(R.id.Switch);
+        switch1 = (CheckBox) findViewById(R.id.Switch);
         //eventRatingBar = (RatingBar) findViewById(R.id.event_rating_bar);
 
         title.setText(event.getName());
@@ -100,6 +102,30 @@ package ucsd.fungineers.eventhunters;
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+
+
+        CheckBox repeatChkBx = ( CheckBox ) findViewById( R.id.Switch );
+        repeatChkBx.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    try {
+                        System.instance.addEventsToUser(System.EventType.ATTENDING,event.getEventID());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                else
+                {
+                    try {
+                    //    System.instance.removeEventsFromUser(System.EventType.ATTENDING,event.getEventID());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
             }
         });
     }
@@ -141,9 +167,10 @@ package ucsd.fungineers.eventhunters;
 
         return true;
     }
-        public void button_Click(View v){
+     /*   public void button_Click(View v){
             if(v.getId() == R.id.Switch)
             {
+             //   Log.d("working");
                 SwitchCompat s = (SwitchCompat) findViewById(R.id.Switch);
                 if(s.isChecked() == true)
                 {
@@ -164,5 +191,5 @@ package ucsd.fungineers.eventhunters;
                     //are you sure you no longer want to attend this event?
                 }
             }
-        }
+        }*/
 }

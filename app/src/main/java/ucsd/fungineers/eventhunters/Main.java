@@ -1,5 +1,7 @@
 package ucsd.fungineers.eventhunters;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.Context;
 import android.os.Bundle;
@@ -218,6 +220,16 @@ public class Main extends AppCompatActivity {
             finish();
             return true;
         }
+        else if(id == R.id.action_refresh)
+        {
+            Intent mStartActivity = new Intent(this, Main.class);
+            int mPendingIntentId = 123456;
+            PendingIntent mPendingIntent = PendingIntent.getActivity(Main.this, mPendingIntentId, mStartActivity,
+                    PendingIntent.FLAG_CANCEL_CURRENT);
+            AlarmManager mgr = (AlarmManager) Main.this.getSystemService(Context.ALARM_SERVICE);
+            mgr.set(AlarmManager.RTC, java.lang.System.currentTimeMillis() + 100, mPendingIntent);
+            java.lang.System.exit(0);
+        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -227,6 +239,7 @@ public class Main extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         ParseFacebookUtils.onActivityResult(requestCode, resultCode, data);
     }
+
 }
 /*
          ,xXXXXx,

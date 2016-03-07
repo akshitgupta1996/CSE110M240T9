@@ -215,7 +215,7 @@
                 android:layout_marginTop="20dp"
                 android:text="Going" /-->
 
-            <android.support.v7.widget.SwitchCompat
+     <!--       <android.support.v7.widget.SwitchCompat
                 android:id="@+id/Switch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -232,6 +232,15 @@
                 android:padding="20dp"
                 android:layout_below="@+id/event_description"
                 />
+-->
+            <CheckBox
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Going       "
+                android:id="@+id/Switch"
+                android:layout_alignBottom="@+id/event_attendeeNum"
+                android:layout_centerHorizontal="true" />
 
         </RelativeLayout>
     </ScrollView>
