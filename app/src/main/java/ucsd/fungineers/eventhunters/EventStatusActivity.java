@@ -17,6 +17,8 @@ package ucsd.fungineers.eventhunters;
     import android.widget.TextView;
     import android.widget.Toast;
 
+    import com.parse.ParseException;
+
     import java.text.SimpleDateFormat;
     import java.util.Locale;
 
@@ -132,10 +134,20 @@ package ucsd.fungineers.eventhunters;
                 SwitchCompat s = (SwitchCompat) findViewById(R.id.Switch);
                 if(s.isChecked() == true)
                 {
-                    System.instance.addEventsToUser(System.EventType.ATTENDING,event.getEventID());
+
+                    try {
+                        System.instance.addEventsToUser(System.EventType.ATTENDING,event.getEventID());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
                 else
                 {
+                    try {
+                       // System.instance.addEventsToUser(System.EventType.ATTENDING,event.getEventID());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                     //are you sure you no longer want to attend this event?
                 }
             }

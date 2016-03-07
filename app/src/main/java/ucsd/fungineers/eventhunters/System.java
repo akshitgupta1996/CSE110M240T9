@@ -453,7 +453,7 @@ public class System {
 
     public void loadHostingEvents() throws ParseException {
 
-        loadedHostingEvents = new ArrayList<Event>();
+       loadedHostingEvents = new ArrayList<Event>();
 
         for (int i = 0; i < loadedEvents.size(); i++) {
 
