@@ -319,9 +319,10 @@ public class System {
 
                 //updates the event in the database
                 updateEvent(eventToUpdate);
+
+                currentParseUser.put(System.attendingEvents, array);
             }
 
-            currentParseUser.put(System.attendingEvents, array);
         }
         else
         {

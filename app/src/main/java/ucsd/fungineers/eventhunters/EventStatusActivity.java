@@ -108,8 +108,6 @@ package ucsd.fungineers.eventhunters;
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.event_status_menu, menu);
-        menu.removeItem(R.id.action_event_delete);
-        menu.removeItem(R.id.action_event_edit);
         return true;
     }
 
