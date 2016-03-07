@@ -1,7 +1,10 @@
 package ucsd.fungineers.eventhunters;
 
 import java.util.*;
+
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -50,7 +53,7 @@ public class FindEvents extends AppCompatActivity {
     public void button_Click(View view) {
         //Toast.makeText(this, "this is my Toast message!!! =)",
         //        Toast.LENGTH_SHORT).show();
-        /*switch (view.getId()) {
+        switch (view.getId()) {
             case R.id.buttonFind: {
                 Log.i("clicks", "Find");
                 break;
@@ -61,34 +64,63 @@ public class FindEvents extends AppCompatActivity {
                 startActivity(i);
                 break;
             }
-        }*/
-        String button_name = ((Button) view).getText().toString();
+        }
+        /*String button_name = ((Button) view).getText().toString();
         if(button_name.equals("Home"))
         {
             Intent i = new Intent(this, Main.class);
             startActivity(i);
-        }
+        }*/
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.event_status_menu, menu);
+        menu.removeItem(R.id.action_event_delete);
+        menu.removeItem(R.id.action_event_edit);
+
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (item.getItemId()) {
+            case R.id.action_event_delete :
+                // TODO delete this event
+                break;
+            case R.id.action_event_edit :
+                // TODO edit this event
+                break;
+            case R.id.action_event_home :
+                // TODO jump to home
+                //Toast.makeText(host_event_status.this, "TODO jump to home", Toast.LENGTH_SHORT).show();
+                Log.i("clicks", "Home");
+                DialogInterface.OnClickListener home_clickListener = new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface d, int id) {
+                        switch (id) {
+                            case DialogInterface.BUTTON_POSITIVE:
+                                //i.putExtra("EventKey", newEvent);
+                                //System.instance.createEvent(newEvent);
+                                //startActivity(i);
+                                Intent i = new Intent(FindEvents.this, Main.class);
+                                startActivity(i);
+                                break;
+                            case DialogInterface.BUTTON_NEGATIVE:
+                                break;
+                        }
+                    }
+                };
+                AlertDialog.Builder home_b = new AlertDialog.Builder(this);
+                home_b.setMessage("Are you sure you want to go to the Home Page?")
+                        .setTitle("Home Page")
+                        .setPositiveButton("Yes", home_clickListener)
+                        .setNegativeButton("No", home_clickListener)
+                        .show();
+            default:
+                break;
         }
-        return super.onOptionsItemSelected(item);
+
+        return true;
     }
 
     private ArrayList getAllEventData() {
