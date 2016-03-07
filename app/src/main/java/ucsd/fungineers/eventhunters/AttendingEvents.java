@@ -49,9 +49,9 @@ public class AttendingEvents extends AppCompatActivity {
     }
 
     private ArrayList getListData() {
-
         //test 1
 
+        /*
         ArrayList<Event> attendEventsArray = new ArrayList<Event>();
         ArrayList<String> attendees = new ArrayList<>();
         attendees.add("Connor");
@@ -137,15 +137,12 @@ public class AttendingEvents extends AppCompatActivity {
         Event eventsDataSeven = new Event(attendees, hostid, RestrictionStatus.OVER_18, Genre.MUSIC, eventNameSeven, descriptionSeven, calendarSeven, location);
         attendEventsArray.add(eventsDataSeven);
 
-        /*
+        */
+
         ArrayList<Event> attendEventsArray = new ArrayList<Event>();
 
-        try {
-            attendEventsArray = (ArrayList) System.instance.getAttendingEventsByUser(System.currentUser.getUserID());
-        } catch (com.parse.ParseException e) {
-            e.printStackTrace();
-        }
-        */
+        attendEventsArray = (ArrayList) System.instance.getLoadedAttendingEvents();
+
         return attendEventsArray;
     }
         /*

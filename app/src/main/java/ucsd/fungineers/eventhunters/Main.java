@@ -33,11 +33,15 @@ public class Main extends AppCompatActivity {
 
     private Context aContext;
 
+    public static boolean createReady = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+        if (System.instance == null) {
+            new System(this);
+        }
 
-        new System(this);
         main = this;
 
         ArrayList<String> attendees = new ArrayList<>();
@@ -47,10 +51,15 @@ public class Main extends AppCompatActivity {
         Date date = new Date();
 
         /*create the view --> don't change or move this*/
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_host_home);
         aContext = this;
+
+        if (Main.createReady) {
+
+            getListData();
+
+        }
 
 
     }
@@ -167,6 +176,8 @@ public class Main extends AppCompatActivity {
 
             }
         });
+
+        Main.createReady = true;
     }
 
 
