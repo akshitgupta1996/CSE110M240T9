@@ -22,9 +22,6 @@ import android.app.Activity;
 import android.widget.Toast;
 
 
-/**
- * Created by kagcaoili on 2/21/16.
- */
 public class AttendingEvents extends AppCompatActivity {
     private Context aContext;
 
@@ -215,7 +212,10 @@ public class AttendingEvents extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_my_events) {
+            Intent i = new Intent(this, myEvents_both.class);
+            startActivity(i);
+            finish();
             return true;
         }
 

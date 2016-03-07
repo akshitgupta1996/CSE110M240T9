@@ -157,8 +157,7 @@ public class host_event_status extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.event_status_menu, menu);
-            menu.removeItem(R.id.action_event_delete);
-            menu.removeItem(R.id.action_event_edit);
+
 
         return true;
     }
@@ -166,12 +165,6 @@ public class host_event_status extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_event_delete :
-                // TODO delete this event
-                break;
-            case R.id.action_event_edit :
-                // TODO edit this event
-                break;
             case R.id.action_event_home :
                 // TODO jump to home
                 //Toast.makeText(host_event_status.this, "TODO jump to home", Toast.LENGTH_SHORT).show();
