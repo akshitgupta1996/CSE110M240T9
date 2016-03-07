@@ -185,7 +185,6 @@ public class System {
                 }
 
 
-
 //                testAddEvent();
             }
         });
@@ -207,7 +206,6 @@ public class System {
                     public void onCompleted(GraphResponse response) {
          /* handle the result */
                         try {
-
 
                             username = response.getJSONObject().getString("name");
 
@@ -283,6 +281,32 @@ public class System {
         }
 
         return array;
+    }
+
+    public List<String> getEventsFromUser(EventType type, String userId) throws ParseException {
+
+        Log.d("CAPTAINS LOG", "ENTERING GET EVENTS FROM USER");
+
+        ParseQuery<ParseUser> newQuery = ParseUser.getQuery();
+        ParseUser newUser = newQuery.get(userId);
+
+        List<String> array = new ArrayList<String>();
+
+        if (type == EventType.ATTENDING) {
+
+          array = newUser.getList(System.attendingEvents);
+            Log.d("CAPTAINS LOG", "GETTING USER EVENTS AND RETTURNING");
+
+        }
+
+        else {
+
+            array = newUser.getList(System.hostingEvents);
+
+        }
+
+        return array;
+
     }
 
     /* Adds an event to the currently logged in user
@@ -369,8 +393,6 @@ public class System {
                 currentParseUser.put(System.attendingEvents, array);
             }
 
-            Log.d("CAPTAINS_LOG", "ADDING TO EVENT");
-
         }
         else
         {
@@ -380,6 +402,52 @@ public class System {
         currentParseUser.saveInBackground();
     }
 
+    public void removeEventsFromUser (EventType type, String eventID, String userId) throws ParseException {
+
+        Log.d("CAPTAINS LOG", "BEGINNING REMOVE FROM USER");
+
+        List<String> array = getEventsFromUser(type, userId);
+
+        Log.d("CAPTAINS LOG", "GOT EVENTS FROM USER");
+
+        array.remove(eventID);
+
+        if(type == EventType.ATTENDING)
+        {
+            //creates a query
+            ParseQuery<ParseObject> query = ParseQuery.getQuery("Events");
+
+            //gets the event from the database
+            ParseObject event = query.get(eventID);
+
+            //creates a new event with the parse object
+            Event eventToUpdate = new Event(event);
+
+            //creates a new arraylist with the attendees of the loaded event
+            ArrayList<String> attendees = eventToUpdate.getAttendees();
+
+            //if the attendee is in the event list
+            if (attendees.contains(userId)) {
+
+                Log.d("CAPTAINS LOG", "USER HAS BEEN FOUND");
+                //removes the user
+                attendees.remove(userId);
+
+                //updates the new attendees for the event
+                eventToUpdate.setAttendees(attendees);
+
+                //updates the event in the database
+                updateEvent(eventToUpdate);
+
+                ParseQuery<ParseUser> newQuery = ParseUser.getQuery();
+                ParseUser userToRemove = newQuery.get(userId);
+
+                userToRemove.put(System.attendingEvents, array);
+                userToRemove.saveInBackground();
+
+            }
+        }
+    }
 
     enum EventType {HOSTING, ATTENDING};
 
@@ -646,6 +714,8 @@ public class System {
      */
     public void deleteEvent(String eventId) {
 
+        Log.d("CAPTAINS LOG", "STARTING DELETE");
+
         //create a new parse query for events
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Events");
 
@@ -664,9 +734,25 @@ public class System {
 
                     //this try catch was forced upon me by the will of Android Studio
                     try {
+
+                        Event eventToDelete = new Event(objects.get(0));
+                        List<String> attendees = eventToDelete.getAttendees();
+
+                        for (int i = 0; i < attendees.size(); i++) {
+
+                            Log.d("CAPTAINS LOG", "DELETING EVENT");
+
+                            removeEventsFromUser(EventType.ATTENDING, eventToDelete.getEventID(), attendees.get(i));
+
+                        }
+
+
                         //deletes the found object with matching ID
                         objects.get(0).delete();
+
                     } catch (ParseException e1) {
+
+                        Log.d("CAPTAINS LOG", "ERRRORRRRR");
 
                         //this was default. Don't ask me.
                         e1.printStackTrace();
@@ -674,6 +760,7 @@ public class System {
 
                     //saves changes to parse
                     objects.get(0).saveInBackground();
+
                 } else {
 
                     Log.d("POTATO", "Crai there was an exception ;(");
