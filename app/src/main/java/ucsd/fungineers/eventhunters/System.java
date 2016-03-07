@@ -101,12 +101,6 @@ public class System {
             fbLogin(activity);
         }
 
-        try {
-            loadAllEvents();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
         instance = this;
 
     }
@@ -303,12 +297,25 @@ public class System {
 
         if(type == EventType.ATTENDING)
         {
+            //creates a query
             ParseQuery<ParseObject> query = ParseQuery.getQuery("Events");
+
+            //gets the event from the database
             ParseObject event = query.get(eventID);
+
+            //creates a new event with the parse object
             Event eventToUpdate = new Event(event);
+
+            //creates a new arraylist with the attendees of the loaded event
             ArrayList<String> attendees = eventToUpdate.getAttendees();
+
+            //adds the current user to the list of attendees
             attendees.add(currentUser.getUserID());
+
+            //updates attendee arraylist of the event
             eventToUpdate.setAttendees(attendees);
+
+            //updates the event in the database
             updateEvent(eventToUpdate);
 
             currentParseUser.put(System.attendingEvents, array);

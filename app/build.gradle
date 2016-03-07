@@ -17,6 +17,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    sourceSets {
+        androidTest {
+            java.srcDirs = ['androidTest/java']
+        }
+    }
 }
 
 repositories { mavenCentral() }
@@ -31,4 +36,5 @@ dependencies {
     compile 'com.facebook.android:facebook-android-sdk:4.+'
     compile 'com.parse:parsefacebookutils-v4-android:1.10.3@aar'
     compile 'com.android.support:support-v4:23.1.1'
+    compile 'com.jayway.android.robotium:robotium-solo:5.5.4'
 }
