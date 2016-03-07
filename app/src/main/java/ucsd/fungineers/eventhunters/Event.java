@@ -19,7 +19,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-public class Event extends AppCompatActivity implements Serializable{
+public class Event implements Serializable{
 
     //The id that the event has in the database.
     private String eventID;
@@ -174,7 +174,7 @@ public class Event extends AppCompatActivity implements Serializable{
 
     public void setGenre(String genre) {
 
-      Genre.fromString(genre, this);
+      Genre.fromString(genre);
 
     }
 
@@ -243,18 +243,22 @@ enum Genre{
         return null;
     }
 
-    public static Genre fromString(String string, Context context)
+    public static Genre fromString(String string)
     {
-        Resources res = context.getResources();
-        String[] arrayContents = res.getStringArray(R.array.spinnerItems);
-        if (string.equals(arrayContents[1]))
+        if (string.equals("MUSIC"))
         {
             return Genre.MUSIC;
         }
 
-        else
+        else if (string.equals("PARTY"))
         {
             return Genre.PARTY;
+        }
+
+        else {
+
+            return null;
+
         }
     }
 
