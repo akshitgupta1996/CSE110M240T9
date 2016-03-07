@@ -13,6 +13,7 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.HttpMethod;
 import com.parse.FindCallback;
+import com.parse.GetCallback;
 import com.parse.LogInCallback;
 import com.parse.Parse;
 import com.parse.ParseACL;
@@ -66,8 +67,10 @@ public class System {
 
     private Event storedEvent;
 
-    final int MAX_SCORE = 5;
+    private boolean eventLoadComplete = false;
+    private List<Event> loadedEvents;
 
+    final int MAX_SCORE = 5;
 
     static System instance;
 
@@ -91,6 +94,7 @@ public class System {
         Log.d("test", "System created!");
         tempEventList = new ArrayList<Event>();
         tempUserList  = new ArrayList<User>();
+        loadedEvents = new ArrayList<Event>();
         if(instance == null) {
             fbLogin(activity);
         }
@@ -310,13 +314,13 @@ public class System {
                 GregorianCalendar calendar = new GregorianCalendar();
                 calendar.setTime((Date) dbEvent.get(System.date));
 
-                Event evt = new Event((ArrayList)dbEvent.get(System.attendeeList),
-                        (String)dbEvent.get(System.hostId),RestrictionStatus.fromString((String) dbEvent.get(System.restrictionStatus)),
-                         Genre.fromString((String)dbEvent.get(System.genre)),
-                         (String)dbEvent.get(System.name),
-                        (String)dbEvent.get(System.description),
+                Event evt = new Event((ArrayList) dbEvent.get(System.attendeeList),
+                        (String) dbEvent.get(System.hostId), RestrictionStatus.fromString((String) dbEvent.get(System.restrictionStatus)),
+                        Genre.fromString((String) dbEvent.get(System.genre)),
+                        (String) dbEvent.get(System.name),
+                        (String) dbEvent.get(System.description),
                         calendar,
-                        (String)dbEvent.get(System.location));
+                        (String) dbEvent.get(System.location));
 
                 evt.setEventID(dbEvent.getObjectId());
                 i.putExtra("EventKey", evt);
@@ -359,6 +363,20 @@ public class System {
         return eventToReturn;
     }
 
+    public void setLoadedEvents(List<ParseObject> events) {
+
+        List<Event> newList = new ArrayList<Event>();
+
+        for (int i = 0; i < events.size(); i++) {
+
+            newList.add(new Event(events.get(i)));
+
+        }
+
+      loadedEvents = newList;
+
+    }
+
     /**
      * Gets all events matching the restriction status
      * @param restrictionStatus Restriction status of events to get
@@ -366,20 +384,37 @@ public class System {
      */
     public List<Event> getAllEvents(RestrictionStatus restrictionStatus) throws ParseException {
 
-      ParseQuery<ParseObject> query = ParseQuery.getQuery("Events");
-      List<ParseObject> allEventObjects = query.find();
+        eventLoadComplete = false;
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Events");
 
-      List<Event> allEvents = new ArrayList<Event>();
+        //get the first matching item
+        query.findInBackground(new FindCallback<ParseObject>() {//when the callback is completed.
+            @Override
+            public void done(List<ParseObject> objects, ParseException e) {
 
-      for (int eventIndex = 0; eventIndex < allEventObjects.size(); eventIndex++) {
+                //if there was no exception
+                if (e == null) {
 
-          allEvents.add(new Event(allEventObjects.get(eventIndex)));
+                    setLoadedEvents(objects);
+                    eventLoadComplete = true;
 
-      }
+                } else {
 
-      return allEvents;
+                    Log.d("POTATO", "Crai there was an exception ;(");
+                }
+            }
+        });
 
+        while (!eventLoadComplete) {
+
+
+        }
+
+        return loadedEvents;
     }
+
+
+
 
     /**
      * Gets a list of events that a user is attending
