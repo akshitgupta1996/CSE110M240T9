@@ -175,6 +175,7 @@ public class System {
 
                     currentUser = new User(currentParseUser);
                     Log.d("HELPUSER", currentUser.toString());
+
                 }
 
                 ParseACL defaultACL = new ParseACL();

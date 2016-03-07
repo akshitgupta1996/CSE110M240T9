@@ -29,12 +29,12 @@ import android.widget.Button;
 //Apparently this is an empty event.
 public class Main extends AppCompatActivity {
 
-    public static System system;
+
     private Context aContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        system = new System(this);
+
 
         ArrayList<String> attendees = new ArrayList<>();
         attendees.add("aaa");
@@ -253,7 +253,7 @@ public class Main extends AppCompatActivity {
         hostEventsArray.add(eventsDataSeven);
 
 
-        /*
+     /*
         ArrayList<Event> hostEventsArray= new ArrayList<Event>();
         try {
             Log.i("ocean", System.currentUser.getUserID());
@@ -261,8 +261,7 @@ public class Main extends AppCompatActivity {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        */
-
+*/
         return hostEventsArray;
     }
 
@@ -274,6 +273,7 @@ public class Main extends AppCompatActivity {
             case R.id.buttonCE: {
                 Intent i = new Intent(this, CreateEvent.class);
                 startActivity(i);
+                finish();
                 break;
             }
 
@@ -287,6 +287,7 @@ public class Main extends AppCompatActivity {
                 Toast.makeText(this, "Attendee Mode", Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(this, AttendingEvents.class);
                 startActivity(i);
+                finish();
                 break;
             }
         }
