@@ -75,10 +75,10 @@ package ucsd.fungineers.eventhunters;
         description.setText(event.getDescription());
         attendeeNum.setText("" + event.getAttendees().size());
        List<Event> s =  System.instance.getLoadedAttendingEvents();
-        boolean attending = false;
+     //   boolean attending = false;
         for(int i = 0; i < s.size();i++)
         {
-            if(s.get(i).getAttendees().contains(System.instance.currentUser))
+            if(s.get(i).getEventID().equals(event.getEventID()))
             {
                 switch1.setChecked(true);
 
