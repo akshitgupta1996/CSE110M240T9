@@ -160,7 +160,7 @@ public class CreateEvent extends AppCompatActivity {
                 /*This is the message asked to the user.*/
                     AlertDialog.Builder b = new AlertDialog.Builder(this);
                     b.setMessage("Are you sure you want to update this event?")
-                            .setTitle("Event Creation Confirmation")
+                            .setTitle("Event Update Confirmation")
                             .setPositiveButton("Yes", clickListener)
                             .setNegativeButton("No", clickListener)
                             .show();
@@ -243,6 +243,48 @@ public class CreateEvent extends AppCompatActivity {
         }
         else if(view.getId() == R.id.button_cancel){
             finish();
+        }
+        else if(view.getId() == R.id.button_clear)
+        {
+            DialogInterface.OnClickListener clickListener = new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface d, int id) {
+                    switch (id) {
+                        case DialogInterface.BUTTON_POSITIVE:
+                            try {
+                                  /*These are the form elements we are going to change*/
+                                EditText eventName = (EditText) findViewById(R.id.field_Name);
+                                EditText eventLocation = (EditText) findViewById(R.id.field_Location);
+                                Spinner eventGenre = (Spinner) findViewById(R.id.field_Spinner_Genre);
+                                RadioGroup eventRestriction = (RadioGroup) findViewById(R.id.radio_Restriction);
+                                EditText eventDescription = (EditText) findViewById(R.id.field_Description);
+                                int radioId = eventRestriction.getCheckedRadioButtonId();
+                                //  RadioButton selectedID = (RadioButton) findViewById(radioId);
+                                eventName.setText("");
+                                eventLocation.setText("");
+                                eventGenre.setSelection(0);
+                                eventDescription.setText("");
+                                eventRestriction.check(getRadioButtonID(newEvent));
+
+                            }
+                            catch( Exception e)
+                            {
+                                Log.d("Error Updating",e.getMessage());
+                            }
+                            break;
+                        case DialogInterface.BUTTON_NEGATIVE:
+                            break;
+                    }
+                }
+            };
+                /*This is the message asked to the user.*/
+            AlertDialog.Builder b = new AlertDialog.Builder(this);
+            b.setMessage("Are you sure you want to clear everything?")
+                    .setTitle("Clear")
+                    .setPositiveButton("Yes", clickListener)
+                    .setNegativeButton("No", clickListener)
+                    .show();
+
+
         }
     }
 
