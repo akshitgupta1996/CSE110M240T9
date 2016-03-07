@@ -13,6 +13,7 @@ import android.view.View;
  * status bar and navigation/system bar) with user interaction.
  */
 public class loading_page extends AppCompatActivity {
+    public static System system;
     /**
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -85,6 +86,7 @@ public class loading_page extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        system = new System(this);
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_loading_page);
@@ -106,6 +108,10 @@ public class loading_page extends AppCompatActivity {
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
         findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
+
+
+
+
     }
 
     @Override
