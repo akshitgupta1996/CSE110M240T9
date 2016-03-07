@@ -5,16 +5,22 @@ package ucsd.fungineers.eventhunters;
     import android.content.Intent;
     import android.support.v7.app.AppCompatActivity;
     import android.os.Bundle;
+    import android.support.v7.widget.SwitchCompat;
     import android.util.Log;
     import android.view.Menu;
     import android.view.MenuItem;
     import android.view.View;
+    import android.widget.EditText;
     import android.widget.ImageView;
     import android.widget.RatingBar;
+    import android.widget.Switch;
     import android.widget.TextView;
     import android.widget.Toast;
 
+    import com.parse.ParseException;
+
     import java.text.SimpleDateFormat;
+    import java.util.List;
     import java.util.Locale;
 
     public class EventStatusActivity extends AppCompatActivity {
@@ -28,19 +34,20 @@ package ucsd.fungineers.eventhunters;
         private TextView restriction;
         private TextView description;
         private TextView attendeeNum;
+        private SwitchCompat switch1;
         private RatingBar eventRatingBar;
 
         //private boolean editable = false;
         private static final String TAG = EventStatusActivity.class.getSimpleName();
         private static final SimpleDateFormat mDateFormat = new SimpleDateFormat("EEE, dd MMM yyyy", Locale.US);
         private static final SimpleDateFormat mTimeFormat = new SimpleDateFormat("h:mm aa",Locale.US);
-
+        private Event event;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_event_status);
+        setContentView(R.layout.content_attendee_event_status);
 
-        Event event = (Event) getIntent().getSerializableExtra(getString(R.string.KEY_EVENT_OBJ));
+        event = (Event) getIntent().getSerializableExtra(getString(R.string.KEY_EVENT_OBJ));
         //editable = getIntent().getBooleanExtra(getString(R.string.KEY_EVENT_EDITABLE), false);
 
         android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
@@ -55,7 +62,8 @@ package ucsd.fungineers.eventhunters;
         restriction = (TextView) findViewById(R.id.event_restriction);
         description = (TextView) findViewById(R.id.event_description);
         attendeeNum = (TextView) findViewById(R.id.event_attendeeNum);
-        eventRatingBar = (RatingBar) findViewById(R.id.event_rating_bar);
+        switch1 = (SwitchCompat) findViewById(R.id.Switch);
+        //eventRatingBar = (RatingBar) findViewById(R.id.event_rating_bar);
 
         title.setText(event.getName());
         subtitle.setText("Hosted by " + event.getHost());
@@ -65,15 +73,28 @@ package ucsd.fungineers.eventhunters;
         genre.setText(event.getGenre().toString());
         restriction.setText(event.getRestrictionStatus().toString());
         description.setText(event.getDescription());
-        attendeeNum.setText(""+ event.getAttendees().size());
+        attendeeNum.setText("" + event.getAttendees().size());
+       List<Event> s =  System.instance.getLoadedAttendingEvents();
+     //   boolean attending = false;
+        for(int i = 0; i < s.size();i++)
+        {
+            if(s.get(i).getEventID().equals(event.getEventID()))
+            {
+                switch1.setChecked(true);
 
-        eventRatingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            }
+            else {
+                switch1.setChecked(false);
+            }
+        }
+        /*eventRatingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                // TODO save the newer set rating for this user
+                Toast.makeText(EventStatusActivity.this, String.valueOf(ratingBar.getRating()),
+                        Toast.LENGTH_SHORT).show();
             }
         });
-
+*/
         ImageView closeButton = (ImageView) findViewById(R.id.close_activity_button);
         closeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,8 +108,6 @@ package ucsd.fungineers.eventhunters;
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.event_status_menu, menu);
-        menu.removeItem(R.id.action_event_delete);
-        menu.removeItem(R.id.action_event_edit);
         return true;
     }
 
@@ -122,4 +141,28 @@ package ucsd.fungineers.eventhunters;
 
         return true;
     }
+        public void button_Click(View v){
+            if(v.getId() == R.id.Switch)
+            {
+                SwitchCompat s = (SwitchCompat) findViewById(R.id.Switch);
+                if(s.isChecked() == true)
+                {
+
+                    try {
+                        System.instance.addEventsToUser(System.EventType.ATTENDING,event.getEventID());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                else
+                {
+                    try {
+                       // System.instance.addEventsToUser(System.EventType.ATTENDING,event.getEventID());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    //are you sure you no longer want to attend this event?
+                }
+            }
+        }
 }

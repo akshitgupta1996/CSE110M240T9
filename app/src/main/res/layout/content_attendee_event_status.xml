@@ -122,7 +122,7 @@
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:layout_below="@+id/event_restriction"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
-                android:drawableLeft="@drawable/ic_supervisor_account_black_24dp"
+                android:drawableLeft="@drawable/ic_supervisor_account"
                 android:drawablePadding="16dp"
                 android:text="100"
                 android:layout_marginBottom="24dp"/>
@@ -144,7 +144,7 @@
                 android:text="Description of the event goes here.\n\n\n\n\n"
                 android:layout_marginBottom="24dp"/>
 
-            <android.support.v7.widget.AppCompatTextView
+            <!--android.support.v7.widget.AppCompatTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="40dp"
@@ -162,7 +162,7 @@
                 android:numStars="5"
                 android:stepSize="1"
                 android:layout_below="@+id/Switch"
-                android:layout_alignParentStart="true" />
+                android:layout_alignParentStart="true" /-->
 
             <!--RadioGroup
                 android:checkedButton="@+id/offer"
@@ -223,6 +223,7 @@
                 android:textOff="Not Going"
                 app:showText="false"
                 android:text="Going     "
+                android:onClick="button_Click"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
                 android:background="@android:color/transparent"
                 android:textColor="@color/colorPrimaryDark"
@@ -235,3 +236,4 @@
         </RelativeLayout>
     </ScrollView>
 </RelativeLayout>
+

@@ -49,7 +49,7 @@ public class CreateEvent extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.createevent);
+        setContentView(R.layout.activity_createevent);
         /*eventDate.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v)
             {
@@ -65,8 +65,8 @@ public class CreateEvent extends AppCompatActivity {
         /*If the event is actually old, we need to update instead of create a new event. */
         if(isOldEventPage(getIntent().getExtras()))
         {
-            Event e = (Event)getIntent().getExtras().getSerializable("EventKey");
-           loadOldEventToForm(e);
+            newEvent = (Event)getIntent().getExtras().getSerializable("EventKey");
+           loadOldEventToForm(newEvent);
 
         }
     }
@@ -103,14 +103,68 @@ public class CreateEvent extends AppCompatActivity {
 /*If the create button is clicked, we go here.*/
     public void button_Click(View view) {
 
-        String button_name = ((Button) view).getText().toString();
-        if (button_name.equals("Add Event")) {
+        if (view.getId() == R.id.button_AddEvent) {
+        /*String button_name = ((Button) view).getText().toString();
+        if (button_name.equals("Add Event")) {*/
             Log.i("clicks", "Add Event");
 
             if(isOldEvent == true)
             {
                 //Call Update Old Event Script
-               // System.instance.updateEvent(newEvent);
+
+                    EditText eventName = (EditText) findViewById(R.id.field_Name);
+                    // TODO add checks for date
+
+            /*This is where we grab the ID's for the form elements so we can change them*/
+                    EditText eventLocation = (EditText) findViewById(R.id.field_Location);
+                    Spinner eventGenre = (Spinner) findViewById(R.id.field_Spinner_Genre);
+                    RadioGroup eventRestriction = (RadioGroup) findViewById(R.id.radio_Restriction);
+                    EditText eventDescription = (EditText) findViewById(R.id.field_Description);
+                    int radioId = eventRestriction.getCheckedRadioButtonId();
+                    RadioButton selectedID = (RadioButton) findViewById(radioId);
+
+                 final Event x = new Event(new ArrayList<String>(),
+                            System.currentUser.userID, RestrictionStatus.fromString(selectedID.getText().toString()),
+                            Genre.fromString(eventGenre.getSelectedItem().toString()),
+
+                            eventName.getText().toString(),
+                            eventDescription.getText().toString(),
+                            mDate,
+                            eventLocation.getText().toString());
+                            x.setHost(newEvent.getHost());
+                            x.setEventID(newEvent.getEventID());
+
+                    final Intent i = new Intent(this, host_event_status.class);
+
+                    DialogInterface.OnClickListener clickListener = new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface d, int id) {
+                            switch (id) {
+                                case DialogInterface.BUTTON_POSITIVE:
+                                    try {
+                                    i.putExtra("EventKey", x);
+                                    startActivity(i);
+                                    System.instance.updateEvent(x);
+                                  //  Log.d("Updated lol", selectedID.getText().toString());
+                                    finish();
+                                    }
+                                    catch( Exception e)
+                                    {
+                                        Log.d("Error Updating",e.getMessage());
+                                    }
+                                    break;
+                                case DialogInterface.BUTTON_NEGATIVE:
+                                    break;
+                            }
+                        }
+                    };
+                /*This is the message asked to the user.*/
+                    AlertDialog.Builder b = new AlertDialog.Builder(this);
+                    b.setMessage("Are you sure you want to update this event?")
+                            .setTitle("Event Update Confirmation")
+                            .setPositiveButton("Yes", clickListener)
+                            .setNegativeButton("No", clickListener)
+                            .show();
+
               return;
             }
             EditText eventName = (EditText) findViewById(R.id.field_Name);
@@ -136,11 +190,14 @@ public class CreateEvent extends AppCompatActivity {
 
                 final Intent i = new Intent(this, host_event_status.class);
 
-
                 Log.d("ASDFGHJKL", System.currentUser.toString());
-                newEvent = new Event(new ArrayList<String>(), System.currentUser.userID, RestrictionStatus.fromString(selectedID.getText().toString()), Genre.fromString(eventGenre.getSelectedItem().toString(), this), eventName.getText().toString(), eventDescription.getText().toString(), mDate, eventLocation.getText().toString());
-
-
+                newEvent = new Event(new ArrayList<String>(),
+                        System.currentUser.userID, RestrictionStatus.fromString(selectedID.getText().toString()),
+                        Genre.fromString(eventGenre.getSelectedItem().toString()),
+                        eventName.getText().toString(),
+                        eventDescription.getText().toString(),
+                        mDate,
+                        eventLocation.getText().toString());
                final CreateEvent x = this;
                 DialogInterface.OnClickListener clickListener = new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface d, int id) {
@@ -148,6 +205,7 @@ public class CreateEvent extends AppCompatActivity {
                             case DialogInterface.BUTTON_POSITIVE:
 
                                 i.putExtra("EventKey", newEvent);
+
                                System.instance.createEvent(newEvent, i, x);
                              //   startActivity(i);
                                 finish();
@@ -182,6 +240,52 @@ public class CreateEvent extends AppCompatActivity {
                         .setNegativeButton("OK", failedclickListener)
                         .show();
             }
+        }
+        else if(view.getId() == R.id.button_cancel){
+            finish();
+        }
+        else if(view.getId() == R.id.button_clear)
+        {
+            DialogInterface.OnClickListener clickListener = new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface d, int id) {
+                    switch (id) {
+                        case DialogInterface.BUTTON_POSITIVE:
+                            try {
+                                  /*These are the form elements we are going to change*/
+                                EditText eventName = (EditText) findViewById(R.id.field_Name);
+                                EditText eventLocation = (EditText) findViewById(R.id.field_Location);
+                                Spinner eventGenre = (Spinner) findViewById(R.id.field_Spinner_Genre);
+                                RadioGroup eventRestriction = (RadioGroup) findViewById(R.id.radio_Restriction);
+                                EditText eventDescription = (EditText) findViewById(R.id.field_Description);
+                                int radioId = eventRestriction.getCheckedRadioButtonId();
+                                //  RadioButton selectedID = (RadioButton) findViewById(radioId);
+                                eventName.setText("");
+                                eventLocation.setText("");
+                                eventGenre.setSelection(0);
+                                eventDescription.setText("");
+                                eventRestriction.clearCheck();
+                                initDateAndTimePickers();
+
+                            }
+                            catch( Exception e)
+                            {
+                                Log.d("Error Updating",e.getMessage());
+                            }
+                            break;
+                        case DialogInterface.BUTTON_NEGATIVE:
+                            break;
+                    }
+                }
+            };
+                /*This is the message asked to the user.*/
+            AlertDialog.Builder b = new AlertDialog.Builder(this);
+            b.setMessage("Are you sure you want to clear everything?")
+                    .setTitle("Clear")
+                    .setPositiveButton("Yes", clickListener)
+                    .setNegativeButton("No", clickListener)
+                    .show();
+
+
         }
     }
 
@@ -263,10 +367,10 @@ public class CreateEvent extends AppCompatActivity {
 
         return 0;
     }
-     void createEvent()
+    /*void createEvent()
     {
         final Intent i = new Intent(this, host_event_status.class);
-    }
+    }*/
 }
 
 

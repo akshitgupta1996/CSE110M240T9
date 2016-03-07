@@ -44,7 +44,7 @@ public class host_event_status extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_host_event_status);
+        setContentView(R.layout.activity_host_event_status1);
 
          event = (Event) getIntent().getSerializableExtra("EventKey");
         //editable = getIntent().getBooleanExtra(getString(R.string.KEY_EVENT_EDITABLE), false);
@@ -98,45 +98,9 @@ public class host_event_status extends AppCompatActivity {
         });
     }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.event_status_menu, menu);
-
-        /*if (editable) {
-            menu.removeItem(R.id.action_event_delete);
-            menu.removeItem(R.id.action_event_edit);
-        }*/
-
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_event_delete :
-                // TODO delete this event
-                //.makeText(host_event_status.this, "TODO Delete event", Toast.LENGTH_SHORT).show();
-                Log.i("clicks", "Delete Event");
-                DialogInterface.OnClickListener delete_clickListener = new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface d, int id) {
-                        switch (id) {
-                            case DialogInterface.BUTTON_POSITIVE:
-                                System.instance.deleteEvent(event.getEventID());
-                                break;
-                            case DialogInterface.BUTTON_NEGATIVE:
-                                break;
-                        }
-                    }
-                };
-                AlertDialog.Builder delete_b = new AlertDialog.Builder(this);
-                delete_b.setMessage("Are you sure you want to delete this event?")
-                        .setTitle("Delete Event")
-                        .setPositiveButton("Yes", delete_clickListener)
-                        .setNegativeButton("No", delete_clickListener)
-                        .show();
-                break;
-            case R.id.action_event_edit :
+    public void button_Click(View view) {
+        switch (view.getId()) {
+            case R.id.buttonEditEvent: {
                 final Intent i = new Intent(this, CreateEvent.class);
                 // TODO edit this event
                 //Toast.makeText(host_event_status.this, "TODO Edit event", Toast.LENGTH_SHORT).show();
@@ -163,6 +127,44 @@ public class host_event_status extends AppCompatActivity {
                         .setNegativeButton("No", edit_clickListener)
                         .show();
                 break;
+            }
+            case R.id.buttonDeleteEvent: {
+                // TODO delete this event
+                //.makeText(host_event_status.this, "TODO Delete event", Toast.LENGTH_SHORT).show();
+                Log.i("clicks", "Delete Event");
+                DialogInterface.OnClickListener delete_clickListener = new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface d, int id) {
+                        switch (id) {
+                            case DialogInterface.BUTTON_POSITIVE:
+                                System.instance.deleteEvent(event.getEventID());
+                                break;
+                            case DialogInterface.BUTTON_NEGATIVE:
+                                break;
+                        }
+                    }
+                };
+                AlertDialog.Builder delete_b = new AlertDialog.Builder(this);
+                delete_b.setMessage("Are you sure you want to delete this event?")
+                        .setTitle("Delete Event")
+                        .setPositiveButton("Yes", delete_clickListener)
+                        .setNegativeButton("No", delete_clickListener)
+                        .show();
+                break;
+            }
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.event_status_menu, menu);
+
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
             case R.id.action_event_home :
                 // TODO jump to home
                 //Toast.makeText(host_event_status.this, "TODO jump to home", Toast.LENGTH_SHORT).show();

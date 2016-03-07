@@ -68,9 +68,8 @@ public class User {
     public User(ParseUser user) {
         Log.d("ASDFGHJKL",user.toString());
         setName((String) user.get(System.name));
+        setRestrictionStatus((int)user.get(System.restrictionStatus));
         setUserID(user.getObjectId());
-        setAttendeeEventList((ArrayList<String>) user.get(System.attendingEvents));
-        setHostEventList((ArrayList<String>) user.get(System.hostingEvents));
 
         /*
         setAttendeeRating((float) user.get(System.attendeeRating));
@@ -140,6 +139,25 @@ public class User {
     public ArrayList<String> getAttendeeEventList() {
 
         return attendeeEventList;
+
+    }
+
+    public void setRestrictionStatus(RestrictionStatus restriction) {
+
+        this.restrictionStatus = restriction;
+
+    }
+
+    public void setRestrictionStatus(int restriction) {
+
+
+        this.restrictionStatus = RestrictionStatus.fromInt(restriction);
+
+    }
+
+    public RestrictionStatus getRestrictionStatus() {
+
+        return restrictionStatus;
 
     }
 
@@ -235,12 +253,12 @@ enum RestrictionStatus {
     //Get a restriction status from a string.
     public static RestrictionStatus fromString(String string)
     {
-        if (string.equals(R.string.label_no_restrictions))
+        if (string.contains("No"))
         {
             return RestrictionStatus.NO_RESTRICTIONS;
         }
 
-        else if (string.equals(R.string.label_18_plus))
+        else if (string.contains("18"))
         {
             return RestrictionStatus.OVER_18;
         }

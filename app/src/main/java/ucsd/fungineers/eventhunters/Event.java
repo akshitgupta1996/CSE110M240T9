@@ -15,6 +15,8 @@ import java.util.GregorianCalendar;
 import java.io.Serializable;
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -63,6 +65,7 @@ public class Event implements Serializable{
         setDate(date);
         setLocation(location);
 
+
     }
 
     public Event (ParseObject parseEvent) {
@@ -71,8 +74,8 @@ public class Event implements Serializable{
         setName((String) parseEvent.get(System.name));
         setHost((String) parseEvent.get(System.hostId));
         setAttendees((ArrayList<String>) parseEvent.get(System.attendeeList));
-        setRestrictionStatus((RestrictionStatus) parseEvent.get(System.restrictionStatus));
-        setGenre((Genre) parseEvent.get(System.genre));
+        setRestrictionStatus((String) parseEvent.get(System.restrictionStatus));
+        setGenre((String) parseEvent.get(System.genre));
         setDescription((String) parseEvent.get(System.description));
         setLocation((String) parseEvent.get(System.location));
 
@@ -152,7 +155,14 @@ public class Event implements Serializable{
      * Sets the restriction status of this event
      */
     public void setRestrictionStatus(RestrictionStatus restrictionStatus) {
+
         this.restrictionStatus = restrictionStatus;
+    }
+
+    public void setRestrictionStatus(String restrictionStatus) {
+
+        this.restrictionStatus = RestrictionStatus.fromString(restrictionStatus);
+
     }
 
     public Genre getGenre() {
@@ -161,14 +171,15 @@ public class Event implements Serializable{
     }
 
     public void setGenre(Genre genre) {
+
         this.genre = genre;
     }
-/*TODO FIND OUT WHAT THIS IS FOR
+
     public void setGenre(String genre) {
 
-      Genre.fromString(genre, this);
+      this.genre = Genre.fromString(genre);
 
-    }*/
+    }
 
     public String getDescription() {
 
@@ -235,18 +246,22 @@ enum Genre{
         return null;
     }
 
-    public static Genre fromString(String string, Context context)
+    public static Genre fromString(String string)
     {
-        Resources res = context.getResources();
-        String[] arrayContents = res.getStringArray(R.array.spinnerItems);
-        if (string.equals(arrayContents[1]))
+        if (string.toLowerCase().contains("music"))
         {
             return Genre.MUSIC;
         }
 
-        else
+        else if (string.toLowerCase().contains("party"))
         {
             return Genre.PARTY;
+        }
+
+        else {
+
+            return null;
+
         }
     }
 

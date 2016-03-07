@@ -1,10 +1,19 @@
 package ucsd.fungineers.eventhunters;
 
+import java.util.*;
+
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
+import android.widget.Button;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -14,9 +23,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-/**
- * Created by kagcaoili on 2/21/16.
- */
 public class FindEvents extends AppCompatActivity {
     private Context aContext;
 
@@ -43,9 +49,76 @@ public class FindEvents extends AppCompatActivity {
 
     }
 
+    /*This is a button click method, which will activate when any button is clicked.*/
+    public void button_Click(View view) {
+        //Toast.makeText(this, "this is my Toast message!!! =)",
+        //        Toast.LENGTH_SHORT).show();
+        switch (view.getId()) {
+            case R.id.buttonFind: {
+                Log.i("clicks", "Find");
+                break;
+            }
+            case R.id.buttonMyEvents: {
+                Log.i("clicks", "MyEvents");
+                Intent i = new Intent(FindEvents.this, myEvents_both.class);
+                startActivity(i);
+                break;
+            }
+        }
+        /*String button_name = ((Button) view).getText().toString();
+        if(button_name.equals("Home"))
+        {
+            Intent i = new Intent(this, Main.class);
+            startActivity(i);
+        }*/
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.event_status_menu, menu);
+
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_event_home :
+                // TODO jump to home
+                //Toast.makeText(host_event_status.this, "TODO jump to home", Toast.LENGTH_SHORT).show();
+                Log.i("clicks", "Home");
+                DialogInterface.OnClickListener home_clickListener = new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface d, int id) {
+                        switch (id) {
+                            case DialogInterface.BUTTON_POSITIVE:
+                                //i.putExtra("EventKey", newEvent);
+                                //System.instance.createEvent(newEvent);
+                                //startActivity(i);
+                                Intent i = new Intent(FindEvents.this, Main.class);
+                                startActivity(i);
+                                break;
+                            case DialogInterface.BUTTON_NEGATIVE:
+                                break;
+                        }
+                    }
+                };
+                AlertDialog.Builder home_b = new AlertDialog.Builder(this);
+                home_b.setMessage("Are you sure you want to go to the Home Page?")
+                        .setTitle("Home Page")
+                        .setPositiveButton("Yes", home_clickListener)
+                        .setNegativeButton("No", home_clickListener)
+                        .show();
+            default:
+                break;
+        }
+
+        return true;
+    }
+
     private ArrayList getAllEventData() {
 
-
+        /*
         //test 1
 
         ArrayList<Event> attendEventsArray = new ArrayList<Event>();
@@ -135,26 +208,14 @@ public class FindEvents extends AppCompatActivity {
 
 
         return attendEventsArray;
-
-
-        /*
-        ArrayList<Event> thisWeekEvents = new ArrayList<Event>();
-        try {
-            thisWeekEvents = (ArrayList) System.instance.getAllEvents(RestrictionStatus.NO_RESTRICTIONS);
-        } catch (com.parse.ParseException e) {
-            e.printStackTrace();
-        }
-        return thisWeekEvents;
         */
-    }
 
-    /*This is a button click method, which will activate when any button is clicked.*/
-    public void button_click(View view){
-        String button_name = ((Button) view).getText().toString();
-        if(button_name.equals("Home"))
-        {
-            Intent i = new Intent(this, Main.class);
-            startActivity(i);
-        }
+
+        ArrayList<Event> thisWeekEvents = new ArrayList<Event>();
+
+            thisWeekEvents = (ArrayList) System.instance.getAllEvents(RestrictionStatus.OVER_21);
+
+        return thisWeekEvents;
+
     }
 }
